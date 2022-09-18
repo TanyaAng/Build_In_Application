@@ -81,16 +81,19 @@ h1:nth-child(2) {
 }
 
 h2{
-    font-size: 2vw;
+    font-size: 30px;
     font-weight: 600;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: #EAF1F1;
 }
 
 button{
-    font-size: 26px;
+    font-size: 20px;
     align-items: center;
     justify-content: center;
+    background-color: #EAF1F1;
+    color: #252323;
+    border-radius: 5px;
 }
 
 footer{
