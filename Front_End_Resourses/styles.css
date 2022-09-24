@@ -138,6 +138,25 @@ button.register:hover, button.add-task:hover{
     color: whitesmoke;
 }
 
+button.delete{
+    background-color: #E36D0A;
+    border: 1px solid #E36D0A;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    margin: 15px 20px;
+}
+
+button.delete:hover{
+    background-color: red;
+    color:#EAF1F1;
+}
+
 
 form.login-register-form{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -290,6 +309,14 @@ footer li.contacts a{
 footer li.contacts i:hover {
     color: #0A81EC;
     cursor: pointer;
+}
+
+#page-not-found{
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    color:#333738;
+
 }
 
 
