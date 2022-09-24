@@ -23,7 +23,7 @@
     <main>
         <section class="child">
             <form action="" method="POST" class="login-register-form">
-                <h1> <i class="fa-solid fa-helmet-safety"></i> ADD NEW PROJECT</h1>
+                <h1> <i class="fa-solid fa-helmet-safety"></i> DELETE PROJECT</h1>
                 <label for="project">Project</label>
                 <input type="text" placeholder="BG100 - NEW ARCH - Building A">
 
@@ -36,10 +36,16 @@
                 <label for="contractor name">Contractor</label>
                 <input type="text" placeholder="NEW ARCH">
 
+                <label for="contractor name">Status</label>
+                <select name="status" id="status">
+                    <option value="">Issued</option>
+                    <option value="">In Progress</option>
+                </select>
+
                 <label for="deadline">Deadline Date</label>
                 <input type="date">
 
-                <button class="submit">Submit</button>
+                <button class="delete-project">Delete</button>
                
             </form>
             

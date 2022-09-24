@@ -20,6 +20,7 @@ nav a {
     text-decoration: none;
     color: #EAF1F1;
 }
+
 a:hover{
     /* color: #99C3A9 ; */
     color: #E36D0A;
@@ -114,7 +115,7 @@ h2{
 	display:inline-block;
 }
 
-button.login, button.register, button.submit{
+button.login, button.register, button.submit, button.delete-project{
     font-size: 20px;
     font-weight: bold;
     align-items: center;
@@ -173,13 +174,13 @@ button.delete{
     margin: 15px 10px;
 }
 
-button.delete, button.task-delete{
+button.delete, button.task-delete, button.delete-project{
     background-color: coral;
     border: 1px solid coral;
 
 }
 
-button.delete:hover, button.task-delete:hover{
+button.delete:hover, button.task-delete:hover, button.delete-project:hover{
     background-color: darkred;
     border: 1px solid darkred;
     color:whitesmoke;
@@ -272,6 +273,29 @@ p.project-params{
     /* background-color: #99C3A9; */
     
     /* border: 1px solid red; */
+}
+div.project-params ul{
+    font-size: 14px;
+    align-items: left;
+    text-align: left;
+    padding: 3px 10px;
+    /* border: 1px solid red; */
+    margin: 5px 15px;
+    text-decoration: none;
+}
+
+div.project-params a{
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;   
+}
+
+div.project-params a:hover{
+    text-decoration: none;
+    color:#E36D0A;
+    font-size: 14px;
+    font-weight: 500;   
 }
 
 p.deadline-info{
