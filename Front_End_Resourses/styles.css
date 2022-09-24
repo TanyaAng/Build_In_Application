@@ -3,6 +3,7 @@ nav{
     background-color: #333738;
     text-align: left;
     border-radius: 10px;
+    /* margin-left: 0px; */
     list-style: none;
 }
 
@@ -26,7 +27,7 @@ a:hover{
 
 body{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin: 20px;
+    /* margin: 20px; */
     padding-left: 20px;
     padding-right: 20px;
     background-image: linear-gradient(to right , rgba(94,104,106, 1) 10% , rgba(229,240,242, 1) 40% 80%,rgba(229,240,242, 1));
@@ -39,6 +40,19 @@ body{
     float: left;
  }
 
+ .child-project-info{
+    width: 30%;
+    height: 100%;
+    float: left;
+    /* border: 1px solid red; */
+ }
+
+ .child-table{
+    width: 65%;
+    height: 100%;
+    float: left;
+    /* border: 1px solid red; */
+ }
  img{
     width: 950px;
     height:700px;
@@ -84,14 +98,23 @@ h2{
     padding-right: 10px;  
 }
 
-.button-ctr {
+.fa-circle-exclamation {
+    color:#E36D0A;
+    padding-right: 5px;  
+}
+
+.button-frontpage-ctr {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
+.button-project-ctr {
+	position: relative;
+	display:inline-block;
+}
 
-button.login, button.register{
+button.login, button.register, button.submit{
     font-size: 20px;
     font-weight: bold;
     align-items: center;
@@ -104,7 +127,7 @@ button.login, button.register{
     
 }
 
-button.details, button.add-task{
+button.details, button.edit{
     font-size: 16px;
     font-weight: bold;
     align-items: center;
@@ -113,7 +136,7 @@ button.details, button.add-task{
     width: 100px;
     height: 35px;
     cursor: pointer;
-    margin: 15px 20px;
+    margin: 15px 10px;
 }
 
 button.login, button.details{
@@ -127,20 +150,18 @@ button.login:hover, button.details:hover{
     color: whitesmoke;
 }
 
-button.register, button.add-task{
+button.register,button.submit, button.edit, button.task-edit{
     background-color: #E8B711;
     border: 1px solid #E8B711;
 }
 
-button.register:hover, button.add-task:hover{
+button.register:hover, button.submit:hover, button.edit:hover, button.task-edit:hover{
     background-color: #E36D0A;
     border: 1px solid #E36D0A;
     color: whitesmoke;
 }
 
 button.delete{
-    background-color: #E36D0A;
-    border: 1px solid #E36D0A;
     font-size: 16px;
     font-weight: bold;
     align-items: center;
@@ -149,13 +170,19 @@ button.delete{
     width: 100px;
     height: 35px;
     cursor: pointer;
-    margin: 15px 20px;
+    margin: 15px 10px;
 }
 
-button.delete:hover{
+button.delete, button.task-delete{
+    background-color: coral;
+    border: 1px solid coral;
+
+}
+
+button.delete:hover, button.task-delete:hover{
     background-color: darkred;
     border: 1px solid darkred;
-    color:#EAF1F1;
+    color:whitesmoke;
 }
 
 
@@ -190,8 +217,9 @@ article.dashboard{
 
 article.project-details{
     display: inline-block;
-    margin: 30px 30px;
-    width: 600px;
+    /* margin: 20px 30px; */
+    line-height: 1.2;
+    width: 500px;
     height: 100%;
     border: 3px solid #333738;
     border-radius: 20px;
@@ -216,26 +244,33 @@ article header{
 }
 
 p.project-info-header{
-    color:#E36D0A;
-    font-size: 18px;
-    font-weight: bold;
+    background-color:#333738;
+    color:whitesmoke;
+    font-size: 16px;
+    font-weight: 500;
     text-align: left;
-    height:24px;
-    padding: 5px 15px;
-    /* background-color: green; */
     text-transform: uppercase;
     text-decoration: underline;
+
+    /* height:24px; */
+    padding: 3px 15px;
+    margin: 3px;
+    line-height: 1.5;
+    
     /* border: 1px solid red; */
 }
 
 p.project-params{
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
     text-align: left;
-    /* height:30px; */
-    padding: 5px 15px;
-    /* background-color: #99C3A9; */
     text-transform: capitalize;
+    line-height: 1.5;
+    /* height:30px; */
+    padding: 3px 15px;
+    margin:3px;
+    /* background-color: #99C3A9; */
+    
     /* border: 1px solid red; */
 }
 
@@ -243,10 +278,12 @@ p.deadline-info{
     /* color: red; */
     font-weight: bold;
     text-align: left;
-    padding: 5px 15px;
+    padding: 3px 15px;
+    margin:3px;
 }
 
 p.project-status{
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
@@ -258,18 +295,15 @@ hr{
 }
 
 table{
-    margin: 30px 0px;
+    margin: 60px 0px;
     width: 100%; 
     border-collapse:collapse;
-    border-spacing: 0;       
+    border-spacing: 0; 
+    /* border: 1px solid red;       */
 }
 
-/* table td {
-    width:33.33333%
-} */
-
 th{
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     background-color:#99C3A9;
     border: 1px solid #CCCCCC;
@@ -278,6 +312,7 @@ th{
 
 td{
     text-align: center;
+    font-size: 14px;
     /* background-color: #F1F1F1;*/
     border: 1px solid #CCCCCC;
     padding-left: 5px;
