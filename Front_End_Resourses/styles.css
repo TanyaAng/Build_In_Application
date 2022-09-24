@@ -153,7 +153,8 @@ button.delete{
 }
 
 button.delete:hover{
-    background-color: red;
+    background-color: darkred;
+    border: 1px solid darkred;
     color:#EAF1F1;
 }
 
