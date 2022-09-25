@@ -1,29 +1,36 @@
 @import url("https://use.fontawesome.com/releases/v6.2.0/css/all.css");
 
 body {
+    margin: 0px 0px;
+    padding: 0px 0px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    padding-left: 20px;
-    padding-right: 20px;
     background-image: linear-gradient(to right, rgba(94, 104, 106, 1) 10%, rgba(229, 240, 242, 1) 40% 80%, rgba(229, 240, 242, 1));
     /* background-image: linear-gradient(to right bottom , rgba(94,104,106, 1) 20% ,rgba(229,240,242, 1) 40%,rgba(229,240,242, 1) 100%); */
+}
+
+section{
+    padding: 10px 20px;
 }
 
 .child {
     width: 50%;
     height: 100%;
     float: left;
+    padding: 20px 0px;
 }
 
 .child-crud {
     width: 50%;
     height: 100%;
     float: left;
+    padding: 20px 0px;
 }
 
 .child-project-info {
     width: 30%;
     height: 100%;
     float: left;
+    /* padding-left: 20px; */
 }
 
 .child-table {
@@ -40,17 +47,19 @@ body {
 }
 
 nav {
+    width: 100%;
+    height: auto;
     background-color: #333738;
     text-align: left;
-    border-radius: 10px;
     list-style: none;
+    padding: 0px 20px;
+    border: 1px solid #333738;
+    border-top: 5px solid #E36D0A ;
 }
 
 nav li {
     font-size: 22px;
-    line-height: 40px;
-    height: 40px;
-    padding: 10px;
+    padding: 0px 10px;
     display: inline-block;
 }
 
@@ -147,6 +156,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 60px 0px;
 }
 
 .button-project-ctr {
@@ -156,7 +166,8 @@ h2 {
 
 .button-crud-ctr {
     width:50%;
-    margin-top: 30px;
+    text-align: center;
+    margin: 30px 0px;
 }
 
 button.login,
@@ -171,8 +182,7 @@ button.submit
     width: 150px;
     height: 45px;
     cursor: pointer;
-    margin: 60px 30px;
-
+    margin: 0px 30px;
 }
 
 button.details,
@@ -253,7 +263,7 @@ form.login-register-form {
     font-size: 20px;
     display: grid;
     align-items: center;
-    padding: 10px 50px;
+    padding: 0px 50px;
     line-height: 2;
 }
 
@@ -271,7 +281,6 @@ form.crud-form {
     font-weight: bold;
     font-size: 18px;
     display: grid;
-    /* align-items: center; */
     padding: 0px 50px;
     line-height: 2;
 }
@@ -287,6 +296,9 @@ form.crud-form input, select{
 form h1{
     width:50%;
     text-align: center;
+    /* border: 1px solid red; */
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 article.dashboard {
@@ -302,6 +314,7 @@ article.dashboard {
 
 article.details-arc {
     display: inline-block;
+    margin: 30px 30px;
     line-height: 1.2;
     width: 500px;
     height: 100%;
@@ -335,7 +348,7 @@ p.details-arc-header {
     text-transform: uppercase;
     text-decoration: underline;
     padding: 3px 15px;
-    margin: 3px;
+    margin: 0px 0px;
     line-height: 1.5;
 }
 
@@ -374,7 +387,7 @@ p.project-status {
 }
 
 table {
-    margin: 60px 0px;
+    margin: 95px 0px;
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
@@ -403,13 +416,12 @@ tr:nth-child(odd) {
 
 footer {
     position: fixed;
-    bottom: 10px;
+    bottom: 0px;
 
     background-color: #333738;
     color: #EAF1F1;
-    border-radius: 10px;
     
-    height: 50px;
+    height: auto;
     width: 100%;
 }
 
