@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+        <section class="child">
+            <form action="" method="POST" class="login-register-form">
+                <h1><i class="fa-solid fa-user"></i>REGISTER</h1>
+                <label for="first name">First Name</label>
+                <input type="text" placeholder="John">
+
+                <label for="last name">Last Name</label>
+                <input type="text" placeholder="Johnson">
+
+                <label for="email">Email</label>
+                <input type="email" placeholder="john@somemail.com">
+
+                <label for="phone">Phone Number</label>
+                <input type="text" placeholder="+35912345678">
+
+                <label for="password">Password</label>
+                <input type="password" placeholder="********">
+
+                <label for="confirm password">Confirm Password</label>
+                <input type="password" placeholder="********">
+
+                <label for="user type">User Type</label>
+                <select name="user-type" id="user-type">
+                    <option value="">Designer</option>
+                    <option value="">Builder</option>
+                    <option value="">Contractor</option>
+                    <option value="">Supervisor</option>
+                    <option value="">Other</option>
+                </select>
+                <div class="button-crud-ctr">
+                    <button class="register">Submit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="child">
+            <div class="logo-ctr">
+                <h1 class="main-logo">BuildIn</h1>
+                <h1 class="main-logo">BuildIn</h1>
+            </div>
+
+            <div class="logo-ctr">
+                <h2>
+                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
+            </div>
+        </section>
+{% endblock %}

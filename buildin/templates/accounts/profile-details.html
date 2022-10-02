@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+        <section class="child-project-info">
+            <article class="details-arc">
+            <header>
+                <h3>
+                    <i class="fa-solid fa-user"></i>PROFILE INFO</h3>
+            </header>
+            <main>
+                <p class="details-arc-header">First name:</p>
+                <p class="details-arc-params">Tanya</p>
+
+                <p class="details-arc-header">Last name:</p>
+                <p class="details-arc-params">Angelova</p>
+
+                <p class="details-arc-header">Participant Role:</p>
+                <p class="details-arc-params">Designer</p>
+
+                <p class="details-arc-header">Email:</p>
+                <p class="details-arc-params">tanya@angelova.com</p>
+
+                <p class="details-arc-header">Phone number:</p>
+                <p class="details-arc-params">+35912345678</p>
+
+                <p class="details-arc-header">projects participation:</p>
+                <!-- <p class="project-params"> -->
+                    <div class="details-arc-params">
+                    <ul>
+                        <li>
+                            <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH - Building 1</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH - Building 1</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH - Building 1</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH - Building 1</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- </p> -->
+
+            </main>
+            <hr>
+
+            <div class="button-project-ctr">
+                <a href="{% url 'profile edit' pk=1 %}"><button class="edit">Edit</button></a>
+            </div>
+                
+            </article>
+        </section>
+        
+        <section class="child-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project No</th>
+                        <th>Task No</th>
+                        <th>Task Name</th>
+                        <th>Participant Role</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH -BUILDING 1</a>
+                        </td>
+                        <td>
+                            FP101
+                        </td>
+                        <td>Formwork plan</td>
+                        <td>Designer</td>
+                        <td>06.12.2022</td>
+                    </tr>
+                </tbody>  
+            </table>
+        </section>
+
+{% endblock %}

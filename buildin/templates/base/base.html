@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <title>Home</title>
+</head>
+
+<body>
+<nav>
+    <ul>
+        <li><a href="{% url 'home page' %}">Home</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'project create' %}">Add Project</a></li>
+        <!-- <li><a href="add-task.html">Add Task</a></li> -->
+        <li><a href="{% url 'profile details' pk=1 %}">Profile</a></li>
+    </ul>
+</nav>
+
+<main>
+    {% block base_content %}
+    {% endblock %}
+
+</main>
+
+<footer>
+    <ul>
+        <li>&copy; Copyright: Tanya Angelova</li>
+        <li>
+            <i class="fa-solid fa-envelope"></i> t.j.angelova@gmail.com
+        </li>
+        <li class="contacts">
+            <a href="https://www.linkedin.com/in/tanya-angelova-44b03590/"><i class="fa-brands fa-linkedin"></i> Tanya
+                Angelova</a>
+        </li>
+    </ul>
+</footer>
+</body>
+
+</html>

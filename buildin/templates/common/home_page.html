@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block base_content %}
+        <section class="child">
+            <img src="{% static 'images/refargotohp-do08-18xG8I-unsplash.jpg' %}" id="frontpage-img">
+        </section>
+
+        <section class="child">
+            <div class="logo-ctr">
+                <h1 class="main-logo">BuildIn</h1>
+                <h1 class="main-logo">BuildIn</h1>
+            </div>
+
+            <div class="logo-ctr">
+                <h2>
+                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
+            </div>
+            <div class="button-frontpage-ctr">
+                <a href="../accounts/login.html"><button class="login">Login</button></a>
+                <a href="../accounts/register.html"><button class="register"> Register</button></a>
+            </div> 
+        </section>
+
+{% endblock %}

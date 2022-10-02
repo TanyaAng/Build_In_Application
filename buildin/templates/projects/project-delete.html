@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+        <section class="child-crud">
+            <form action="" method="POST" class="crud-form">
+                <h1> <i class="fa-solid fa-helmet-safety"></i> DELETE PROJECT</h1>
+                <label for="project">Project</label>
+                <input type="text" placeholder="BG100 - NEW ARCH - Building A">
+
+                <label for="project name">Project Name</label>
+                <input type="text" placeholder="Resindetial Building in Sofia, UPI 111.222.333">
+
+                <label for="project phase">Project Phase</label>
+                <input type="text" placeholder="Preliminary Design">
+
+                <label for="contractor name">Contractor</label>
+                <input type="text" placeholder="NEW ARCH">
+
+                <label for="contractor name">Status</label>
+                <select name="status" id="status">
+                    <option value="">Issued</option>
+                    <option value="">In Progress</option>
+                </select>
+
+                <label for="deadline">Deadline Date</label>
+                <input type="date">
+
+                <div class="button-crud-ctr">
+                    <button class="delete-project">Delete</button>
+                </div>
+                
+               
+            </form>
+            
+
+        </section>
+
+        <section class="child">
+            <div class="logo-ctr">
+                <h1 class="main-logo">BuildIn</h1>
+                <h1 class="main-logo">BuildIn</h1>
+            </div>
+
+            <div class="logo-ctr">
+                <h2>
+                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
+            </div>
+        </section>
+{% endblock %}

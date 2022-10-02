@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block base_content %}
+
+        <section>
+            <article class="dashboard">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                <p class="project-status">Status: Issued</p>
+                <img src="{% static 'images/refargotohp-do08-18xG8I-unsplash.jpg' %}" alt="">
+                <div>
+                    <a href="{% url 'project details' pk=1 project_name='Building1' %}"><button class="details">Details</button></a>
+                    <a href="{% url 'project delete'  pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
+                </div>
+            </article>
+
+            <article class="dashboard">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                <p class="project-status">Status: Issued</p>
+                <img src="{% static 'images/building_1.jpg' %}" alt="">
+                <div>
+                    <a href="{% url 'project details' pk=1 project_name='Building1' %}"><button class="details">Details</button></a>
+                    <a href="{% url 'project delete'  pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
+                </div>
+            </article>
+
+            <article class="dashboard">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                <p class="project-status">Status: In Process</p>
+                <img src="{% static 'images/building_2.jpg' %}" alt="">
+                <div>
+                    <a href="{% url 'project details' pk=1 project_name='Building1' %}"><button class="details">Details</button></a>
+                    <a href="{% url 'project delete'  pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
+                </div>
+                
+            </article>
+
+            <article class="dashboard">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                <p class="project-status">Status: In Process</p>
+                <img src="{% static 'images/building_3.jpg' %}" alt="">
+                <div>
+                    <a href="{% url 'project details' pk=1 project_name='Building1' %}"><button class="details">Details</button></a>
+                    <a href="{% url 'project delete'  pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
+                </div>
+            </article>
+        </section>
+
+{% endblock %}
