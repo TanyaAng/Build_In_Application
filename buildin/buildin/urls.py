@@ -7,4 +7,6 @@ urlpatterns = (
     path('accounts/', include('buildin.accounts.urls')),
     path('projects/', include('buildin.projects.urls')),
     path('tasks/', include('buildin.tasks.urls')),
+    path('departments/', include('buildin.department.urls')),
+
 )
