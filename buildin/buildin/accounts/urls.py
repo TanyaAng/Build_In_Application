@@ -1,11 +1,11 @@
 from django.urls import path, include
 
-from buildin.accounts.views import UserLoginView, profile_details, profile_edit, user_logout_view, user_register
+from buildin.accounts.views import UserLoginView, profile_details, profile_edit, user_logout_view, UserRegisterView
 
 urlpatterns = (
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/',user_logout_view, name='logout'),
-    path('register/', user_register, name='register'),
+    path('register/', UserRegisterView.as_view(), name='profile create'),
     path('profile/<int:pk>/',
          include([
              path('', profile_details, name='profile details'),

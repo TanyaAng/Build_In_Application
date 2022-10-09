@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
     <section class="child">
-        <form action="" method="POST" class="login-register-form">
+        <form action="{% url 'profile create' %}" method="POST" class="login-register-form">
             <h1><i class="fa-solid fa-user"></i>REGISTER</h1>
             {{ form }}
             {% csrf_token %}

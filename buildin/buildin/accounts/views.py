@@ -1,9 +1,13 @@
-from django.contrib.auth import views as auth_views, logout
+from django.contrib.auth import views as auth_views
+from django.contrib.auth import logout
 
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
-# from buildin.accounts.forms import RegisterForm
+from django.views.generic import CreateView
+
+from buildin.accounts.forms import CreateProfileForm
+from buildin.accounts.models import BuildInUser
 
 
 class UserLoginView(auth_views.LoginView):
@@ -14,12 +18,6 @@ class UserLoginView(auth_views.LoginView):
         if self.success_url:
             return self.success_url
         return super().get_success_url()
-    # success_url = reverse_lazy('profile details', kwargs={'pk': 1})
-    # success_url = reverse_lazy('dashboard')
-
-
-# class UserLogoutView(auth_views.LogoutView):
-# template_name = 'accounts/logout.html'
 
 
 def user_logout_view(request):
@@ -28,18 +26,9 @@ def user_logout_view(request):
     return redirect('home page')
 
 
-def user_register(request):
-    # if request.method == 'POST':
-    #     form = RegisterForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('login')
-    # else:
-    #     form = RegisterForm()
-    # context = {
-    #     'form': form,
-    # }
-    return render(request, 'accounts/register.html')
+class UserRegisterView(CreateView):
+    form_class = CreateProfileForm
+    template_name = 'accounts/profile_create.html'
 
 
 def profile_details(request, pk):

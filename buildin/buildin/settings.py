@@ -34,7 +34,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = ('phone_field',)
 
 PROJECT_APPS = (
     'buildin.accounts',
