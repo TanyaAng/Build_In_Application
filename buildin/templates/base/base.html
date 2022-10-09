@@ -14,10 +14,20 @@
 <nav>
     <ul>
         <li><a href="{% url 'home page' %}">Home</a></li>
-        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'project create' %}">Add Project</a></li>
-        <!-- <li><a href="add-task.html">Add Task</a></li> -->
-        <li><a href="{% url 'profile details' pk=1 %}">Profile</a></li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li>
+                <a href="{% url 'project create' %}">Add Project</a>
+            </li>
+            <li>
+                <a href="{% url 'profile details' pk=1 %}">Profile</a>
+            </li>
+             <li class="logout">
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% endif %}
     </ul>
 </nav>
 

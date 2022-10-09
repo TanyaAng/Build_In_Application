@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from buildin.accounts.models import BuildInUser
+
+
+@admin.register(BuildInUser)
+class UserAdmin(admin.ModelAdmin):
+    pass

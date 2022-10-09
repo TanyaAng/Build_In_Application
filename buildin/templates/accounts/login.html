@@ -1,13 +1,17 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
     <section class="child">
-        <form action="" method="POST" class="login-register-form">
-            <h1><i class="fa-solid fa-user"></i>LOGIN</h1>
-            <label for="email">Email</label>
-            <input type="email" placeholder="john@somemail.com">
 
-            <label for="password">Password</label>
-            <input type="password" placeholder="********">
+        <form method="POST" action="{% url 'login' %}" class="login-register-form">
+            <h1><i class="fa-solid fa-user"></i>LOGIN</h1>
+            {{ form }}
+{#            <label for="email">Email</label>#}
+{#            <input type="email" placeholder="john@somemail.com" value="{{ email }}">#}
+{##}
+{#            <label for="password">Password</label>#}
+{#            <input type="password" placeholder="********" value="{{ password }}">#}
+
+            {% csrf_token %}
 
             <div class="button-crud-ctr">
                 <button class="login">Login</button>

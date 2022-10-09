@@ -1,8 +1,15 @@
 from django.shortcuts import render
 
+from buildin.projects.models import BuildInProject
+
 
 def dashboard(request):
-    return render(request, 'projects/dashboard.html')
+    # get only projects, in which current user is participant
+    projects = BuildInProject.objects.filter(participants__exact=request.user)
+    context = {
+        'projects': projects,
+    }
+    return render(request, 'projects/dashboard.html', context)
 
 
 def project_create(request):

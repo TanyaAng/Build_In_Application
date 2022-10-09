@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from buildin.projects.models import BuildInProject
+
+
+@admin.register(BuildInProject)
+class BuildInProjectAdmin(admin.ModelAdmin):
+    pass

@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from buildin.tasks.models import ProjectTask
+
+
+@admin.register(ProjectTask)
+class ProjectTaskAdmin(admin.ModelAdmin):
+    list_display = ('project', 'task_id', 'task_name')
+    sortable_by = ('project', 'task_id')
