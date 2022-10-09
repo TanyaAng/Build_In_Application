@@ -3,6 +3,7 @@
 {% block base_content %}
 
         <section>
+        {% if projects %}
         {% for project in projects %}
             <article class="dashboard">
                 <header>
@@ -15,8 +16,10 @@
                     <a href="{% url 'project delete'  pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
                 </div>
             </article>
-
             {% endfor %}
+        {% else %}
+        <h1>You are not a participant to any project yet!</h1>
+        {% endif %}
 
         </section>
 

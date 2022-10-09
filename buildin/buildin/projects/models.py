@@ -1,7 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from buildin.accounts.models import BuildInUser
 
+UserModel=get_user_model()
 
 class BuildInProject(models.Model):
     PROJECT_ID_MAX_LENGTH = 40
@@ -51,7 +53,7 @@ class BuildInProject(models.Model):
         default='https://unsplash.com/photos/VYqkeRANz90',
     )
 
-    participants = models.ManyToManyField(BuildInUser)
+    participants = models.ManyToManyField(UserModel)
 
     def __str__(self):
         return f"{self.project_identifier}"

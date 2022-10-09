@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from buildin.accounts.views import UserLoginView, user_register, profile_details, profile_edit, user_logout_view
+from buildin.accounts.views import UserLoginView, profile_details, profile_edit, user_logout_view, user_register
 
 urlpatterns = (
     path('login/', UserLoginView.as_view(), name='login'),
