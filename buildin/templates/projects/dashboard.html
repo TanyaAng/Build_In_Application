@@ -18,7 +18,10 @@
             </article>
             {% endfor %}
         {% else %}
-        <h1>You are not a participant to any project yet!</h1>
+            <div>
+        <h1>Hello, {{ user_full_name }}! </h1>
+            <h3>You are not a participant to any project yet!</h3>
+            </div>
         {% endif %}
 
         </section>

@@ -4,6 +4,7 @@
         <form action="{% url 'profile create' %}" method="POST" class="login-register-form">
             <h1><i class="fa-solid fa-user"></i>REGISTER</h1>
             {{ form }}
+            {{ profile_form }}
             {% csrf_token %}
             {#                <label for="first name">First Name</label>#}
             {#                <input type="text" placeholder="John">#}

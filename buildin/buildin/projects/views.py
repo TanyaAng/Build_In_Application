@@ -1,13 +1,17 @@
 from django.shortcuts import render
 
+from buildin.accounts.models import Profile
+from buildin.common.helpers.user_helpers import get_full_of_logged_user
 from buildin.projects.models import BuildInProject
 
 
 def dashboard(request):
+    user_full_name=get_full_of_logged_user(request)
     # get only projects, in which current user is participant
     projects = BuildInProject.objects.filter(participants__exact=request.user)
     context = {
         'projects': projects,
+        'user_full_name': user_full_name,
     }
     return render(request, 'projects/dashboard.html', context)
 

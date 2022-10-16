@@ -24,9 +24,10 @@
             <li>
                 <a href="{% url 'profile details' pk=1 %}">Profile</a>
             </li>
-             <li class="logout">
-                <a href="{% url 'logout' %}">Logout</a>
-            </li>
+            <i class="fa-solid fa-user"></i>
+            <span> {{ user_full_name }}</span>
+            <a href="{% url 'logout' %}">Logout</a>
+
         {% endif %}
     </ul>
 </nav>
