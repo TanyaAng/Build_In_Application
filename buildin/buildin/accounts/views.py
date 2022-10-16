@@ -5,10 +5,14 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
 from django.views import generic as views
+
 from buildin.accounts.forms import UserRegistrationForm
 from buildin.accounts.models import Profile
-from buildin.common.helpers.user_helpers import get_full_of_logged_user, get_profile_of_current_user
 from buildin.projects.models import BuildInProject
+
+from buildin.common.helpers.user_helpers import get_profile_of_current_user
+
+UserModel = auth_views.get_user_model()
 
 
 class UserRegisterView(views.CreateView):
@@ -52,15 +56,27 @@ class UserLogoutView(auth_views.LogoutView):
     pass
 
 
-def profile_details(request, pk):
-    user_projects = BuildInProject.objects.filter(participants__exact=request.user.id)
-    context = {
-        'profile': get_profile_of_current_user(request),
-        'user_full_name': get_full_of_logged_user(request),
-        'user_email': request.user,
-        'user_projects': user_projects
-    }
-    return render(request, 'accounts/profile-details.html', context)
+class ProfileDetailsView(views.DetailView):
+    model = UserModel
+    context_object_name = 'user'
+    template_name = 'accounts/profile-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = get_profile_of_current_user(self.request)
+        context['user_projects'] = BuildInProject.objects.filter(participants__exact=self.request.user.id)
+        return context
+
+
+# def profile_details(request, pk):
+#     user_projects = BuildInProject.objects.filter(participants__exact=request.user.id)
+#     context = {
+#         'profile': get_profile_of_current_user(request),
+#         'user_full_name': get_full_of_logged_user(request),
+#         'user_email': request.user,
+#         'user_projects': user_projects
+#     }
+#     return render(request, 'accounts/profile-details.html', context)
 
 
 def profile_edit(request, pk):

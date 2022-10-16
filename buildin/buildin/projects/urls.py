@@ -1,10 +1,10 @@
 from django.urls import path, include
 
-from buildin.projects.views import dashboard, project_create, project_details, project_contacts, project_edit, \
+from buildin.projects.views import DashboardView, project_create, project_details, project_contacts, project_edit, \
     project_delete
 
 urlpatterns = (
-    path('', dashboard, name='dashboard'),
+    path('', DashboardView.as_view(), name='dashboard'),
     path('add/', project_create, name='project create'),
     path('<int:pk>/buidling/<slug:project_name>/',
          include([
