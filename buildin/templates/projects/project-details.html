@@ -1,13 +1,15 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-        <section class="child-project-info">
-            <article class="details-arc">
+    <section class="child-project-info">
+        <article class="details-arc">
             <header>
                 <h3>BG100 - NEW ARCH - BUILDING 1</h3>
             </header>
             <main>
                 <p class="details-arc-header">Project name:</p>
-                <p class="details-arc-params">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint reprehenderit asperiores nulla nam possimus iure natus assumenda exercitationem beatae? Impedit rerum cum explicabo delectus aperiam vitae voluptas deleniti quasi officiis.</p>
+                <p class="details-arc-params">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
+                    reprehenderit asperiores nulla nam possimus iure natus assumenda exercitationem beatae? Impedit
+                    rerum cum explicabo delectus aperiam vitae voluptas deleniti quasi officiis.</p>
 
                 <p class="details-arc-header">Project Phase:</p>
                 <p class="details-arc-params">Preliminary design</p>
@@ -19,163 +21,205 @@
                 <p class="details-arc-params">In Progress</p>
 
                 <p class="details-arc-header">Project participants: </p>
-                <p class="details-arc-params">Tanya Angelova, Petar Ivanov, Ivan Ivanov, Maria Petrova, Stamo Georgiev</p>
-                <p class="details-arc-params"> <a href="{% url 'project contacts' pk=1 project_name='Building1' %}"><i class="fa-solid fa-address-book"></i>Contact List</a></p>
+                <p class="details-arc-params">Tanya Angelova, Petar Ivanov, Ivan Ivanov, Maria Petrova, Stamo
+                    Georgiev</p>
+                <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
+                        class="fa-solid fa-address-book"></i>Contact List</a></p>
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
                 <p class="deadline-info">12.12.2022</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to deadline:</p>
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to deadline:
+                </p>
                 <p class="deadline-info">150h</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left tasks:</p>
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left
+                    tasks:</p>
                 <p class="deadline-info">180h</p>
 
             </main>
             <hr>
 
             <div class="button-project-ctr">
-                <a href="{% url 'task create' %}"><button class="edit">Add Task</button></a>
-                <a href="{% url 'project edit' pk=1 project_name='Building1' %}"><button class="edit">Edit</button></a>
-                <a href="{% url 'project delete' pk=1 project_name='Building1' %}"><button class="delete">Delete</button></a>
+                <a href="{% url 'task create' %}">
+                    <button class="edit">Add Task</button>
+                </a>
+                <a href="{% url 'project edit' pk=project.pk %}">
+                    <button class="edit">Edit</button>
+                </a>
+                <a href="{% url 'project delete' pk=project.pk %}">
+                    <button class="delete">Delete</button>
+                </a>
             </div>
-                
-            </article>
-        </section>
-        
-        <section class="child-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Drawing No</th>
-                        <th>Task Name</th>
-                        <th>Time Estimation</th>
-                        <th>Designer</th>
-                        <th>Ready for Markups</th>
-                        <th>Checked by</th>
-                        <th>Approved</th>
-                        <th>Issued</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>FP101</td>
-                        <td>
-                            Formwork Plan at K+0.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP102</td>
-                        <td>
-                            Formwork Plan at K+3.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP103</td>
-                        <td>
-                            Formwork Plan at K+6.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP104</td>
-                        <td>
-                            Formwork Plan at K+9.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP104</td>
-                        <td>
-                            Formwork Plan at K+9.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP104</td>
-                        <td>
-                            Formwork Plan at K+9.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP104</td>
-                        <td>
-                            Formwork Plan at K+9.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                    <tr>
-                        <td>FP104</td>
-                        <td>
-                            Formwork Plan at K+9.00
-                        </td>
-                        <td>6 hours</td>
-                        <td>Petar Ivanov</td>
-                        <td>No</td>
-                        <td>Tanya Angelova</td>
-                        <td>No</td>
-                        <td>No</td>
-                        <td><a href="{% url 'task edit' pk=1 %}"><button class="edit-task">Edit</button></a></td>
-                        <td><a href="{% url 'task delete' pk=1 %}"><button class="delete-task">Delete</button></a></td>
-                    </tr>
-                  
-                    
-                </tbody>  
-            </table>
-        </section>
+
+        </article>
+    </section>
+
+    <section class="child-table">
+        <table>
+            <thead>
+            <tr>
+                <th>Drawing No</th>
+                <th>Task Name</th>
+                <th>Time Estimation</th>
+                <th>Designer</th>
+                <th>Ready for Markups</th>
+                <th>Checked by</th>
+                <th>Approved</th>
+                <th>Issued</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>FP101</td>
+                <td>
+                    Formwork Plan at K+0.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP102</td>
+                <td>
+                    Formwork Plan at K+3.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP103</td>
+                <td>
+                    Formwork Plan at K+6.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP104</td>
+                <td>
+                    Formwork Plan at K+9.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP104</td>
+                <td>
+                    Formwork Plan at K+9.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP104</td>
+                <td>
+                    Formwork Plan at K+9.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP104</td>
+                <td>
+                    Formwork Plan at K+9.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td>FP104</td>
+                <td>
+                    Formwork Plan at K+9.00
+                </td>
+                <td>6 hours</td>
+                <td>Petar Ivanov</td>
+                <td>No</td>
+                <td>Tanya Angelova</td>
+                <td>No</td>
+                <td>No</td>
+                <td><a href="{% url 'task edit' pk=1 %}">
+                    <button class="edit-task">Edit</button>
+                </a></td>
+                <td><a href="{% url 'task delete' pk=1 %}">
+                    <button class="delete-task">Delete</button>
+                </a></td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </section>
 
 {% endblock %}

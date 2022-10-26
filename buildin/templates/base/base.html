@@ -14,7 +14,7 @@
 <nav>
     <ul>
         <li><a href="{% url 'home page' %}">Home</a></li>
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
             <li>
                 <a href="{% url 'dashboard' %}">Dashboard</a>
             </li>

@@ -3,7 +3,8 @@ from django.db import models
 
 from buildin.accounts.models import BuildInUser
 
-UserModel=get_user_model()
+UserModel = get_user_model()
+
 
 class BuildInProject(models.Model):
     PROJECT_ID_MAX_LENGTH = 40
@@ -50,8 +51,9 @@ class BuildInProject(models.Model):
     )
 
     project_img = models.URLField(
-        default='https://unsplash.com/photos/VYqkeRANz90',
+        default='https://images.unsplash.com/photo-1664819485266-2de9be49b054?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=564&q=80',
     )
+
 
     participants = models.ManyToManyField(UserModel)
 
