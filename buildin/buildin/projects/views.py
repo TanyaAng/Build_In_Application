@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from buildin.common.helpers.user_helpers import get_full_of_logged_user
+from buildin.common.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 from buildin.projects.models import BuildInProject
 
@@ -11,7 +11,7 @@ def project_details(request, pk):
     participants = [p.email for p in project_participants]
     context = {
         'project': project,
-        'user_full_name': get_full_of_logged_user(request),
+        'user_full_name': get_full_name_current_user(request),
         'participants': ', '.join(participants)
     }
     return render(request, 'projects/project-details.html', context)
@@ -31,7 +31,7 @@ def project_create(request):
             return redirect('home page')
     context = {
         'form': form,
-        'user_full_name': get_full_of_logged_user(request),
+        'user_full_name': get_full_name_current_user(request),
     }
     return render(request, 'projects/project-create.html', context)
 
@@ -48,7 +48,7 @@ def project_edit(request, pk):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_full_of_logged_user(request)
+        'user_full_name': get_full_name_current_user(request)
     }
     return render(request, 'projects/project-edit.html', context)
 
@@ -65,7 +65,7 @@ def project_delete(request, pk):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_full_of_logged_user(request)
+        'user_full_name': get_full_name_current_user(request)
     }
     return render(request, 'projects/project-delete.html', context)
 

@@ -60,3 +60,6 @@ class BuildInProject(models.Model):
 
     def __str__(self):
         return f"{self.project_identifier}"
+
+    class Meta:
+        ordering = ('project_identifier',)

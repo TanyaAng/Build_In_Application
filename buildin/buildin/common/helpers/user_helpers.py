@@ -9,7 +9,7 @@ def get_profile_of_current_user(request):
         return None
 
 
-def get_full_of_logged_user(request):
+def get_full_name_current_user(request):
     try:
         profile = get_profile_of_current_user(request)
         return profile.full_name
