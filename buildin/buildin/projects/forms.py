@@ -3,10 +3,10 @@ from django import forms
 from buildin.projects.models import BuildInProject
 
 
-class BaseProjectForm(forms.ModelForm):
+class CreateProjectForm(forms.ModelForm):
     class Meta:
         model = BuildInProject
-        exclude = ('participants',)
+        exclude = ('participants', 'owner',)
         labels = {
             'project_identifier': 'Project',
             'project_name': 'Project Name',
@@ -23,21 +23,23 @@ class BaseProjectForm(forms.ModelForm):
             'deadline_date': forms.TextInput(attrs={'type': 'date'}),
         }
 
-        # def form_valid(self,form):
-        #     pass
 
-
-class CreateProjectForm(BaseProjectForm):
-    pass
-    # def save(self, commit=True):
-    #     obj = self.instance.save(commit=False)
-    #     obj.participants = self.request.user
-    #     obj.save()
-    #     return obj
-
-
-class EditProjectForm(BaseProjectForm):
-    pass
+class EditProjectForm(forms.ModelForm):
+    class Meta:
+        model = BuildInProject
+        fields = '__all__'
+        labels = {
+            'project_identifier': 'Project',
+            'project_name': 'Project Name',
+            'project_phase': 'Project Phase',
+            'client_name': 'Contractor',
+            'deadline_date': 'Deadline Date',
+            'project_img': 'Image URL'
+        }
+        widgets = {
+            'project_name': forms.TextInput(),
+            'participants': forms.CheckboxSelectMultiple(),
+        }
 
 
 class DeleteProjectForm(forms.ModelForm):

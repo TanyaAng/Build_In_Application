@@ -7,9 +7,12 @@ from buildin.projects.models import BuildInProject
 
 def project_details(request, pk):
     project = BuildInProject.objects.filter(pk=pk).get()
+    project_participants = project.participants.all()
+    participants = [p.email for p in project_participants]
     context = {
         'project': project,
-
+        'user_full_name': get_full_of_logged_user(request),
+        'participants': ', '.join(participants)
     }
     return render(request, 'projects/project-details.html', context)
 
@@ -20,8 +23,10 @@ def project_create(request):
     else:
         form = CreateProjectForm(request.POST)
         if form.is_valid():
-            project = form.save()
-            project.participants.add(request.user)
+            project=form.save(commit=False)
+            project.owner = request.user
+            # project = form.save()
+            # project.participants.add(request.user)
             project.save()
             return redirect('home page')
     context = {
@@ -43,6 +48,7 @@ def project_edit(request, pk):
     context = {
         'form': form,
         'project': project,
+        'user_full_name': get_full_of_logged_user(request)
     }
     return render(request, 'projects/project-edit.html', context)
 
@@ -59,6 +65,7 @@ def project_delete(request, pk):
     context = {
         'form': form,
         'project': project,
+        'user_full_name': get_full_of_logged_user(request)
     }
     return render(request, 'projects/project-delete.html', context)
 

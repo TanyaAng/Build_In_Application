@@ -7,35 +7,32 @@
             </header>
             <main>
                 <p class="details-arc-header">Project name:</p>
-                <p class="details-arc-params">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-                    reprehenderit asperiores nulla nam possimus iure natus assumenda exercitationem beatae? Impedit
-                    rerum cum explicabo delectus aperiam vitae voluptas deleniti quasi officiis.</p>
+                <p class="details-arc-params">{{ project.project_name }}</p>
 
                 <p class="details-arc-header">Project Phase:</p>
-                <p class="details-arc-params">Preliminary design</p>
+                <p class="details-arc-params">{{ project.project_phase }}</p>
 
                 <p class="details-arc-header">Contractor name:</p>
-                <p class="details-arc-params">NEW ARCH Design LTD</p>
+                <p class="details-arc-params">{{ project.client_name }}</p>
 
                 <p class="details-arc-header">Status:</p>
-                <p class="details-arc-params">In Progress</p>
+                <p class="details-arc-params"></p>
 
                 <p class="details-arc-header">Project participants: </p>
-                <p class="details-arc-params">Tanya Angelova, Petar Ivanov, Ivan Ivanov, Maria Petrova, Stamo
-                    Georgiev</p>
+                <p class="details-arc-params">{{ participants }}</p>
                 <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
                         class="fa-solid fa-address-book"></i>Contact List</a></p>
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
-                <p class="deadline-info">12.12.2022</p>
+                <p class="deadline-info">{{ project.deadline_date }}</p>
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to deadline:
                 </p>
-                <p class="deadline-info">150h</p>
+                <p class="deadline-info">h</p>
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left
                     tasks:</p>
-                <p class="deadline-info">180h</p>
+                <p class="deadline-info">h</p>
 
             </main>
             <hr>

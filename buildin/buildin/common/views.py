@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.views import generic as view
 
@@ -27,11 +28,12 @@ class DashboardView(view.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_full_name = get_full_of_logged_user(self.request)
-        projects = BuildInProject.objects.filter(participants__exact=self.request.user)
+        projects = BuildInProject.objects.filter(
+            Q(owner_id=self.request.user.id) | Q(participants__exact=self.request.user.id))
+        print(projects)
         context['user_full_name'] = user_full_name
         context['projects'] = projects
         return context
-
 
 # FBV for Dashboard
 # def dashboard(request):
