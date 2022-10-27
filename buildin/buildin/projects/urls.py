@@ -12,4 +12,5 @@ urlpatterns = (
              path('edit/', project_edit, name='project edit'),
              path('delete/', project_delete, name='project delete'),
          ])),
+    path('<int:pk>/building/', include('buildin.tasks.urls')),
 )

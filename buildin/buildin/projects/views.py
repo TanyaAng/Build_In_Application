@@ -1,18 +1,25 @@
 from django.shortcuts import render, redirect
 
+from buildin.common.helpers.tasks_helper import calculate_total_time_of_project
 from buildin.common.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 from buildin.projects.models import BuildInProject
+from buildin.tasks.models import ProjectTask
 
 
 def project_details(request, pk):
     project = BuildInProject.objects.filter(pk=pk).get()
     project_participants = project.participants.all()
     participants = [p.email for p in project_participants]
+    tasks = ProjectTask.objects.filter(project__exact=project)
+
+    total_time_of_project = calculate_total_time_of_project(tasks)
     context = {
         'project': project,
+        'tasks': tasks,
+        'total_time_of_project': total_time_of_project,
         'user_full_name': get_full_name_current_user(request),
-        'participants': ', '.join(participants)
+        'participants': ', '.join(participants),
     }
     return render(request, 'projects/project-details.html', context)
 
@@ -23,10 +30,8 @@ def project_create(request):
     else:
         form = CreateProjectForm(request.POST)
         if form.is_valid():
-            project=form.save(commit=False)
+            project = form.save(commit=False)
             project.owner = request.user
-            # project = form.save()
-            # project.participants.add(request.user)
             project.save()
             return redirect('home page')
     context = {

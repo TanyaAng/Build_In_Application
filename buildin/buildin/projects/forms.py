@@ -6,7 +6,7 @@ from buildin.projects.models import BuildInProject
 class CreateProjectForm(forms.ModelForm):
     class Meta:
         model = BuildInProject
-        exclude = ('participants', 'owner',)
+        exclude = ('participants', 'owner', 'date_added')
         labels = {
             'project_identifier': 'Project',
             'project_name': 'Project Name',
@@ -27,7 +27,7 @@ class CreateProjectForm(forms.ModelForm):
 class EditProjectForm(forms.ModelForm):
     class Meta:
         model = BuildInProject
-        fields = '__all__'
+        exclude = ('date_added',)
         labels = {
             'project_identifier': 'Project',
             'project_name': 'Project Name',
@@ -58,4 +58,7 @@ class DeleteProjectForm(forms.ModelForm):
 
     class Meta:
         model = BuildInProject
-        exclude = ('project_img',)
+        exclude = ('participants', 'project_img', 'date_added')
+        widgets = {
+            'project_name': forms.TextInput(),
+        }

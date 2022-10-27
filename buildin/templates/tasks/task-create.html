@@ -1,37 +1,29 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-        <section class="child-crud">
-            <form action="" method="POST" class="crud-form">
-                <h1> <i class="fa-solid fa-helmet-safety"></i> CREATE NEW TASK</h1>
-                <h3 class="project-name">BG100 - NEW ARCH - BUILDING 1</h3>
-
-                <label for="drawing number">Drawing Number</label>
-                <input type="text" placeholder="FP101">
-
-                <label for="task name">Task Name</label>
-                <input type="text" placeholder="Formwork at level K+3.00">
-
-                <label for="team designer">Designer</label>
-                <input type="text" placeholder="Petar Ivanov">
-
-                <label for="task time">Time Estimation [h]</label>
-                <input type="number" placeholder="4 hours">
-                <div class="button-crud-ctr">
-                    <button class="edit">Submit</button>
-                </div>
-            </form>
-        </section>
-
-        <section class="child">
-            <div class="logo-ctr">
-                <h1 class="main-logo">BuildIn</h1>
-                <h1 class="main-logo">BuildIn</h1>
+    <section class="child-crud">
+        <form action="{% url 'task create' pk=project.pk %}" method="POST" class="crud-form">
+            <h1><i class="fa-solid fa-helmet-safety"></i> CREATE NEW TASK</h1>
+            {{ form }}
+            {% csrf_token %}
+            {#                <h3 class="project-name">BG100 - NEW ARCH - BUILDING 1</h3>#}
+            {##}
+            {#                <label for="drawing number">Drawing Number</label>#}
+            {#                <input type="text" placeholder="FP101">#}
+            {##}
+            {#                <label for="task name">Task Name</label>#}
+            {#                <input type="text" placeholder="Formwork at level K+3.00">#}
+            {##}
+            {#                <label for="team designer">Designer</label>#}
+            {#                <input type="text" placeholder="Petar Ivanov">#}
+            {##}
+            {#                <label for="task time">Time Estimation [h]</label>#}
+            {#                <input type="number" placeholder="4 hours">#}
+            <div class="button-crud-ctr">
+                <button class="edit">Submit</button>
             </div>
+        </form>
+    </section>
 
-            <div class="logo-ctr">
-                <h2>
-                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders
-                </h2>
-            </div>
-        </section>
+    {% include 'base/logo-section.html' %}
+
 {% endblock %}

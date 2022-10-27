@@ -2,29 +2,37 @@
 {% load static %}
 {% block base_content %}
 
-        <section>
+    <section>
         {% if projects %}
-        {% for project in projects %}
-            <article class="dashboard">
-                <header>
-                    <h3>{{ project.project_identifier }}</h3>
-                </header>
-                <p class="project-status">Status: {{ project.project_phase }}</p>
-                <img src="{{ project.project_img }}" alt="">
-                <div>
-                    <a href="{% url 'project details' pk=project.pk  %}"><button class="details">Details</button></a>
-                    <a href="{% url 'project edit' pk=project.pk  %}"><button class="details">Edit</button></a>
-                    <a href="{% url 'project delete'  pk=project.pk  %}"><button class="delete">Delete</button></a>
-                </div>
-            </article>
+            {% for project in projects %}
+                <article class="dashboard">
+                    <header>
+                        <h3>{{ project.project_identifier }}</h3>
+                    </header>
+                    <p class="project-status">Status: {{ project.project_phase }}</p>
+                    <img src="{{ project.project_img }}" alt="">
+                    <div>
+                        <a href="{% url 'project details' pk=project.pk %}">
+                            <button class="details">Details</button>
+                        </a>
+                        {% if request.user == project.owner %}
+                            <a href="{% url 'project edit' pk=project.pk %}">
+                                <button class="details">Edit</button>
+                            </a>
+                            <a href="{% url 'project delete'  pk=project.pk %}">
+                                <button class="delete">Delete</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </article>
             {% endfor %}
         {% else %}
             <div>
-        <h1>Hello, {{ user_full_name }}! </h1>
-            <h3>You are not a participant to any project yet!</h3>
+                <h1>Hello, {{ user_full_name }}! </h1>
+                <h3>You are not a participant to any project yet!</h3>
             </div>
         {% endif %}
 
-        </section>
+    </section>
 
 {% endblock %}

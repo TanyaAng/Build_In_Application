@@ -1,61 +1,53 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-        <section class="child-crud">
-            <form action="" method="POST" class="crud-form">
-                <h1> <i class="fa-solid fa-helmet-safety"></i> DELETE TASK</h1>
-                <h3 class="project-name">BG100 - NEW ARCH - BUILDING 1</h3>
+    <section class="child-crud">
+        <form action="{% url 'task delete' pk=project.pk task_pk=task.pk %}" method="POST" class="crud-form">
+            <h1><i class="fa-solid fa-helmet-safety"></i> DELETE TASK</h1>
+            <h3 class="project-name">BG100 - NEW ARCH - BUILDING 1</h3>
+            {{ form }}
+            {% csrf_token %}
 
-                <label for="drawing number">Drawing Number</label>
-                <input type="text" placeholder="FP101">
+            {#            <label for="drawing number">Drawing Number</label>#}
+            {#            <input type="text" placeholder="FP101">#}
+            {##}
+            {#            <label for="task name">Task Name</label>#}
+            {#            <input type="text" placeholder="Formwork at level K+3.00">#}
+            {##}
+            {#            <label for="team designer">Designer</label>#}
+            {#            <input type="text" placeholder="Petar Ivanov">#}
+            {##}
+            {#            <label for="task time">Time Estimation [h]</label>#}
+            {#            <input type="number" placeholder="4 hours">#}
+            {##}
+            {#            <label for="markups">Ready for markups</label>#}
+            {#            <select name="markups" id="markups">#}
+            {#                <option value="">Yes</option>#}
+            {#                <option value="">No</option>#}
+            {#            </select>#}
+            {##}
+            {#            <label for="checker-name">Checked by</label>#}
+            {#            <input type="text" placeholder="Tanya Angelova">#}
+            {##}
+            {#            <label for="checked">Ready for markups</label>#}
+            {#            <select name="checked" id="checked">#}
+            {#                <option value="">Yes</option>#}
+            {#                <option value="">No</option>#}
+            {#            </select>#}
+            {##}
+            {#            <label for="issued">Issued</label>#}
+            {#            <select name="issued" id="issued">#}
+            {#                <option value="">Yes</option>#}
+            {#                <option value="">No</option>#}
+            {#            </select>#}
 
-                <label for="task name">Task Name</label>
-                <input type="text" placeholder="Formwork at level K+3.00">
-
-                <label for="team designer">Designer</label>
-                <input type="text" placeholder="Petar Ivanov">
-
-                <label for="task time">Time Estimation [h]</label>
-                <input type="number" placeholder="4 hours">
-
-                <label for="markups">Ready for markups</label>
-                <select name="markups" id="markups">
-                    <option value="">Yes</option>
-                    <option value="">No</option>
-                </select>
-
-                <label for="checker-name">Checked by</label>
-                <input type="text" placeholder="Tanya Angelova">
-
-                <label for="checked">Ready for markups</label>
-                <select name="checked" id="checked">
-                    <option value="">Yes</option>
-                    <option value="">No</option>
-                </select>
-
-                <label for="issued">Issued</label>
-                <select name="issued" id="issued">
-                    <option value="">Yes</option>
-                    <option value="">No</option>
-                </select>
-
-                <div class="button-crud-ctr">
-                    <button class="delete-project">Delete</button>
-                </div>
-                
-            </form>
-            
-
-        </section>
-
-        <section class="child">
-            <div class="logo-ctr">
-                <h1 class="main-logo">BuildIn</h1>
-                <h1 class="main-logo">BuildIn</h1>
+            <div class="button-crud-ctr">
+                <button class="delete-project">Delete</button>
             </div>
 
-            <div class="logo-ctr">
-                <h2>
-                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
-            </div>
-        </section>
+        </form>
+
+
+    </section>
+    {% include 'base/logo-section.html' %}
+
 {% endblock %}

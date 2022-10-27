@@ -1,32 +1,15 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-        <section class="child-crud">
-            <form action="{% url 'project create' %}" method="post" class="crud-form">
-                <h1> <i class="fa-solid fa-helmet-safety"></i> ADD NEW PROJECT</h1>
-
-                {{ form }}
-                {% csrf_token %}
-
-
-                <div class="button-crud-ctr">
-                    <button class="edit">Submit</button>
-                </div>
-                
-               
-            </form>
-            
-
-        </section>
-
-        <section class="child">
-            <div class="logo-ctr">
-                <h1 class="main-logo">BuildIn</h1>
-                <h1 class="main-logo">BuildIn</h1>
+    <section class="child-crud">
+        <form action="{% url 'project create' %}" method="post" class="crud-form">
+            <h1><i class="fa-solid fa-helmet-safety"></i> ADD NEW PROJECT</h1>
+            {{ form }}
+            {% csrf_token %}
+            <div class="button-crud-ctr">
+                <button class="edit">Submit</button>
             </div>
+        </form>
 
-            <div class="logo-ctr">
-                <h2>
-                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
-            </div>
-        </section>
+    </section>
+    {% include 'base/logo-section.html' %}
 {% endblock %}

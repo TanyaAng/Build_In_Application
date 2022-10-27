@@ -10,7 +10,6 @@ class ProjectTask(models.Model):
 
     task_id = models.CharField(
         max_length=TASK_ID_MAX_LENGTH,
-        # unique=True,
     )
 
     task_name = models.CharField(
@@ -22,13 +21,33 @@ class ProjectTask(models.Model):
         blank=True,
     )
 
+    designer = models.ForeignKey(BuildInUser, related_name='user_designer',
+                                 on_delete=models.SET_NULL,
+                                 null=True,
+                                 blank=True,
+                                 )
+    checked_by = models.ForeignKey(BuildInUser, related_name='user_checker',
+                                   on_delete=models.SET_NULL,
+                                   null=True,
+                                   blank=True
+                                   )
+
+    is_ready_for_markups = models.BooleanField(
+        null=True,
+        blank=True,
+    )
+
+    is_approved = models.BooleanField(
+        null=True,
+        blank=True,
+    )
+
+    is_issued = models.BooleanField(
+        null=True,
+        blank=True,
+    )
+
     project = models.ForeignKey(
         BuildInProject,
-        on_delete=models.SET_NULL,
-        null=True)
-
-    is_ready_for_markups = models.BooleanField()
-
-    is_approved = models.BooleanField()
-
-    is_issued = models.BooleanField()
+        on_delete=models.RESTRICT,
+    )

@@ -43,7 +43,6 @@ PROJECT_APPS = (
     'buildin.common',
     'buildin.projects',
     'buildin.tasks',
-    'buildin.department'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS

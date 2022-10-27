@@ -6,6 +6,7 @@ from buildin.common.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.models import BuildInProject
 
 
+
 class HomeView(view.TemplateView):
     template_name = 'common/home_page.html'
 

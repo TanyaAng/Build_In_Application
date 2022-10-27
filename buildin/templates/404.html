@@ -1,57 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base/base.html' %}
+{% block base_content %}
+    <section class="child">
+        <p id="page-not-found"><i class="fa-solid fa-helmet-safety"></i> PAGE NOT FOUND!</p>
+        <p id="page-not-found">Please try again!</p>
+    </section>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../staticfiles/css/style1.css">
-    <title>Home</title>
-</head>
+    {% include 'base/logo-section.html' %}
 
-<body>
-    <nav>
-        <ul>
-            <li><a href="common/home_page.html">Home</a></li>
-            <li><a href="common/dashboard.html">Dashboard</a></li>
-            <li><a href="projects/project-create.html">Add Project</a></li>
-            <!-- <li><a href="add-task.html">Add Task</a></li> -->
-            <li><a href="accounts/profile-details.html">Profile</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <section class="child">
-            <p id="page-not-found"><i class="fa-solid fa-helmet-safety"></i> PAGE NOT FOUND!</p>
-            <p id="page-not-found">Please try again!</p>
-        </section>
-
-        <section class="child">
-            <div class="main-ctr">
-                <h1 class="main-logo">BuildIn</h1>
-                <h1 class="main-logo">BuildIn</h1>
-            </div>
-
-            <div class="main-ctr">
-                <h2>
-                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
-            </div>
-            <!-- <div class="button-ctr">
-                <a href="login.html"><button class="login">Login</button></a>
-                <a href="register.html"><button class="register"> Register</button></a>
-            </div>  -->
-        </section>
-    </main>
-
-    <footer>
-        <ul >
-        <li>&copy; Copyright: Tanya Angelova</li>
-        <li><i class="fa-solid fa-envelope"></i> t.j.angelova@gmail.com</li>
-        <li class="contacts">
-            <a href="https://www.linkedin.com/in/tanya-angelova-44b03590/"><i class="fa-brands fa-linkedin"></i> Tanya Angelova</a>
-            </li>
-        </ul>
-    </footer>
-</body>
-
-</html>
+{% endblock %}

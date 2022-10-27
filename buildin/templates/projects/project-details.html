@@ -15,9 +15,6 @@
                 <p class="details-arc-header">Contractor name:</p>
                 <p class="details-arc-params">{{ project.client_name }}</p>
 
-                <p class="details-arc-header">Status:</p>
-                <p class="details-arc-params"></p>
-
                 <p class="details-arc-header">Project participants: </p>
                 <p class="details-arc-params">{{ participants }}</p>
                 <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
@@ -32,191 +29,78 @@
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left
                     tasks:</p>
-                <p class="deadline-info">h</p>
+                <p class="deadline-info">{{ total_time_of_project }} h</p>
 
             </main>
             <hr>
 
             <div class="button-project-ctr">
-                <a href="{% url 'task create' %}">
+                <a href="{% url 'task create' pk=project.pk %}">
                     <button class="edit">Add Task</button>
                 </a>
-                <a href="{% url 'project edit' pk=project.pk %}">
-                    <button class="edit">Edit</button>
-                </a>
-                <a href="{% url 'project delete' pk=project.pk %}">
-                    <button class="delete">Delete</button>
-                </a>
+                {#                <a href="{% url 'project edit' pk=project.pk %}">#}
+                {#                    <button class="edit">Edit</button>#}
+                {#                </a>#}
+                {#                <a href="{% url 'project delete' pk=project.pk %}">#}
+                {#                    <button class="delete">Delete</button>#}
+                {#                </a>#}
             </div>
 
         </article>
     </section>
 
     <section class="child-table">
-        <table>
-            <thead>
-            <tr>
-                <th>Drawing No</th>
-                <th>Task Name</th>
-                <th>Time Estimation</th>
-                <th>Designer</th>
-                <th>Ready for Markups</th>
-                <th>Checked by</th>
-                <th>Approved</th>
-                <th>Issued</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>FP101</td>
-                <td>
-                    Formwork Plan at K+0.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP102</td>
-                <td>
-                    Formwork Plan at K+3.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP103</td>
-                <td>
-                    Formwork Plan at K+6.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP104</td>
-                <td>
-                    Formwork Plan at K+9.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP104</td>
-                <td>
-                    Formwork Plan at K+9.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP104</td>
-                <td>
-                    Formwork Plan at K+9.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP104</td>
-                <td>
-                    Formwork Plan at K+9.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-            <tr>
-                <td>FP104</td>
-                <td>
-                    Formwork Plan at K+9.00
-                </td>
-                <td>6 hours</td>
-                <td>Petar Ivanov</td>
-                <td>No</td>
-                <td>Tanya Angelova</td>
-                <td>No</td>
-                <td>No</td>
-                <td><a href="{% url 'task edit' pk=1 %}">
-                    <button class="edit-task">Edit</button>
-                </a></td>
-                <td><a href="{% url 'task delete' pk=1 %}">
-                    <button class="delete-task">Delete</button>
-                </a></td>
-            </tr>
-
-
-            </tbody>
-        </table>
+        {% if tasks %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Drawing No</th>
+                    <th>Task Name</th>
+                    <th>Time Estimation</th>
+                    <th>Designer</th>
+                    <th>Ready for Markups</th>
+                    <th>Checked by</th>
+                    <th>Approved</th>
+                    <th>Issued</th>
+                    <th>Edit/Delete</th>
+                    {#                    <th>Edit</th>#}
+                    {#                    <th>Delete</th>#}
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.task_id }}</td>
+                        <td>
+                            {{ task.task_name }}
+                        </td>
+                        <td>{{ task.time_estimation }} hours</td>
+                        <td>{{ task.designer }}</td>
+                        <td>{{ task.is_ready_for_markups }}</td>
+                        <td>{{ task.checked_by }}</td>
+                        <td>{{ task.is_approved }}</td>
+                        <td>{{ task.is_issued }}</td>
+                        <td>
+                            <span>
+                                <a href="{% url 'task edit' pk=project.pk task_pk=task.pk %}">
+                                    <i class="fa-solid fa-pen"></i>
+                                    {#                                <button class="edit-task">Edit</button>#}
+                                </a>
+                            </span>
+                            <span>
+                                <a href="{% url 'task delete' pk=project.pk task_pk=task.pk %}">
+                                    <i class="fa-sharp fa-solid fa-trash"></i>
+                                    {#                            <button class="delete-task">Delete</button>#}
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>No Tasks Yet!</h1>
+        {% endif %}
     </section>
 
 {% endblock %}
