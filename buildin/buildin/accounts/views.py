@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 
 from buildin.common.helpers.user_helpers import get_profile_of_current_user
+from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 from buildin.accounts.forms import UserRegistrationForm
 
@@ -57,12 +58,11 @@ class UserLogoutView(auth_views.LogoutView):
 
 class ProfileDetailsView(views.DetailView):
     model = UserModel
-
     template_name = 'accounts/profile-details.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_projects = UserModel.objects.filter(
+        user_projects=BuildInProject.objects.filter(
             Q(participants__in=[self.request.user.id]) |
             Q(owner_id=self.request.user.id)
         )
@@ -70,7 +70,8 @@ class ProfileDetailsView(views.DetailView):
             Q(designer__exact=self.request.user) | Q(checked_by__exact=self.request.user))
 
         context['profile'] = get_profile_of_current_user(self.request)
-        context['user_projects'] = user_projects
+        context['user_projects'] = user_projects.distinct()
+        print(user_projects)
         context['user_tasks'] = user_tasks
         return context
 

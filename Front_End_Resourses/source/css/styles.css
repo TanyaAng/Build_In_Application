@@ -1,0 +1,190 @@
+@import url('reset.css');
+@import url('variables.css');
+@import url('nav-bar_and_footer.css');
+@import url('headers.css');
+@import url('buttons.css');
+@import url('forms.css');
+@import url('tables.css');
+@import url("https://use.fontawesome.com/releases/v6.2.0/css/all.css");
+
+
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-image: linear-gradient(to right, rgba(94, 104, 106, 1) 10%, rgba(229, 240, 242, 1) 40% 80%, rgba(229, 240, 242, 1));
+    /* background-image: linear-gradient(to right bottom , rgba(94,104,106, 1) 20% ,rgba(229,240,242, 1) 40%,rgba(229,240,242, 1) 100%); */
+}
+
+section{
+    margin: 10px 20px;
+}
+
+.main-ctr{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /* border:1px solid red; */
+}
+
+.child {
+    width: 50%;
+    /* height: 100%; */
+    /* float: left;
+    padding: 0px 0px; */
+}
+
+.child-crud {
+    width: 50%;
+
+}
+
+.child-project-info {
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+
+.child-table {
+    width: 65%;
+    height: 100%;
+    float: left;
+}
+
+
+div.project-params a {
+    text-decoration: none;
+    color: var(--clr-black-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+div.project-params a:hover {
+    text-decoration: none;
+    color: var(--clr-orange-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+ #frontpage-img {
+    width: 100%;
+    height: 100%;
+}
+
+hr {
+    size: 3px;
+}
+
+.fa-helmet-safety {
+    color: var(--clr-orange-primary);
+    padding-right: 10px;
+}
+
+.fa-circle-exclamation {
+    color: var(--clr-orange-primary);
+    padding-right: 5px;
+}
+
+.fa-user{
+    padding-right: 5px;
+}
+
+section.article-section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:30px
+}
+
+article{
+    margin: 30px 30px;
+    overflow: hidden;
+    border: 3px solid var(--clr-darkgrey);
+    border-radius: 20px;
+    text-align: center;
+    border-image: fill;
+}
+
+
+article.dashboard-artc {
+    /* display: inline-block; */
+    width: 500px;
+    height: 500px;
+
+}
+
+article.details-arc {
+    /* display: inline-block; */
+    line-height: 1.2;
+    width: 500px;
+    height: 100%;
+    
+}
+
+article img {
+    width: 60%;
+    height: 60%;
+}
+
+article header {
+    padding:10px 20px;
+    text-align: center;
+    color: var(--clr-text-white);
+    background-color: var(--clr-orange-secondary);
+    color: var(--clr-darkgrey);
+}
+
+p.details-arc-header {
+    background-color: var(--clr-darkgrey);
+    color: var(--clr-text-white);
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    text-transform: uppercase;
+    text-decoration: underline;
+    padding: 3px 15px;
+    margin: 0px 0px;
+    line-height: 1.5;
+}
+
+p.details-arc-params {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    text-transform: capitalize;
+    line-height: 1.5;
+    padding: 3px 15px;
+    margin: 3px;
+}
+
+div.details-arc-params ul {
+    font-size: 14px;
+    align-items: left;
+    text-align: left;
+    padding: 3px 10px;
+    margin: 5px 15px;
+    text-decoration: none;
+}
+
+p.deadline-info {
+    font-weight: bold;
+    text-align: left;
+    padding: 3px 15px;
+    margin: 3px;
+}
+
+p.project-status {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 5px 15px;
+}
+
+
+#page-not-found {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--clr-darkgrey);
+}

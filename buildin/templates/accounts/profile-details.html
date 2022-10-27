@@ -31,14 +31,14 @@
             </main>
             <hr>
             <div class="button-project-ctr">
-                <a href="{% url 'profile edit' pk=profile.pk %}">
-                    <button class="edit">Edit</button>
-                </a>
+{#                <a href="{% url 'profile edit' pk=profile.user_id %}">#}
+{#                    <button class="edit">Edit</button>#}
+{#                </a>#}
             </div>
 
         </article>
     </section>
-
+{% if user_tasks %}
     <section class="child-table">
         <table>
             <thead>
@@ -67,5 +67,8 @@
             </tbody>
         </table>
     </section>
+    {% else %}
+    <h3>No added tasks yet!</h3>
+    {% endif %}
 
 {% endblock %}
