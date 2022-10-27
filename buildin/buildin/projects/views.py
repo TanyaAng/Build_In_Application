@@ -12,8 +12,8 @@ def project_details(request, pk):
     project_participants = project.participants.all()
     participants = [p.email for p in project_participants]
     tasks = ProjectTask.objects.filter(project__exact=project)
-
     total_time_of_project = calculate_total_time_of_project(tasks)
+
     context = {
         'project': project,
         'tasks': tasks,

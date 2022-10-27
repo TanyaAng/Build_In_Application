@@ -2,11 +2,8 @@ from django.shortcuts import render, redirect
 
 from buildin.common.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.models import BuildInProject
-from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
 from buildin.tasks.models import ProjectTask
-
-
-
+from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
 
 def task_create(request, pk):
     project = BuildInProject.objects.filter(pk=pk).get()

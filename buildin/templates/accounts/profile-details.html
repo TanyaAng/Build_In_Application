@@ -11,31 +11,27 @@
                 <p class="details-arc-params">{{ profile.full_name }}</p>
 
                 <p class="details-arc-header">Participant Role:</p>
-                <p class="details-arc-params">{{ profile.participant_role}}</p>
-{##}
-{#                <p class="details-arc-header">Email:</p>#}
-{#                <p class="details-arc-params">{{ user_email }}</p>#}
-{##}
+                <p class="details-arc-params">{{ profile.participant_role }}</p>
+
                 <p class="details-arc-header">Phone number:</p>
                 <p class="details-arc-params">{{ profile.phone_number }}</p>
 
                 <p class="details-arc-header">projects participation:</p>
-                <!-- <p class="project-params"> -->
                 <div class="details-arc-params">
                     <ul>
                         {% for project in user_projects %}
                             <li>
-                                <a href="{% url 'project details' pk=1 project_name='Building1' %}">{{ project }}</a>
+                                <a href="{% url 'project details' pk=project.pk %}">{{ project }}</a>
                             </li>
                         {% endfor %}
                     </ul>
                 </div>
-                <!-- </p> -->
+
 
             </main>
             <hr>
             <div class="button-project-ctr">
-                <a href="{% url 'profile edit' pk=1 %}">
+                <a href="{% url 'profile edit' pk=profile.pk %}">
                     <button class="edit">Edit</button>
                 </a>
             </div>
@@ -50,22 +46,24 @@
                 <th>Project No</th>
                 <th>Task No</th>
                 <th>Task Name</th>
-                <th>Participant Role</th>
+                <th>Time Estimation </th>
                 <th>Deadline</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    <a href="{% url 'project details' pk=1 project_name='Building1' %}">BG100 - NEW ARCH -BUILDING 1</a>
-                </td>
-                <td>
-                    FP101
-                </td>
-                <td>Formwork plan</td>
-                <td>Designer</td>
-                <td>06.12.2022</td>
-            </tr>
+            {% for task in user_tasks %}
+                <tr>
+                    <td>
+                        <a href="{% url 'project details' pk=task.project.pk %}">{{ task.project }}</a>
+                    </td>
+                    <td>
+                        {{ task.task_id }}
+                    </td>
+                    <td>{{ task.task_name }}</td>
+                    <td>{{ task.time_estimation }}</td>
+                    <td>{{ task.project.deadline_date }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </section>

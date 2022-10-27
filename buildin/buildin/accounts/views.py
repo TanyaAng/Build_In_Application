@@ -1,16 +1,15 @@
+from django.db.models import Q
+
 from django.contrib.auth import views as auth_views
-from django.contrib.auth import login
-
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
-
 from django.views import generic as views
-
-from buildin.accounts.forms import UserRegistrationForm
-from buildin.accounts.models import Profile
-from buildin.projects.models import BuildInProject
+from django.contrib.auth import login
+from django.urls import reverse_lazy
+from django.shortcuts import render
 
 from buildin.common.helpers.user_helpers import get_profile_of_current_user
+from buildin.tasks.models import ProjectTask
+from buildin.accounts.forms import UserRegistrationForm
+
 
 UserModel = auth_views.get_user_model()
 
@@ -58,13 +57,21 @@ class UserLogoutView(auth_views.LogoutView):
 
 class ProfileDetailsView(views.DetailView):
     model = UserModel
-    context_object_name = 'user'
+
     template_name = 'accounts/profile-details.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user_projects = UserModel.objects.filter(
+            Q(participants__in=[self.request.user.id]) |
+            Q(owner_id=self.request.user.id)
+        )
+        user_tasks = ProjectTask.objects.filter(
+            Q(designer__exact=self.request.user) | Q(checked_by__exact=self.request.user))
+
         context['profile'] = get_profile_of_current_user(self.request)
-        context['user_projects'] = BuildInProject.objects.filter(participants__exact=self.request.user.id)
+        context['user_projects'] = user_projects
+        context['user_tasks'] = user_tasks
         return context
 
 

@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from buildin.accounts.models import BuildInUser
@@ -5,6 +6,7 @@ from buildin.projects.models import BuildInProject
 
 
 class ProjectTask(models.Model):
+    TIME_ESTIMATION_MIN_VALUE = 0
     TASK_ID_MAX_LENGTH = 30
     TASK_NAME_MAX_LENGTH = 60
 
@@ -16,7 +18,8 @@ class ProjectTask(models.Model):
         max_length=TASK_NAME_MAX_LENGTH,
     )
 
-    time_estimation = models.PositiveIntegerField(
+    time_estimation = models.FloatField(
+        validators=(MinValueValidator(TIME_ESTIMATION_MIN_VALUE),),
         null=True,
         blank=True,
     )
@@ -33,16 +36,19 @@ class ProjectTask(models.Model):
                                    )
 
     is_ready_for_markups = models.BooleanField(
+        default=False,
         null=True,
         blank=True,
     )
 
     is_approved = models.BooleanField(
+        default=False,
         null=True,
         blank=True,
     )
 
     is_issued = models.BooleanField(
+        default=False,
         null=True,
         blank=True,
     )

@@ -38,12 +38,14 @@
                 <a href="{% url 'task create' pk=project.pk %}">
                     <button class="edit">Add Task</button>
                 </a>
-                {#                <a href="{% url 'project edit' pk=project.pk %}">#}
-                {#                    <button class="edit">Edit</button>#}
-                {#                </a>#}
-                {#                <a href="{% url 'project delete' pk=project.pk %}">#}
-                {#                    <button class="delete">Delete</button>#}
-                {#                </a>#}
+                {% if request.user == project.owner %}
+                    <a href="{% url 'project edit' pk=project.pk %}">
+                        <button class="edit">Edit</button>
+                    </a>
+                    <a href="{% url 'project delete' pk=project.pk %}">
+                        <button class="delete">Delete</button>
+                    </a>
+                {% endif %}
             </div>
 
         </article>

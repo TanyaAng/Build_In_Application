@@ -17,7 +17,7 @@
                         </a>
                         {% if request.user == project.owner %}
                             <a href="{% url 'project edit' pk=project.pk %}">
-                                <button class="details">Edit</button>
+                                <button class="edit">Edit</button>
                             </a>
                             <a href="{% url 'project delete'  pk=project.pk %}">
                                 <button class="delete">Delete</button>
