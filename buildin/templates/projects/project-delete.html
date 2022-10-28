@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
+    <div class="main-ctr">
     <section class="child-crud">
         <form action="{% url 'project delete' pk=project.pk %}" method="post"
               class="crud-form">
@@ -13,5 +14,6 @@
 
     </section>
     {% include 'base/logo-section.html' %}
+    </div>
 
 {% endblock %}

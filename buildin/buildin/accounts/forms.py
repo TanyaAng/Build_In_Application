@@ -16,13 +16,45 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
         model = UserModel
         fields = ('email',)
 
-    #saves Profile data of registered user
+    # saves Profile data of registered user
     def save(self, commit=True):
         user = super().save(commit=commit)
         profile = Profile(first_name=self.cleaned_data['first_name'],
                           last_name=self.cleaned_data['last_name'],
                           participant_role=self.cleaned_data['role'],
-                          user=user,)
+                          user=user, )
         if commit:
             profile.save()
         return user
+
+
+class CreateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user',)
+        # fields = ('first_name', 'last_name', 'phone_number', 'participant_role')
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user',)
+
+
+# class DeleteProfileForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.__readonly_fields()
+#
+#     def __readonly_fields(self):
+#         for _, field in self.fields.items():
+#             field.widgets.attrs['readonly'] = 'readonly'
+#
+#     def save(self, commit=True):
+#         if commit:
+#             self.instance.delete()
+#         return self.instance
+#
+#     class Meta:
+#         model = Profile
+#         exclude = ('user',)

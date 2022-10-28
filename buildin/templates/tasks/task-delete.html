@@ -1,21 +1,22 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <section class="child-crud">
-        <form action="{% url 'task delete' pk=project.pk task_pk=task.pk %}" method="POST" class="crud-form">
-            <h1><i class="fa-solid fa-helmet-safety"></i> DELETE TASK</h1>
-            <h3 class="project-name">{{ project.project_identifier }}</h3>
-            <h3 class="project-name">{{ task.task_name }}</h3>
-            <p>Are you sure you want to delete the task?</p>
-            {{ form }}
-            {% csrf_token %}
-            <div class="button-crud-ctr">
-                <button class="delete-project">Delete</button>
-            </div>
+    <div class="main-ctr">
+        <section class="child-crud">
+            <form action="{% url 'task delete' pk=project.pk task_pk=task.pk %}" method="POST" class="crud-form">
+                <h1><i class="fa-solid fa-helmet-safety"></i> DELETE TASK</h1>
+                <h3 class="project-name">{{ project.project_identifier }}</h3>
+                <h3 class="project-name">{{ task.task_name }}</h3>
+                <p>Are you sure you want to delete the task?</p>
+                {{ form }}
+                {% csrf_token %}
+                <div class="button-crud-ctr">
+                    <button class="delete-project">Delete</button>
+                </div>
 
-        </form>
+            </form>
 
 
-    </section>
-    {% include 'base/logo-section.html' %}
-
+        </section>
+        {% include 'base/logo-section.html' %}
+    </div>
 {% endblock %}

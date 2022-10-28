@@ -1,89 +1,92 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <section class="child-project-info">
-        <article class="details-arc">
-            <header>
-                <h3>BG100 - NEW ARCH - BUILDING 1</h3>
-            </header>
-            <main>
-                <p class="details-arc-header">Project name:</p>
-                <p class="details-arc-params">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
-                    reprehenderit asperiores nulla nam possimus iure natus assumenda exercitationem beatae?
-                    Impedit rerum cum explicabo delectus aperiam vitae voluptas deleniti quasi officiis.</p>
+    <div class="main-ctr">
+        <section class="child-project-info">
+            <article class="details-arc">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                <main>
+                    <p class="details-arc-header">Project name:</p>
+                    <p class="details-arc-params">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
+                        reprehenderit asperiores nulla nam possimus iure natus assumenda exercitationem beatae?
+                        Impedit rerum cum explicabo delectus aperiam vitae voluptas deleniti quasi officiis.</p>
 
-                <p class="details-arc-header">Project Phase:</p>
-                <p class="details-arc-params">Preliminary design</p>
+                    <p class="details-arc-header">Project Phase:</p>
+                    <p class="details-arc-params">Preliminary design</p>
 
-                <p class="details-arc-header">Contractor name:</p>
-                <p class="details-arc-params">NEW ARCH</p>
+                    <p class="details-arc-header">Contractor name:</p>
+                    <p class="details-arc-params">NEW ARCH</p>
 
-                <p class="details-arc-header">Status:</p>
-                <p class="details-arc-params">In Progress</p>
+                    <p class="details-arc-header">Status:</p>
+                    <p class="details-arc-params">In Progress</p>
 
-                <p class="details-arc-header">Project participants:</p>
-                <p class="details-arc-params">Tanya Angelova, Petar Ivanov, Ivan Ivanov, Maria Petrova, Stamo
-                    Georgiev</p>
+                    <p class="details-arc-header">Project participants:</p>
+                    <p class="details-arc-params">Tanya Angelova, Petar Ivanov, Ivan Ivanov, Maria Petrova, Stamo
+                        Georgiev</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:
-                </p>
-                <p class="deadline-info">12.12.2022</p>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:
+                    </p>
+                    <p class="deadline-info">12.12.2022</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to deadline:
-                </p>
-                <p class="deadline-info">150h</p>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to
+                        deadline:
+                    </p>
+                    <p class="deadline-info">150h</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left
-                    tasks:</p>
-                <p class="deadline-info">180h</p>
-            </main>
-            <hr>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
+                        left
+                        tasks:</p>
+                    <p class="deadline-info">180h</p>
+                </main>
+                <hr>
 
-            <div class="button-project-ctr">
-                <a href="{% url 'project details' pk=project.pk %}">
-                    <button class="details">Back</button>
-                </a>
-            </div>
+                <div class="button-project-ctr">
+                    <a href="{% url 'project details' pk=project.pk %}">
+                        <button class="details">Back</button>
+                    </a>
+                </div>
 
-        </article>
-    </section>
-    <section class="child">
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Participant Type</th>
+            </article>
+        </section>
+        <section class="child">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Participant Type</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Ivan Ivanov</td>
-                <td>
-                    ivan@ivanov.bg
-                </td>
-                <td>+35912345678</td>
-                <td>Supervisor</td>
-            </tr>
-            <tr>
-                <td>Petar Ivanov</td>
-                <td>
-                    petar@ivanov.bg
-                </td>
-                <td>+35912345678</td>
-                <td>Designer</td>
-            </tr>
-            <tr>
-                <td>Maria Petrova</td>
-                <td>
-                    maria@petrova.bg
-                </td>
-                <td>+35912345678</td>
-                <td>Contractor</td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
-
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Ivan Ivanov</td>
+                    <td>
+                        ivan@ivanov.bg
+                    </td>
+                    <td>+35912345678</td>
+                    <td>Supervisor</td>
+                </tr>
+                <tr>
+                    <td>Petar Ivanov</td>
+                    <td>
+                        petar@ivanov.bg
+                    </td>
+                    <td>+35912345678</td>
+                    <td>Designer</td>
+                </tr>
+                <tr>
+                    <td>Maria Petrova</td>
+                    <td>
+                        maria@petrova.bg
+                    </td>
+                    <td>+35912345678</td>
+                    <td>Contractor</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
 {% endblock %}

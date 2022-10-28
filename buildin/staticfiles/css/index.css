@@ -67,12 +67,12 @@ article.details-arc {
     line-height: 1.2;
     width: 500px;
     height: 100%;
-    
 }
 
 article img {
     width: 60%;
     height: 60%;
+    margin: 0 auto;
 }
 
 article header {

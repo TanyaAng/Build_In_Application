@@ -1,74 +1,81 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
+    <div class="main-ctr">
     <section class="child-project-info">
         <article class="details-arc">
             <header>
                 <h3>
                     <i class="fa-solid fa-user"></i>PROFILE INFO</h3>
             </header>
-            <main>
+            {% if profile.full_name %}
                 <p class="details-arc-header">Name:</p>
                 <p class="details-arc-params">{{ profile.full_name }}</p>
+            {% endif %}
 
+            {% if profile.participant_role %}
                 <p class="details-arc-header">Participant Role:</p>
                 <p class="details-arc-params">{{ profile.participant_role }}</p>
+            {% endif %}
 
+            {% if profile.phone_number %}
                 <p class="details-arc-header">Phone number:</p>
                 <p class="details-arc-params">{{ profile.phone_number }}</p>
+            {% endif %}
 
-                <p class="details-arc-header">projects participation:</p>
-                <div class="details-arc-params">
-                    <ul>
-                        {% for project in user_projects %}
-                            <li>
-                                <a href="{% url 'project details' pk=project.pk %}">{{ project }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-
-            </main>
+            <p class="details-arc-header">projects participation:</p>
+            <div class="details-arc-params">
+                <ul>
+                    {% for project in user_projects %}
+                        <li>
+                            <a href="{% url 'project details' pk=project.pk %}">{{ project }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
             <hr>
             <div class="button-project-ctr">
-{#                <a href="{% url 'profile edit' pk=profile.user_id %}">#}
-{#                    <button class="edit">Edit</button>#}
-{#                </a>#}
+                <a href="{% url 'profile edit' pk=profile.user_id %}">
+                    <button class="edit">Edit</button>
+                </a>
             </div>
 
         </article>
     </section>
-{% if user_tasks %}
+
     <section class="child-table">
-        <table>
-            <thead>
-            <tr>
-                <th>Project No</th>
-                <th>Task No</th>
-                <th>Task Name</th>
-                <th>Time Estimation </th>
-                <th>Deadline</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for task in user_tasks %}
+        {% if user_tasks %}
+            <table>
+                <thead>
                 <tr>
-                    <td>
-                        <a href="{% url 'project details' pk=task.project.pk %}">{{ task.project }}</a>
-                    </td>
-                    <td>
-                        {{ task.task_id }}
-                    </td>
-                    <td>{{ task.task_name }}</td>
-                    <td>{{ task.time_estimation }}</td>
-                    <td>{{ task.project.deadline_date }}</td>
+                    <th>Project No</th>
+                    <th>Task No</th>
+                    <th>Task Name</th>
+                    <th>Time Estimation</th>
+                    <th>Deadline</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for task in user_tasks %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'project details' pk=task.project.pk %}">{{ task.project }}</a>
+                        </td>
+                        <td>
+                            {{ task.task_id }}
+                        </td>
+                        <td>{{ task.task_name }}</td>
+                        <td>{{ task.time_estimation }}</td>
+                        <td>{{ task.project.deadline_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h3>No added tasks yet!</h3>
+        {% endif %}
     </section>
-    {% else %}
-    <h3>No added tasks yet!</h3>
-    {% endif %}
+
 
 {% endblock %}
+
+</div>

@@ -1,11 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block base_content %}
-
-    <section>
+    <section class="article-section">
         {% if projects %}
             {% for project in projects %}
-                <article class="dashboard">
+                <article class="dashboard-artc">
                     <header>
                         <h3>{{ project.project_identifier }}</h3>
                     </header>
@@ -32,7 +31,5 @@
                 <h3>You are not a participant to any project yet!</h3>
             </div>
         {% endif %}
-
     </section>
-
 {% endblock %}

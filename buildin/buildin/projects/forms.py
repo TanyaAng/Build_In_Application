@@ -27,7 +27,7 @@ class CreateProjectForm(forms.ModelForm):
 class EditProjectForm(forms.ModelForm):
     class Meta:
         model = BuildInProject
-        exclude = ('date_added',)
+        exclude = ('date_added', 'owner',)
         labels = {
             'project_identifier': 'Project',
             'project_name': 'Project Name',

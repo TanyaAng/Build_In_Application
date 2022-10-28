@@ -1,23 +1,23 @@
 from django.db.models import Q
 
 from django.contrib.auth import views as auth_views
-from django.views import generic as views
+from django.views import generic as generic_views
 from django.contrib.auth import login
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from buildin.common.helpers.user_helpers import get_profile_of_current_user
+from buildin.accounts.models import Profile
+from buildin.common.helpers.user_helpers import get_profile_of_current_user, get_full_name_current_user
 from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
-from buildin.accounts.forms import UserRegistrationForm
-
+from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 
 UserModel = auth_views.get_user_model()
 
 
-class UserRegisterView(views.CreateView):
+class UserRegisterView(generic_views.CreateView):
     form_class = UserRegistrationForm
-    template_name = 'accounts/profile_create.html'
+    template_name = 'accounts/register.html'
     success_url = reverse_lazy('dashboard')
 
     # def get_context_data(self, **kwargs):
@@ -56,36 +56,86 @@ class UserLogoutView(auth_views.LogoutView):
     pass
 
 
-class ProfileDetailsView(views.DetailView):
-    model = UserModel
-    template_name = 'accounts/profile-details.html'
+# class ProfileDetailsView(generic_views.DetailView):
+#     model = Profile
+#     template_name = 'accounts/profile-details.html'
+#     context_object_name = 'profile'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user_projects=BuildInProject.objects.filter(
-            Q(participants__in=[self.request.user.id]) |
-            Q(owner_id=self.request.user.id)
-        )
-        user_tasks = ProjectTask.objects.filter(
-            Q(designer__exact=self.request.user) | Q(checked_by__exact=self.request.user))
+# def dispatch(self, request, *args, **kwargs):
+# if self.object is None:
+#     return redirect('profile create')
+# print(self.object)
+# return super().dispatch(request, *args, **kwargs)
 
-        context['profile'] = get_profile_of_current_user(self.request)
-        context['user_projects'] = user_projects.distinct()
-        print(user_projects)
-        context['user_tasks'] = user_tasks
-        return context
+# def get_context_data(self, **kwargs):
+#     context = super().get_context_data(**kwargs)
+#     user = self.object.user_id
+#
+#     user_projects = BuildInProject.objects.filter(
+#         Q(participants__exact=user) |
+#         Q(owner_id=user)
+#     )
+#     user_tasks = ProjectTask.objects.filter(
+#         Q(designer__exact=user) | Q(checked_by__exact=user))
+#
+#     context['user_projects'] = user_projects.distinct()
+#     context['user_tasks'] = user_tasks
+#     context['user_full_name'] = get_full_name_current_user(self.request)
+#     return context
 
 
-# def profile_details(request, pk):
-#     user_projects = BuildInProject.objects.filter(participants__exact=request.user.id)
-#     context = {
-#         'profile': get_profile_of_current_user(request),
-#         'user_full_name': get_full_of_logged_user(request),
-#         'user_email': request.user,
-#         'user_projects': user_projects
-#     }
-#     return render(request, 'accounts/profile-details.html', context)
+def profile_details(request, pk):
+    profile = Profile.objects.filter(pk=pk)
+    if not profile:
+        return redirect('profile create')
+
+    profile = profile.get()
+    user = profile.user_id
+
+    user_full_name = get_full_name_current_user(request)
+
+    user_projects = BuildInProject.objects.filter(
+        Q(participants__exact=user) |
+        Q(owner_id=user)
+    )
+    user_tasks = ProjectTask.objects.filter(
+        Q(designer__exact=user) | Q(checked_by__exact=user))
+    context = {
+        'profile': profile,
+        'user_full_name': user_full_name,
+        'user_projects': user_projects.distinct(),
+        'user_tasks': user_tasks,
+    }
+    return render(request, 'accounts/profile-details.html', context)
+
+
+def profile_create(request):
+    if request.method == 'GET':
+        form = CreateProfileForm()
+    else:
+        form = CreateProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user=request.user
+            profile.save()
+            return redirect('profile details', profile.user_id)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/profile-create.html', context)
 
 
 def profile_edit(request, pk):
-    return render(request, 'accounts/profile-edit.html')
+    profile = Profile.objects.filter(pk=pk).get()
+    if request.method == 'GET':
+        form = EditProfileForm(instance=profile)
+    else:
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('project details', profile.user_id)
+    context = {
+        'form': form,
+        'profile': profile,
+    }
+    return render(request, 'accounts/profile-edit.html', context)

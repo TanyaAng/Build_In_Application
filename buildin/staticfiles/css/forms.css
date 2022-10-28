@@ -1,13 +1,13 @@
-form.login-register-form {
+form.login-register-form{
     font-weight: bold;
     font-size: 20px;
-    display: grid;
-    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
     padding: 0px 50px;
     line-height: 2;
 }
 
-form.crud-form {
+form.crud-form{
     font-weight: bold;
     font-size: 18px;
     display: grid;

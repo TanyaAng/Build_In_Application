@@ -1,33 +1,27 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <section class="child">
+    <div class="main-ctr">
+        <section class="child">
+            <form method="POST" action="{% url 'login' %}" class="login-register-form">
+                <h1><i class="fa-solid fa-user"></i>LOGIN</h1>
+                {{ form }}
+                {% csrf_token %}
+                <div class="button-crud-ctr">
+                    <button class="login">Login</button>
+                </div>
+            </form>
+        </section>
 
-        <form method="POST" action="{% url 'login' %}" class="login-register-form">
-            <h1><i class="fa-solid fa-user"></i>LOGIN</h1>
-            {{ form }}
-{#            <label for="email">Email</label>#}
-{#            <input type="email" placeholder="john@somemail.com" value="{{ email }}">#}
-{##}
-{#            <label for="password">Password</label>#}
-{#            <input type="password" placeholder="********" value="{{ password }}">#}
-
-            {% csrf_token %}
-
-            <div class="button-crud-ctr">
-                <button class="login">Login</button>
+        <section class="child">
+            <div class="logo-ctr">
+                <h1 class="main-logo">BuildIn</h1>
+                <h1 class="main-logo">BuildIn</h1>
             </div>
-        </form>
-    </section>
 
-    <section class="child">
-        <div class="logo-ctr">
-            <h1 class="main-logo">BuildIn</h1>
-            <h1 class="main-logo">BuildIn</h1>
-        </div>
-
-        <div class="logo-ctr">
-            <h2>
-                <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
-        </div>
-    </section>
+            <div class="logo-ctr">
+                <h2>
+                    <i class="fa-solid fa-helmet-safety"></i>Application for Professional Builders</h2>
+            </div>
+        </section>
+    </div>
 {% endblock %}

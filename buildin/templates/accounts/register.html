@@ -2,15 +2,17 @@
 {% block base_content %}
     <div class="main-ctr">
     <section class="child">
-        <form action="{% url 'profile edit' pk=profile.user_id %}" method="POST" class="crud-form">
-            <h1><i class="fa-solid fa-user"></i>EDIT PROFILE</h1>
+        <form action="{% url 'register' %}" method="POST" class="login-register-form">
+            <h1><i class="fa-solid fa-user"></i>REGISTER</h1>
             {{ form }}
+            {{ profile_form }}
             {% csrf_token %}
             <div class="button-crud-ctr">
-                <button class="edit">Submit</button>
+                <button class="register">Submit</button>
             </div>
         </form>
     </section>
+
     {% include 'base/logo-section.html' %}
 {% endblock %}
 </div>

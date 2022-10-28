@@ -1,108 +1,109 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <section class="child-project-info">
-        <article class="details-arc">
-            <header>
-                <h3>BG100 - NEW ARCH - BUILDING 1</h3>
-            </header>
-            <main>
-                <p class="details-arc-header">Project name:</p>
-                <p class="details-arc-params">{{ project.project_name }}</p>
+    <div class="main-ctr">
+        <section class="child-project-info">
+            <article class="details-arc">
+                <header>
+                    <h3>BG100 - NEW ARCH - BUILDING 1</h3>
+                </header>
+                    <p class="details-arc-header">Project name:</p>
+                    <p class="details-arc-params">{{ project.project_name }}</p>
 
-                <p class="details-arc-header">Project Phase:</p>
-                <p class="details-arc-params">{{ project.project_phase }}</p>
+                    <p class="details-arc-header">Project Phase:</p>
+                    <p class="details-arc-params">{{ project.project_phase }}</p>
 
-                <p class="details-arc-header">Contractor name:</p>
-                <p class="details-arc-params">{{ project.client_name }}</p>
+                    <p class="details-arc-header">Contractor name:</p>
+                    <p class="details-arc-params">{{ project.client_name }}</p>
 
-                <p class="details-arc-header">Project participants: </p>
-                <p class="details-arc-params">{{ participants }}</p>
-                <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
-                        class="fa-solid fa-address-book"></i>Contact List</a></p>
+                    <p class="details-arc-header">Project participants: </p>
+                    <p class="details-arc-params">{{ participants }}</p>
+                    <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
+                            class="fa-solid fa-address-book"></i>Contact List</a></p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
-                <p class="deadline-info">{{ project.deadline_date }}</p>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
+                    <p class="deadline-info">{{ project.deadline_date }}</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to deadline:
-                </p>
-                <p class="deadline-info">h</p>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to
+                        deadline:
+                    </p>
+                    <p class="deadline-info">h</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of left
-                    tasks:</p>
-                <p class="deadline-info">{{ total_time_of_project }} h</p>
+                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
+                        left
+                        tasks:</p>
+                    <p class="deadline-info">{{ total_time_of_project }} h</p>
+                <hr>
 
-            </main>
-            <hr>
-
-            <div class="button-project-ctr">
-                <a href="{% url 'task create' pk=project.pk %}">
-                    <button class="edit">Add Task</button>
-                </a>
-                {% if request.user == project.owner %}
-                    <a href="{% url 'project edit' pk=project.pk %}">
-                        <button class="edit">Edit</button>
+                <div class="button-project-ctr">
+                    <a href="{% url 'task create' pk=project.pk %}">
+                        <button class="edit">Add Task</button>
                     </a>
-                    <a href="{% url 'project delete' pk=project.pk %}">
-                        <button class="delete">Delete</button>
-                    </a>
-                {% endif %}
-            </div>
+                    {% if request.user == project.owner %}
+                        <a href="{% url 'project edit' pk=project.pk %}">
+                            <button class="edit">Edit</button>
+                        </a>
+                        <a href="{% url 'project delete' pk=project.pk %}">
+                            <button class="delete">Delete</button>
+                        </a>
+                    {% endif %}
+                </div>
 
-        </article>
-    </section>
+            </article>
+        </section>
 
-    <section class="child-table">
-        {% if tasks %}
-            <table>
-                <thead>
-                <tr>
-                    <th>Drawing No</th>
-                    <th>Task Name</th>
-                    <th>Time Estimation</th>
-                    <th>Designer</th>
-                    <th>Ready for Markups</th>
-                    <th>Checked by</th>
-                    <th>Approved</th>
-                    <th>Issued</th>
-                    <th>Edit/Delete</th>
-                    {#                    <th>Edit</th>#}
-                    {#                    <th>Delete</th>#}
-                </tr>
-                </thead>
-                <tbody>
-                {% for task in tasks %}
+        <section class="child-table">
+            {% if tasks %}
+                <table>
+                    <thead>
                     <tr>
-                        <td>{{ task.task_id }}</td>
-                        <td>
-                            {{ task.task_name }}
-                        </td>
-                        <td>{{ task.time_estimation }} hours</td>
-                        <td>{{ task.designer }}</td>
-                        <td>{{ task.is_ready_for_markups }}</td>
-                        <td>{{ task.checked_by }}</td>
-                        <td>{{ task.is_approved }}</td>
-                        <td>{{ task.is_issued }}</td>
-                        <td>
+                        <th>Drawing No</th>
+                        <th>Task Name</th>
+                        <th>Time Estimation</th>
+                        <th>Designer</th>
+                        <th>Ready for Markups</th>
+                        <th>Checked by</th>
+                        <th>Approved</th>
+                        <th>Issued</th>
+                        <th>Edit/Delete</th>
+                        {#                    <th>Edit</th>#}
+                        {#                    <th>Delete</th>#}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{ task.task_id }}</td>
+                            <td>
+                                {{ task.task_name }}
+                            </td>
+                            <td>{{ task.time_estimation }} hours</td>
+                            <td>{{ task.designer }}</td>
+                            <td>{{ task.is_ready_for_markups }}</td>
+                            <td>{{ task.checked_by }}</td>
+                            <td>{{ task.is_approved }}</td>
+                            <td>{{ task.is_issued }}</td>
+                            <td>
                             <span>
                                 <a href="{% url 'task edit' pk=project.pk task_pk=task.pk %}">
                                     <i class="fa-solid fa-pen"></i>
                                     {#                                <button class="edit-task">Edit</button>#}
                                 </a>
                             </span>
-                            <span>
+                                <span>
                                 <a href="{% url 'task delete' pk=project.pk task_pk=task.pk %}">
                                     <i class="fa-sharp fa-solid fa-trash"></i>
                                     {#                            <button class="delete-task">Delete</button>#}
                                 </a>
                             </span>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <h1>No Tasks Yet!</h1>
-        {% endif %}
-    </section>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h1>No Tasks Yet!</h1>
+            {% endif %}
+        </section>
+    </div>
 
 {% endblock %}

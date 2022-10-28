@@ -1,17 +1,18 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <section class="child-crud">
-        <form action="{% url 'project edit' pk=project.pk %}" method="post"
-              class="crud-form">
-            <h1><i class="fa-solid fa-helmet-safety"></i> EDIT PROJECT</h1>
-            {{ form }}
-            {% csrf_token %}
-            <div class="button-crud-ctr">
-                <button class="edit">Submit</button>
-            </div>
-        </form>
-    </section>
+    <div class="main-ctr">
+        <section class="child-crud">
+            <form action="{% url 'project edit' pk=project.pk %}" method="post"
+                  class="crud-form">
+                <h1><i class="fa-solid fa-helmet-safety"></i> EDIT PROJECT</h1>
+                {{ form }}
+                {% csrf_token %}
+                <div class="button-crud-ctr">
+                    <button class="edit">Submit</button>
+                </div>
+            </form>
+        </section>
 
-    {% include 'base/logo-section.html' %}
-
+        {% include 'base/logo-section.html' %}
+    </div>
 {% endblock %}
