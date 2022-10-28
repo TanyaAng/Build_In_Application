@@ -1,0 +1,26 @@
+table {
+    margin: 95px 0px;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th {
+    font-size: 16px;
+    text-align: center;
+    background-color:var(--clr-green-light);
+    border: 1px solid var(--clr-lightgrey);
+    height: 30px;
+}
+
+td {
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid var(--clr-lightgrey);
+    padding-left: 5px;
+    height: 30px;
+}
+
+tr:nth-child(odd) {
+    background-color:var(--clr-bg-white);
+}

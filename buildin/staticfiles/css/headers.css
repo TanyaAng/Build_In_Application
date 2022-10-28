@@ -1,0 +1,33 @@
+.logo-ctr {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1.main-logo {
+    display: block;
+    padding: 10px;
+    /* font-size: 6vw; */
+    font-size: 120px;
+    font-weight: 900;
+    background-color: var(--clr-darkgrey);
+    border-radius: 10px;
+    border: 1px solid var(--clr-logo-white);
+    color: var(--clr-logo-white);
+    
+}
+
+h1.main-logo:nth-child(2) {
+    position: absolute;
+    background-color: var(--clr-logo-white);
+    color: var(--clr-darkgrey);
+    clip-path: inset(-1% -1% 50% -1%);
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--clr-green-secondary);
+    text-transform: capitalize;
+}
