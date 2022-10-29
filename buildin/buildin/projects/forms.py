@@ -24,6 +24,8 @@ class CreateProjectForm(forms.ModelForm):
         }
 
 
+
+
 class EditProjectForm(forms.ModelForm):
     class Meta:
         model = BuildInProject

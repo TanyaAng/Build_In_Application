@@ -5,12 +5,13 @@ from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
 
+
 def task_create(request, pk):
     project = BuildInProject.objects.filter(pk=pk).get()
     if request.method == 'GET':
-        form = CreateTaskForm()
+        form = CreateTaskForm(project=project)
     else:
-        form = CreateTaskForm(request.POST)
+        form = CreateTaskForm(request.POST, project=project)
         if form.is_valid():
             task = form.save(commit=False)
             task.project = project
@@ -28,9 +29,9 @@ def task_edit(request, pk, task_pk):
     project = BuildInProject.objects.filter(pk=pk).get()
     task = ProjectTask.objects.filter(pk=task_pk).get()
     if request.method == 'GET':
-        form = EditTaskForm(instance=task)
+        form = EditTaskForm(instance=task, project=project)
     else:
-        form = EditTaskForm(request.POST, instance=task)
+        form = EditTaskForm(request.POST, instance=task, project=project)
         if form.is_valid():
             form.save()
             return redirect('project details', pk)
