@@ -2,7 +2,7 @@
 {% block base_content %}
     <div class="main-ctr">
         <section class="child-crud">
-            <form action="{% url 'task edit' pk=project.pk task_pk=task.pk %}" method="POST" class="crud-form">
+            <form action="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}" method="POST" class="crud-form">
                 <h1><i class="fa-solid fa-helmet-safety"></i> EDIT TASK</h1>
                 <h3 class="project-name">BG100 - NEW ARCH - BUILDING 1</h3>
                 {{ form }}

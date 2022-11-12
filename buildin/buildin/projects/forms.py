@@ -60,7 +60,7 @@ class DeleteProjectForm(forms.ModelForm):
 
     class Meta:
         model = BuildInProject
-        exclude = ('participants', 'project_img', 'date_added')
+        exclude = ('participants', 'project_img', 'date_added', 'owner')
         widgets = {
             'project_name': forms.TextInput(),
         }

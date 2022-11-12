@@ -1,14 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from buildin.common.helpers.tasks_helper import calculate_total_time_of_project
-from buildin.common.helpers.user_helpers import get_full_name_current_user
+from buildin.core.helpers.tasks_helper import calculate_total_time_of_project
+from buildin.core.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 
 
-def project_details(request, pk):
-    project = BuildInProject.objects.filter(pk=pk).get()
+@login_required
+def project_details(request, build_slug):
+    project = BuildInProject.objects.filter(slug=build_slug).get()
     project_participants = project.participants.all()
     participants = [p.email for p in project_participants]
     tasks = ProjectTask.objects.filter(project__exact=project)
@@ -24,6 +26,7 @@ def project_details(request, pk):
     return render(request, 'projects/project-details.html', context)
 
 
+@login_required
 def project_create(request):
     if request.method == 'GET':
         form = CreateProjectForm()
@@ -41,8 +44,9 @@ def project_create(request):
     return render(request, 'projects/project-create.html', context)
 
 
-def project_edit(request, pk):
-    project = BuildInProject.objects.filter(pk=pk).get()
+@login_required
+def project_edit(request, build_slug):
+    project = BuildInProject.objects.filter(slug=build_slug).get()
     if request.method == 'GET':
         form = EditProjectForm(instance=project)
     else:
@@ -58,8 +62,9 @@ def project_edit(request, pk):
     return render(request, 'projects/project-edit.html', context)
 
 
-def project_delete(request, pk):
-    project = BuildInProject.objects.filter(pk=pk).get()
+@login_required
+def project_delete(request, build_slug):
+    project = BuildInProject.objects.filter(slug=build_slug).get()
     if request.method == 'GET':
         form = DeleteProjectForm(instance=project)
     else:
@@ -74,6 +79,6 @@ def project_delete(request, pk):
     }
     return render(request, 'projects/project-delete.html', context)
 
-
-def project_contacts(request, pk):
+@login_required
+def project_contacts(request, build_slug):
     return render(request, 'projects/project-contacts.html')

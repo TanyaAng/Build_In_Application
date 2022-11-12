@@ -11,14 +11,14 @@
                     <p class="project-status">Status: {{ project.project_phase }}</p>
                     <img src="{{ project.project_img }}" alt="">
                     <div>
-                        <a href="{% url 'project details' pk=project.pk %}">
+                        <a href="{% url 'project details' build_slug=project.slug %}">
                             <button class="details">Details</button>
                         </a>
-                        {% if request.user == project.owner %}
-                            <a href="{% url 'project edit' pk=project.pk %}">
+                        {% if request.user == project.owner or request.user.is_superuser %}
+                            <a href="{% url 'project edit' build_slug=project.slug %}">
                                 <button class="edit">Edit</button>
                             </a>
-                            <a href="{% url 'project delete'  pk=project.pk %}">
+                            <a href="{% url 'project delete'  build_slug=project.slug %}">
                                 <button class="delete">Delete</button>
                             </a>
                         {% endif %}

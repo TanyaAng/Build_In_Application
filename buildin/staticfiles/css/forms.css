@@ -1,4 +1,4 @@
-form.login-register-form{
+form.login-register-form {
     font-weight: bold;
     font-size: 20px;
     display: flex;
@@ -7,12 +7,20 @@ form.login-register-form{
     line-height: 2;
 }
 
-form.crud-form{
+form.crud-form {
     font-weight: bold;
     font-size: 18px;
     display: grid;
     padding: 0px 50px;
     line-height: 2;
+}
+
+.form.crud-form .phone-field-ext{
+    display: none;
+}
+
+.form.crud-form #id_phone_number_1{
+    display: none;
 }
 
 form.login-register-form input,
@@ -24,18 +32,19 @@ select {
     padding-left: 10px;
 }
 
-form.crud-form input, select{
+form.crud-form input, select {
     width: 50%;
     height: 35px;
     border-radius: 10px;
     border: none;
     padding-left: 15px;
-    
+
 }
 
-form h1{
-    width:50%;
+form h1 {
+    width: 50%;
     text-align: center;
-    margin-top:10px;
-    margin-bottom:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+

@@ -17,7 +17,7 @@
 
                     <p class="details-arc-header">Project participants: </p>
                     <p class="details-arc-params">{{ participants }}</p>
-                    <p class="details-arc-params"><a href="{% url 'project contacts' pk=project.pk %}"><i
+                    <p class="details-arc-params"><a href="{% url 'project contacts' build_slug=project.slug %}"><i
                             class="fa-solid fa-address-book"></i>Contact List</a></p>
 
                     <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
@@ -35,14 +35,14 @@
                 <hr>
 
                 <div class="button-project-ctr">
-                    <a href="{% url 'task create' pk=project.pk %}">
+                    <a href="{% url 'task create' build_slug=project.slug %}">
                         <button class="edit">Add Task</button>
                     </a>
                     {% if request.user == project.owner %}
-                        <a href="{% url 'project edit' pk=project.pk %}">
+                        <a href="{% url 'project edit' build_slug=project.slug %}">
                             <button class="edit">Edit</button>
                         </a>
-                        <a href="{% url 'project delete' pk=project.pk %}">
+                        <a href="{% url 'project delete' build_slug=project.slug %}">
                             <button class="delete">Delete</button>
                         </a>
                     {% endif %}

@@ -93,7 +93,7 @@ button.edit:hover,
 button.edit-task:hover {
     background-color: var(--clr-orange-primary);
     border: none;
-    color: (--clr-text-white);
+    color: var(--clr-text-white);
 }
 
 button.delete:hover,

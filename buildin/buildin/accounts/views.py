@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
 from buildin.accounts.models import Profile
-from buildin.common.helpers.user_helpers import get_profile_of_current_user, get_full_name_current_user
+from buildin.core.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
@@ -98,8 +98,9 @@ def profile_details(request, pk):
         Q(participants__exact=user) |
         Q(owner_id=user)
     )
-    user_tasks = ProjectTask.objects.filter(
-        Q(designer__exact=user) | Q(checked_by__exact=user))
+
+    user_tasks = ProjectTask.objects.filter(Q(designer__exact=user) | Q(checked_by__exact=user))
+
     context = {
         'profile': profile,
         'user_full_name': user_full_name,
@@ -116,7 +117,7 @@ def profile_create(request):
         form = CreateProfileForm(request.POST)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user=request.user
+            profile.user = request.user
             profile.save()
             return redirect('profile details', profile.user_id)
     context = {
@@ -133,7 +134,7 @@ def profile_edit(request, pk):
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('project details', profile.user_id)
+            return redirect('profile details', profile.user_id)
     context = {
         'form': form,
         'profile': profile,

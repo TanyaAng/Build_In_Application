@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from buildin.accounts.models import BuildInUser
 from buildin.projects.models import BuildInProject
@@ -53,7 +54,18 @@ class ProjectTask(models.Model):
         blank=True,
     )
 
+    slug = models.SlugField(
+        unique=True,
+        editable=False,
+    )
+
     project = models.ForeignKey(
         BuildInProject,
         on_delete=models.RESTRICT,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f"{self.task_id}-{self.id}")
+            return super().save(*args, **kwargs)

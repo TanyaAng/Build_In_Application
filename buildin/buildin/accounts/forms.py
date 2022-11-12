@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
 
-from phone_field import PhoneField
-from buildin.accounts.models import Profile
+from buildin.accounts.models import Profile, ParticipantRole
 
 UserModel = auth_forms.get_user_model()
 
@@ -10,7 +9,7 @@ UserModel = auth_forms.get_user_model()
 class UserRegistrationForm(auth_forms.UserCreationForm):
     first_name = forms.CharField(max_length=Profile.FIRST_NAME_MAX_LENGTH)
     last_name = forms.CharField(max_length=Profile.LAST_NAME_MAX_LENGTH)
-    role = forms.ChoiceField(choices=Profile.ROLES)
+    role = forms.ChoiceField(choices=ParticipantRole.choices())
 
     class Meta:
         model = UserModel
@@ -29,17 +28,40 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
 
 
 class CreateProfileForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.__hidden_phone_input()
+    #
+    # def __hidden_phone_input(self):
+    #     self.fields['phone_number_1'].widget = forms.HiddenInput()
+
     class Meta:
         model = Profile
         exclude = ('user',)
+        widgets = {
+            'phone_number_1': forms.CharField(widget=forms.HiddenInput(), required=False)
+        }
         # fields = ('first_name', 'last_name', 'phone_number', 'participant_role')
+        # widgets={
+        #     'phone_number': Phone
+        # }
 
 
 class EditProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__hidden_phone_input()
+
+    def __hidden_phone_input(self):
+        self.fields['phone_number'].fields[1].widget.attrs.update({'class': 'id_phone_number_100'})
+
+
     class Meta:
         model = Profile
         exclude = ('user',)
-
+        # widgets = {
+        #     self.__hidden_phone_input: forms.CharField(widget=forms.HiddenInput(), required=False)
+        # }
 
 # class DeleteProfileForm(forms.ModelForm):
 #     def __init__(self, *args, **kwargs):
