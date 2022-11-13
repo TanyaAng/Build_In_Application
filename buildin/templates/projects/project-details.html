@@ -64,8 +64,9 @@
                         <th>Checked by</th>
                         <th>Approved</th>
                         <th>Issued</th>
-                        <th>Edit/Delete</th>
                         <th>Comment</th>
+                        <th>Edit/Delete</th>
+
                         {#                    <th>Edit</th>#}
                         {#                    <th>Delete</th>#}
                     </tr>
@@ -85,26 +86,24 @@
                             <td>{{ task.is_issued }}</td>
                             <td>
                             <span>
+                                <a href="{% url 'comment section' task_slug=task.slug %}">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </a>
+                            </span>
+                        </td>
+                            <td>
+                            <span>
                                 <a href="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-solid fa-pen"></i>
-                                    {#                                <button class="edit-task">Edit</button>#}
                                 </a>
                             </span>
                                 <span>
                                 <a href="{% url 'task delete' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-sharp fa-solid fa-trash"></i>
-                                    {#                            <button class="delete-task">Delete</button>#}
                                 </a>
                             </span>
                             </td>
-                        <td>
-                            <span>
-                                <a href="{% url 'add comment' task_slug=task.slug %}">
-                                    <i class="fa-solid fa-comment-dots"></i>
-                                    {#                                <button class="edit-task">Edit</button>#}
-                                </a>
-                            </span>
-                        </td>
+
                         </tr>
                     {% endfor %}
                     </tbody>

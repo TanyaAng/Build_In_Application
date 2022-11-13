@@ -14,3 +14,5 @@ urlpatterns = (
          ])),
     path('building/<slug:build_slug>/', include('buildin.tasks.urls')),
 )
+
+# import buildin.common.signals

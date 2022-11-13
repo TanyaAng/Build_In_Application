@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+    <div class="main-ctr">
+        <section class="child-crud">
+        <h1><i class="fa-solid fa-helmet-safety"></i>{{ task.project.project_identifier }}</h1>
+        <h3>{{ task.task_name }}</h3>
+
+            <div class="comments">
+            {% for comment in comments %}
+                <p>{{ comment.user }}</p>
+                <p>{{ comment.publication_date_time }}</p>
+                <p>{{ comment.description }}</p>
+            {% endfor %}
+        </div>
+            <form action="{% url 'comment section' task_slug=task.slug %}" method="POST" class="crud-form">
+                {{ form }}
+                {% csrf_token %}
+                <div class="button-crud-ctr">
+                    <button class="edit">POST</button>
+                </div>
+            </form>
+        </section>
+
+        {% include 'base/logo-section.html' %}
+    </div>
+{% endblock %}

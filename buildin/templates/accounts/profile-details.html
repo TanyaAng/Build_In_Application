@@ -63,7 +63,9 @@
                         <td>
                             {{ task.task_id }}
                         </td>
-                        <td>{{ task.task_name }}</td>
+                        <td>
+                            <a href="{% url 'comment section' task_slug=task.slug %}">{{ task.task_name }}</a>
+                            </td>
                         <td>{{ task.time_estimation }}</td>
                         <td>{{ task.project.deadline_date }}</td>
                     </tr>

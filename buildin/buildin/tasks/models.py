@@ -61,7 +61,7 @@ class ProjectTask(models.Model):
 
     project = models.ForeignKey(
         BuildInProject,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
     )
 
     def save(self, *args, **kwargs):

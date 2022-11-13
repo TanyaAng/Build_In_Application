@@ -67,7 +67,7 @@ class DashboardView(LoginRequiredMixin, views.ListView):
 class CommentCreateView(views.CreateView):
     model = TaskComment
     form_class = CreateCommentForm
-    template_name = 'tasks/add-comment.html'
+    template_name = 'tasks/task-comments.html'
 
     def get_success_url(self):
         return reverse_lazy('project details', kwargs={'build_slug': self.object.to_task.project.slug})
@@ -108,8 +108,10 @@ class CommentCreateView(views.CreateView):
 
 def comment_task(request, task_slug):
     task = ProjectTask.objects.filter(slug=task_slug).get()
-    if request.method=='GET':
-        form=CreateCommentForm()
+    comments = TaskComment.objects.filter(to_task=task)
+    user_full_name = get_full_name_current_user(request)
+    if request.method == 'GET':
+        form = CreateCommentForm()
     else:
         form = CreateCommentForm(request.POST)
         if form.is_valid():
@@ -117,9 +119,11 @@ def comment_task(request, task_slug):
             comment.to_task = task
             comment.user = request.user
             comment.save()
-            return redirect(reverse_lazy('project details', kwargs={'build_slug': task.project.slug}))
-    context={
-        'form':form,
-        'task':task,
+            return redirect(reverse_lazy('comment section', kwargs={'task_slug': task.slug}))
+    context = {
+        'form': form,
+        'task': task,
+        'comments': comments,
+        'user_full_name': user_full_name,
     }
-    return render(request,'tasks/add-comment.html', context)
+    return render(request, 'tasks/task-comments.html', context)
