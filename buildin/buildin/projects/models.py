@@ -11,11 +11,11 @@ UserModel = get_user_model()
 
 
 class ProjectPhases(ChoiceEnumMixin, Enum):
-    RandD = 'RD'
-    PD = 'PD'
-    SD = 'SD'
-    DD = 'DD'
-    CD = 'CD'
+    RandD = 'Research and Development'
+    PD = 'Preliminary Design'
+    SD = 'Schematic Design'
+    DD = 'Design Development'
+    CD = 'Construction Document'
     OTHER = 'Other'
 
 

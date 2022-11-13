@@ -58,7 +58,7 @@
                 {% for task in user_tasks %}
                     <tr>
                         <td>
-                            <a href="{% url 'project details' task_slug=task.project.slug %}">{{ task.project }}</a>
+                            <a href="{% url 'project details' build_slug=task.project.slug %}">{{ task.project }}</a>
                         </td>
                         <td>
                             {{ task.task_id }}

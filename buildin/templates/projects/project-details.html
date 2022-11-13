@@ -38,7 +38,7 @@
                     <a href="{% url 'task create' build_slug=project.slug %}">
                         <button class="edit">Add Task</button>
                     </a>
-                    {% if request.user == project.owner %}
+                    {% if request.user == project.owner or request.user.is_superuser %}
                         <a href="{% url 'project edit' build_slug=project.slug %}">
                             <button class="edit">Edit</button>
                         </a>
@@ -65,6 +65,7 @@
                         <th>Approved</th>
                         <th>Issued</th>
                         <th>Edit/Delete</th>
+                        <th>Comment</th>
                         {#                    <th>Edit</th>#}
                         {#                    <th>Delete</th>#}
                     </tr>
@@ -84,18 +85,26 @@
                             <td>{{ task.is_issued }}</td>
                             <td>
                             <span>
-                                <a href="{% url 'task edit' pk=project.pk task_pk=task.pk %}">
+                                <a href="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-solid fa-pen"></i>
                                     {#                                <button class="edit-task">Edit</button>#}
                                 </a>
                             </span>
                                 <span>
-                                <a href="{% url 'task delete' pk=project.pk task_pk=task.pk %}">
+                                <a href="{% url 'task delete' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-sharp fa-solid fa-trash"></i>
                                     {#                            <button class="delete-task">Delete</button>#}
                                 </a>
                             </span>
                             </td>
+                        <td>
+                            <span>
+                                <a href="{% url 'add comment' task_slug=task.slug %}">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                    {#                                <button class="edit-task">Edit</button>#}
+                                </a>
+                            </span>
+                        </td>
                         </tr>
                     {% endfor %}
                     </tbody>
