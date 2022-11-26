@@ -1,7 +1,7 @@
 from buildin.accounts.models import Profile
 
 
-def get_request_user_id(request):
+def get_request_user(request):
     return request.user
 
 
