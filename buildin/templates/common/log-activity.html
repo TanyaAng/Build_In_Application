@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block base_content %}
+    <section class="article-section">
+        {% if comments %}
+            <ul>
+            {% for comment in comments %}
+                <li>{{ comment }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <div>
+                <h3>No added comments yet!</h3>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -15,20 +15,20 @@ MODELS_RELATED = get_signals_models_related()
 @receiver(signals.post_save, sender=ProjectTask, dispatch_uid='unique_identifier')
 def task_created(instance, created, **kwargs):
     request = get_request_in_signal()
-    user_id = get_request_user_id(request)
+    user = get_request_user_id(request)
     action = f"{CRUD_MAPPER['CREATE']} {MODELS_RELATED['TASK']}"
     model = instance
     to_related = get_project_related_to_task(instance)
     print(f"Created: {created}\nSlug: {instance.slug}")
     if created:
-        create_logactivity_entity(user_id=user_id, action=action, model=model, to_related=to_related)
+        create_logactivity_entity(user_email=user, action=action, model=model, to_related=to_related)
 
 
 @receiver(signals.pre_delete, sender=ProjectTask)
 def task_deleted(instance, **kwargs):
     request = get_request_in_signal()
-    user_id = get_request_user_id(request)
+    user = get_request_user_id(request)
     action = f"{CRUD_MAPPER['DELETE']} {MODELS_RELATED['TASK']}"
     model = instance
     to_related = get_project_related_to_task(instance)
-    create_logactivity_entity(user_id=user_id, action=action, model=model, to_related=to_related)
+    create_logactivity_entity(user_email=user, action=action, model=model, to_related=to_related)

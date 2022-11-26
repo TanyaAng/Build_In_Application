@@ -1,11 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import mixins as auth_mixins
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
 from buildin.common.forms import CreateCommentForm
 
-from buildin.common.models import TaskComment
+from buildin.common.models import TaskComment, LogActivity
 from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_user_full_name, get_request_user_id
@@ -29,7 +30,7 @@ class HomeView(views.TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class DashboardView(LoginRequiredMixin, views.ListView):
+class DashboardView(auth_mixins.LoginRequiredMixin, views.ListView):
     model = BuildInProject
     template_name = 'common/dashboard.html'
 
@@ -52,48 +53,7 @@ class DashboardView(LoginRequiredMixin, views.ListView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class CommentCreateView(views.CreateView):
-    model = TaskComment
-    form_class = CreateCommentForm
-    template_name = 'tasks/task-comments.html'
-
-    def get_success_url(self):
-        return reverse_lazy('project details', kwargs={'build_slug': self.object.to_task.project.slug})
-
-    # def post(self, request, *args, **kwargs):
-    #     def post(self, request, *args, **kwargs):
-    #         """
-    #         Handle POST requests: instantiate a form instance with the passed
-    #         POST variables and then check if it's valid.
-    #         """
-    #         form = self.get_form()
-    #         if form.is_valid():
-    #             return self.form_valid(form)
-    #         else:
-    #             return self.form_invalid(form)
-
-    # def form_valid(self, form):
-    #     """If the form is valid, save the associated model."""
-    #     self.object = form.save()
-    #     return super().form_valid(form)
-
-    # def form_valid(self, form):
-    #     post = get_object_or_404(Request, slug=self.kwargs['slug'])
-    #     Form.instance.post = Request
-    #     return super().form_valid(form)
-
-    # def form_valid(self, form):
-    #     post = get_object_or_404(ProjectTask, slug=self.kwargs['task_slug'])
-    #     form.instance.post = ProjectTask
-    #     return super().form_valid(form)
-
-    # def form_valid(self, form):
-    #     comment = super().form_valid(form)
-    #     comment.user = self.request.user
-    #     comment.save()
-    #     return super().form_valid(form)
-
-
+@login_required
 def comment_task(request, task_slug):
     task = get_task_by_slug(task_slug)
     comments = get_all_comments_to_task(task)
@@ -115,3 +75,14 @@ def comment_task(request, task_slug):
         'user_full_name': user_full_name,
     }
     return render(request, 'tasks/task-comments.html', context)
+
+
+class LogActivityView(auth_mixins.LoginRequiredMixin, views.ListView):
+    model = LogActivity
+    template_name = 'common/log-activity.html'
+    context_object_name = 'comments'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['user_full_name']=get_user_full_name(self.request)
+        return context

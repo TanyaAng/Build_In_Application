@@ -33,7 +33,8 @@ class TaskComment(models.Model):
 class LogActivity(models.Model):
     CRUD = get_crud_mapper()
     SIGNAL_MODELS_RELATED = get_signals_models_related()
-    user_id = models.IntegerField()
+
+    user = models.EmailField()
 
     action = models.CharField(
         max_length=max([len(value) for _, value in CRUD.items()]) + max(
@@ -52,3 +53,6 @@ class LogActivity(models.Model):
         auto_now_add=True,
         editable=False,
     )
+
+    def __str__(self):
+        return f"{self.publication_date_time}: {self.user} {self.action} {self.model} to {self.to_related}"

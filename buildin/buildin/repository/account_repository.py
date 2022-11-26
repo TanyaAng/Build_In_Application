@@ -2,7 +2,7 @@ from buildin.accounts.models import Profile
 
 
 def get_request_user_id(request):
-    return request.user.id
+    return request.user
 
 
 def find_profile_by_pk(pk):

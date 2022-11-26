@@ -16,19 +16,19 @@ RELATED_PROJECTS_DB = 'Project repository'
 @receiver(signals.post_save, sender=BuildInProject)
 def project_created(instance, created, **kwargs):
     request = get_request_in_signal()
-    user_id = get_request_user_id(request)
+    user = get_request_user_id(request)
     action = f"{CRUD_MAPPER['CREATE']} {MODELS_RELATED['PROJECT']}"
     model = instance.project_identifier
     to_related = MODELS_RELATED['APP']
     if created:
-        create_logactivity_entity(user_id=user_id, action=action, model=model, to_related=to_related)
+        create_logactivity_entity(user_email=user, action=action, model=model, to_related=to_related)
 
 
 @receiver(signals.pre_delete, sender=BuildInProject)
 def project_deleted(instance, **kwargs):
     request = get_request_in_signal()
-    user_id = get_request_user_id(request)
+    user = get_request_user_id(request)
     action = f"{CRUD_MAPPER['DELETE']} project"
     model = instance.project_identifier
     to_related = RELATED_PROJECTS_DB
-    create_logactivity_entity(user_id=user_id, action=action, model=model, to_related=to_related)
+    create_logactivity_entity(user_email=user, action=action, model=model, to_related=to_related)

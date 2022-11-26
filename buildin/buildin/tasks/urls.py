@@ -10,4 +10,4 @@ urlpatterns = (
              path('delete/', task_delete, name='task delete'),
          ])
          ),
-            )
+)

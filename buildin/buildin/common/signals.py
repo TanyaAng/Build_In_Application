@@ -15,9 +15,9 @@ MODELS_RELATED = get_signals_models_related()
 
 @receiver(signals.post_save, sender=TaskComment)
 def comment_created(instance, **kwargs):
-    user_id = get_request_user_id(instance)
+    user = get_request_user_id(instance)
     model = get_task_of_current_comment(instance)
     action = f"{CRUD_MAPPER['CREATE']} {MODELS_RELATED['COMMENT']}"
     to_related = get_project_related_to_task(task=model)
-    create_logactivity_entity(user_id=user_id, action=action,
+    create_logactivity_entity(user_email=user, action=action,
                               model=model, to_related=to_related)

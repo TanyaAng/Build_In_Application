@@ -8,5 +8,5 @@ class CreateCommentForm(forms.ModelForm):
         model = TaskComment
         fields = ('description',)
         widgets = {
-            'description': forms.Textarea(attrs={'placeholder': 'Add comment...'})
+            'description': forms.Textarea(attrs={'placeholder': 'Add comment...', 'rows': '3'})
         }
