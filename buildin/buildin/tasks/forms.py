@@ -1,7 +1,5 @@
 from django import forms
 from django.contrib.auth import get_user_model
-
-from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 
 UserModel = get_user_model()

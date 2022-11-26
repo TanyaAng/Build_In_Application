@@ -21,16 +21,6 @@ class ProjectPhases(ChoiceEnumMixin, Enum):
 
 class BuildInProject(models.Model):
     PROJECT_ID_MAX_LENGTH = 40
-    #
-    # PHASES = (
-    #     (RandD, "R&D"),
-    #     (PD, "Preliminary design"),
-    #     (SD, "Schematic Design"),
-    #     (DD, "Design Development"),
-    #     (CD, "Construction Documentation"),
-    #     (OTHER, 'Other')
-    # )
-    # PROJECT_PHASE_MAX_LENGTH = max(len(x) for x, _ in PHASES)
 
     project_identifier = models.CharField(
         max_length=PROJECT_ID_MAX_LENGTH,

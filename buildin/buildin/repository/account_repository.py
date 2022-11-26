@@ -14,9 +14,8 @@ def get_profile_by_pk(pk):
     return profile.get()
 
 
-def get_user_by_found_profile(profile):
-    current_profile = profile.get()
-    user = current_profile.user_id
+def get_user_by_profile(profile):
+    user = profile.user_id
     return user
 
 

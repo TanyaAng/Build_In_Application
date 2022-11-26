@@ -42,7 +42,6 @@ class DashboardView(LoginRequiredMixin, views.ListView):
             projects = self.object_list
         else:
             projects = get_all_projects()
-
         context['user_full_name'] = user_full_name
         context['projects'] = projects
         return context
@@ -51,18 +50,6 @@ class DashboardView(LoginRequiredMixin, views.ListView):
         if not request.user.is_authenticated:
             return redirect('login')
         return super().dispatch(request, *args, **kwargs)
-
-
-# FBV for Dashboard
-# def dashboard(request):
-#     user_full_name = get_full_of_logged_user(request)
-#     # get only projects, in which current user is participant
-#     projects = BuildInProject.objects.filter(participants__exact=request.user)
-#     context = {
-#         'projects': projects,
-#         'user_full_name': user_full_name,
-#     }
-#     return render(request, 'projects/dashboard.html', context)
 
 
 class CommentCreateView(views.CreateView):
