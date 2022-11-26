@@ -4,11 +4,10 @@ from django.http import Http404
 from django.views import generic as views
 from django.contrib.auth import login
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 from buildin.accounts.models import Profile
-from buildin.repository.account_repository import get_profile_by_pk, get_user_full_name, find_profile_by_pk, \
-    get_user_by_profile
+from buildin.repository.account_repository import get_user_full_name, get_user_by_profile, get_request_user
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
 
 from buildin.repository.task_repository import get_user_tasks
@@ -83,7 +82,7 @@ class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
         return reverse_lazy('profile details', kwargs={'pk': self.object.user_id})
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.user = get_request_user(self.request)
         form.save()
         return super().form_valid(form)
 

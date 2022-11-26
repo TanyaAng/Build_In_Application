@@ -9,7 +9,7 @@ from buildin.common.forms import CreateCommentForm
 from buildin.common.models import TaskComment, LogActivity
 from buildin.projects.models import BuildInProject
 
-from buildin.repository.account_repository import get_user_full_name, get_request_user
+from buildin.repository.account_repository import get_user_full_name, get_request_user, get_request_user_id
 from buildin.repository.common_repository import get_all_comments_to_task
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, get_all_projects
 from buildin.repository.task_repository import get_task_by_slug
@@ -37,7 +37,7 @@ class DashboardView(auth_mixins.LoginRequiredMixin, views.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_full_name = get_user_full_name(self.request)
-        user_id = get_request_user(self.request)
+        user_id = get_request_user_id(self.request)
         if not self.request.user.is_superuser:
             self.object_list = get_user_projects_where_user_is_participant_or_owner(user_id)
             projects = self.object_list
@@ -65,7 +65,7 @@ def comment_task(request, task_slug):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.to_task = task
-            comment.user = request.user
+            comment.user = get_request_user(request)
             comment.save()
             return redirect(reverse_lazy('comment section', kwargs={'task_slug': task.slug}))
     context = {

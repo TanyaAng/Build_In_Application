@@ -1,42 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import mixins as auth_mixins
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views import generic as views
 
 from buildin.repository.account_repository import get_user_full_name
 from buildin.repository.project_repository import get_project_by_slug
 from buildin.repository.task_repository import get_task_by_slug
 
 from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
-from buildin.tasks.models import ProjectTask
 
-
-# class TaskCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
-#     model = ProjectTask
-#     form_class = CreateTaskForm
-#
-#     template_name = 'tasks/task-create.html'
-#     slug_url_kwarg = 'build_slug'
-#
-#     def get(self, request, *args, **kwargs):
-#         print(request)
-#         # kwargs['project'] = self.object.project
-#         return super().get(request, *args, **kwargs)
-#
-#     def get_success_url(self):
-#         return reverse_lazy('profile details', kwargs={'build_slug': self.object.project.slug})
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['project'] = self.object.project
-#         context['user_full_name'] = get_user_full_name(self.request)
-#         return context
-#
-#     def form_valid(self, form):
-#         form.instance.project = self.object.project
-#         form.save()
-#         return super().form_valid(form)
 
 
 @login_required

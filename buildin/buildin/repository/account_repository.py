@@ -4,6 +4,9 @@ from buildin.accounts.models import Profile
 def get_request_user(request):
     return request.user
 
+def get_request_user_id(request):
+    return request.user.pk
+
 
 def find_profile_by_pk(pk):
     return Profile.objects.filter(pk=pk)
