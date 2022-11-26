@@ -1,4 +1,5 @@
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import mixins as auth_mixins
 from django.http import Http404
 from django.views import generic as views
 from django.contrib.auth import login
@@ -46,7 +47,7 @@ class UserRegisterView(views.CreateView):
         return result
 
 
-class ProfileDetailsView(views.DetailView):
+class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     model = Profile
     template_name = 'accounts/profile-details.html'
     context_object_name = 'profile'
@@ -73,7 +74,7 @@ class ProfileDetailsView(views.DetailView):
         return context
 
 
-class ProfileCreateView(views.CreateView):
+class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
     model = Profile
     form_class = CreateProfileForm
     template_name = 'accounts/profile-create.html'
@@ -87,7 +88,7 @@ class ProfileCreateView(views.CreateView):
         return super().form_valid(form)
 
 
-class ProfileUpdateView(views.UpdateView):
+class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Profile
     form_class = EditProfileForm
     template_name = 'accounts/profile-edit.html'
