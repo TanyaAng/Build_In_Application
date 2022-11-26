@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from buildin.core.helpers.user_helpers import get_full_name_current_user
-from buildin.projects.models import BuildInProject
-from buildin.tasks.models import ProjectTask
+
+from buildin.repository.account_repository import get_user_full_name
+from buildin.repository.project_repository import get_project_by_slug
+from buildin.repository.task_repository import get_task_by_slug
+
 from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
 
 
 @login_required
 def task_create(request, build_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
+    project = get_project_by_slug(build_slug)
     if request.method == 'GET':
         form = CreateTaskForm(project=project)
     else:
@@ -22,15 +24,15 @@ def task_create(request, build_slug):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_full_name_current_user(request),
+        'user_full_name': get_user_full_name(request),
     }
     return render(request, 'tasks/task-create.html', context)
 
 
 @login_required
 def task_edit(request, build_slug, task_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
-    task = ProjectTask.objects.filter(slug=task_slug).get()
+    project = get_project_by_slug(build_slug)
+    task = get_task_by_slug(task_slug)
     if request.method == 'GET':
         form = EditTaskForm(instance=task, project=project)
     else:
@@ -42,15 +44,15 @@ def task_edit(request, build_slug, task_slug):
         'form': form,
         'project': project,
         'task': task,
-        'user_full_name': get_full_name_current_user(request),
+        'user_full_name': get_user_full_name(request),
     }
     return render(request, 'tasks/task-edit.html', context)
 
 
 @login_required
 def task_delete(request, build_slug, task_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
-    task = ProjectTask.objects.filter(slug=task_slug).get()
+    project = get_project_by_slug(build_slug)
+    task = get_task_by_slug(task_slug)
     if request.method == 'GET':
         form = DeleteTaskForm(instance=task)
     else:
@@ -62,6 +64,6 @@ def task_delete(request, build_slug, task_slug):
         'form': form,
         'project': project,
         'task': task,
-        'user_full_name': get_full_name_current_user(request),
+        'user_full_name': get_user_full_name(request),
     }
     return render(request, 'tasks/task-delete.html', context)

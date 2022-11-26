@@ -2,25 +2,26 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from buildin.core.helpers.tasks_helper import calculate_total_time_of_project
-from buildin.core.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
-from buildin.projects.models import BuildInProject
-from buildin.tasks.models import ProjectTask
+from buildin.repository.account_repository import get_user_full_name
+from buildin.repository.project_repository import get_project_by_slug, get_project_participants
+from buildin.repository.task_repository import get_all_tasks_by_project
+
 
 
 @login_required
 def project_details(request, build_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
-    project_participants = project.participants.all()
+    project = get_project_by_slug(build_slug)
+    project_participants = get_project_participants(project)
     participants = [p.email for p in project_participants]
-    tasks = ProjectTask.objects.filter(project__exact=project)
+    tasks = get_all_tasks_by_project(project)
     total_time_of_project = calculate_total_time_of_project(tasks)
 
     context = {
         'project': project,
         'tasks': tasks,
         'total_time_of_project': total_time_of_project,
-        'user_full_name': get_full_name_current_user(request),
+        'user_full_name': get_user_full_name(request),
         'participants': ', '.join(participants),
     }
     return render(request, 'projects/project-details.html', context)
@@ -39,14 +40,14 @@ def project_create(request):
             return redirect('home page')
     context = {
         'form': form,
-        'user_full_name': get_full_name_current_user(request),
+        'user_full_name': get_user_full_name(request),
     }
     return render(request, 'projects/project-create.html', context)
 
 
 @login_required
 def project_edit(request, build_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
+    project = get_project_by_slug(build_slug)
     if request.method == 'GET':
         form = EditProjectForm(instance=project)
     else:
@@ -57,14 +58,14 @@ def project_edit(request, build_slug):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_full_name_current_user(request)
+        'user_full_name': get_user_full_name(request)
     }
     return render(request, 'projects/project-edit.html', context)
 
 
 @login_required
 def project_delete(request, build_slug):
-    project = BuildInProject.objects.filter(slug=build_slug).get()
+    project = get_project_by_slug(build_slug)
     if request.method == 'GET':
         form = DeleteProjectForm(instance=project)
     else:
@@ -75,7 +76,7 @@ def project_delete(request, build_slug):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_full_name_current_user(request)
+        'user_full_name': get_user_full_name(request)
     }
     return render(request, 'projects/project-delete.html', context)
 

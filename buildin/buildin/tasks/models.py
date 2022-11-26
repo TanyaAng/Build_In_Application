@@ -68,4 +68,7 @@ class ProjectTask(models.Model):
         super().save(*args, **kwargs)
         if not self.slug:
             self.slug = slugify(f"{self.task_id}-{self.id}")
-            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.task_id} - {self.task_name}"

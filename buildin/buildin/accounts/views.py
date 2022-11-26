@@ -1,15 +1,16 @@
-from django.db.models import Q
-
 from django.contrib.auth import views as auth_views
 from django.views import generic as generic_views
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 
-from buildin.accounts.models import Profile
-from buildin.core.helpers.user_helpers import get_full_name_current_user
-from buildin.projects.models import BuildInProject
-from buildin.tasks.models import ProjectTask
+
+from buildin.repository.account_repository import get_profile_by_pk, get_user_full_name, find_profile_by_pk, \
+    get_user_by_found_profile
+from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
+
+from buildin.repository.task_repository import get_user_tasks
+
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 
 UserModel = auth_views.get_user_model()
@@ -84,22 +85,17 @@ class UserLogoutView(auth_views.LogoutView):
 #     return context
 
 
+
 def profile_details(request, pk):
-    profile = Profile.objects.filter(pk=pk)
-    if not profile:
+    found_profile = find_profile_by_pk(pk)
+    if not found_profile:
         return redirect('profile create')
 
-    profile = profile.get()
-    user = profile.user_id
-
-    user_full_name = get_full_name_current_user(request)
-
-    user_projects = BuildInProject.objects.filter(
-        Q(participants__exact=user) |
-        Q(owner_id=user)
-    )
-
-    user_tasks = ProjectTask.objects.filter(Q(designer__exact=user) | Q(checked_by__exact=user))
+    profile=found_profile.get()
+    user = get_user_by_found_profile(profile)
+    user_full_name = get_user_full_name(request)
+    user_projects = get_user_projects_where_user_is_participant_or_owner(user)
+    user_tasks = get_user_tasks(user)
 
     context = {
         'profile': profile,
@@ -127,7 +123,7 @@ def profile_create(request):
 
 
 def profile_edit(request, pk):
-    profile = Profile.objects.filter(pk=pk).get()
+    profile = get_profile_by_pk(pk)
     if request.method == 'GET':
         form = EditProfileForm(instance=profile)
     else:

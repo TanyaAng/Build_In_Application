@@ -1,14 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic as views
 
 from buildin.common.forms import CreateCommentForm
+
 from buildin.common.models import TaskComment
-from buildin.core.helpers.user_helpers import get_full_name_current_user
 from buildin.projects.models import BuildInProject
-from buildin.tasks.models import ProjectTask
+
+from buildin.repository.account_repository import get_user_full_name, get_request_user_id
+from buildin.repository.common_repository import get_all_comments_to_task
+from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, get_all_projects
+from buildin.repository.task_repository import get_task_by_slug
 
 
 class HomeView(views.TemplateView):
@@ -16,7 +19,7 @@ class HomeView(views.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_full_name = get_full_name_current_user(self.request)
+        user_full_name = get_user_full_name(self.request)
         context['user_full_name'] = user_full_name
         return context
 
@@ -32,16 +35,14 @@ class DashboardView(LoginRequiredMixin, views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_full_name = get_full_name_current_user(self.request)
+        user_full_name = get_user_full_name(self.request)
+        user_id = get_request_user_id(self.request)
         if not self.request.user.is_superuser:
-            BuildInProject.objects.filter(
-                Q(participants__in=[self.request.user.id]) |
-                Q(owner_id=self.request.user.id)
-            )
-            # self.object_list saves the proper QuerySet
+            self.object_list = get_user_projects_where_user_is_participant_or_owner(user_id)
             projects = self.object_list
         else:
-            projects = BuildInProject.objects.all()
+            projects = get_all_projects()
+
         context['user_full_name'] = user_full_name
         context['projects'] = projects
         return context
@@ -107,9 +108,9 @@ class CommentCreateView(views.CreateView):
 
 
 def comment_task(request, task_slug):
-    task = ProjectTask.objects.filter(slug=task_slug).get()
-    comments = TaskComment.objects.filter(to_task=task)
-    user_full_name = get_full_name_current_user(request)
+    task = get_task_by_slug(task_slug)
+    comments = get_all_comments_to_task(task)
+    user_full_name = get_user_full_name(request)
     if request.method == 'GET':
         form = CreateCommentForm()
     else:
