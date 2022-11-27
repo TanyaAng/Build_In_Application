@@ -5,9 +5,10 @@ from django.contrib.auth import mixins as auth_mixins
 from django.http import Http404
 from django.contrib.auth import login
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from buildin.accounts.models import Profile
+from buildin.core.app_groups import set_user_to_regular_user_group
 from buildin.repository.account_repository import get_user_full_name, get_user_by_profile, get_request_user
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
 from buildin.repository.task_repository import get_user_tasks
@@ -39,8 +40,10 @@ class UserRegisterView(views.CreateView):
 
     def form_valid(self, *args, **kwargs):
         result = super().form_valid(*args, **kwargs)
+
         # custom logic - login automatically after registration
         user = self.object
+        set_user_to_regular_user_group(user)
         request = self.request
         login(request, user)
         return result
@@ -69,8 +72,13 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         context['user_full_name'] = user_full_name
         context['user_projects'] = user_projects
         context['user_task'] = user_tasks
-
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        object = self.get_object()
+        if not self.request.user.pk == object.user_id:
+            return redirect('profile details', pk=self.request.user.pk)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
@@ -99,3 +107,9 @@ class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         context['profile'] = self.object
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        object = self.get_object()
+        if not self.request.user.pk == object.user_id:
+            return redirect('profile edit', pk=self.request.user.pk)
+        return super().dispatch(request, *args, **kwargs)

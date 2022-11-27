@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 
 from buildin.common.forms import CreateCommentForm
 from buildin.common.models import LogActivity
-# from buildin.core.models_mixins import SuperuserRequiredMixin
 from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_user_full_name, get_request_user, get_request_user_id
@@ -81,12 +80,17 @@ def comment_task_create(request, task_slug):
 
 # TODO comment_task_edit and comment_task_delete_view
 
-class LogActivityView(auth_mixins.LoginRequiredMixin, views.ListView):
+class LogActivityView(auth_mixins.LoginRequiredMixin,auth_mixins.PermissionRequiredMixin, views.ListView):
     model = LogActivity
     template_name = 'common/log-activity.html'
     context_object_name = 'comments'
+    permission_required = 'common.view_logactivity'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['user_full_name'] = get_user_full_name(self.request)
         return context
+
+    def handle_no_permission(self):
+        return render(self.request, '403.html')
+

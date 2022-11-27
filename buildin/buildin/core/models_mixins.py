@@ -17,3 +17,8 @@ class ChoiceEnumMixin:
 # class SuperuserRequiredMixin(auth_mixins.UserPassesTestMixin):
 #     def test_func(self):
 #         return self.request.user.is_superuser
+
+
+# class UserRequiredOwnerMixin(auth_mixins.UserPassesTestMixin):
+#     def test_func(self, owner):
+#         return self.request.user==owner

@@ -34,7 +34,7 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         return context
 
 
-class ProjectCreateView(views.CreateView):
+class ProjectCreateView(auth_mixins.LoginRequiredMixin,views.CreateView):
     model = BuildInProject
     form_class = CreateProjectForm
     template_name = 'projects/project-create.html'
@@ -65,6 +65,8 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return context
 
 
+# TODO CLASS BASED VIEW do not show the current project in form
+
 # class ProjectDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
 #     model = BuildInProject
 #     form_class = DeleteProjectForm
@@ -80,7 +82,8 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 #         context['user_full_name'] = get_user_full_name(self.request)
 #         return context
 
-# TODO CLASS BASED VIEW do not show the current project in form
+
+
 @login_required
 def project_delete(request, build_slug):
     project = get_project_by_slug(build_slug)
@@ -99,13 +102,7 @@ def project_delete(request, build_slug):
     return render(request, 'projects/project-delete.html', context)
 
 
-# TODO project_contacts view
-@login_required
-def project_contacts(request, build_slug):
-    return render(request, 'projects/project-contacts.html')
-
-
-class ProjectContactView(views.DetailView):
+class ProjectContactView(auth_mixins.LoginRequiredMixin,views.DetailView):
     model = BuildInProject
     template_name = 'projects/project-contacts.html'
     slug_url_kwarg = 'build_slug'
