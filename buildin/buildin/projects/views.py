@@ -33,8 +33,15 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         context['participants'] = ', '.join(participants)
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        object = self.get_object()
+        participants = get_project_participants(object)
+        if not self.request.user == object.owner and self.request.user not in participants:
+            return render(self.request, '403.html')
+        return super().dispatch(request, *args, **kwargs)
 
-class ProjectCreateView(auth_mixins.LoginRequiredMixin,views.CreateView):
+
+class ProjectCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
     model = BuildInProject
     form_class = CreateProjectForm
     template_name = 'projects/project-create.html'
@@ -64,6 +71,13 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         context['user_full_name'] = get_user_full_name(self.request)
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        object = self.get_object()
+        participants = get_project_participants(object)
+        if not self.request.user == object.owner and self.request.user not in participants:
+            return render(self.request, '403.html')
+        return super().dispatch(request, *args, **kwargs)
+
 
 # TODO CLASS BASED VIEW do not show the current project in form
 
@@ -83,10 +97,14 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 #         return context
 
 
-
 @login_required
 def project_delete(request, build_slug):
+
     project = get_project_by_slug(build_slug)
+    participants = get_project_participants(project)
+    if not request.user == project.owner and request.user not in participants:
+        return render(request, '403.html')
+
     if request.method == 'GET':
         form = DeleteProjectForm(instance=project)
     else:
@@ -102,7 +120,7 @@ def project_delete(request, build_slug):
     return render(request, 'projects/project-delete.html', context)
 
 
-class ProjectContactView(auth_mixins.LoginRequiredMixin,views.DetailView):
+class ProjectContactView(auth_mixins.LoginRequiredMixin, views.DetailView):
     model = BuildInProject
     template_name = 'projects/project-contacts.html'
     slug_url_kwarg = 'build_slug'

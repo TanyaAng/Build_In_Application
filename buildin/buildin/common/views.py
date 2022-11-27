@@ -11,9 +11,9 @@ from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_user_full_name, get_request_user, get_request_user_id
 from buildin.repository.common_repository import get_all_comments_to_task
-from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, get_all_projects
+from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
+    get_all_projects, get_project_related_to_task, get_project_participants
 from buildin.repository.task_repository import get_task_by_slug
-
 
 
 class HomeView(views.TemplateView):
@@ -59,6 +59,12 @@ def comment_task_create(request, task_slug):
     task = get_task_by_slug(task_slug)
     comments = get_all_comments_to_task(task)
     user_full_name = get_user_full_name(request)
+
+    project = get_project_related_to_task(task)
+    participants = get_project_participants(project)
+    if not request.user == project.owner and request.user not in participants:
+        return render(request, '403.html')
+
     if request.method == 'GET':
         form = CreateCommentForm()
     else:
@@ -80,7 +86,7 @@ def comment_task_create(request, task_slug):
 
 # TODO comment_task_edit and comment_task_delete_view
 
-class LogActivityView(auth_mixins.LoginRequiredMixin,auth_mixins.PermissionRequiredMixin, views.ListView):
+class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.ListView):
     model = LogActivity
     template_name = 'common/log-activity.html'
     context_object_name = 'comments'
@@ -93,4 +99,3 @@ class LogActivityView(auth_mixins.LoginRequiredMixin,auth_mixins.PermissionRequi
 
     def handle_no_permission(self):
         return render(self.request, '403.html')
-
