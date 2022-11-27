@@ -8,7 +8,6 @@ from buildin.repository.task_repository import get_task_by_slug
 from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
 
 
-
 @login_required
 def task_create(request, build_slug):
     project = get_project_by_slug(build_slug)

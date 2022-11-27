@@ -19,7 +19,6 @@ def task_created(instance, created, **kwargs):
     action = f"{CRUD_MAPPER['CREATE']} {MODELS_RELATED['TASK']}"
     model = instance
     to_related = get_project_related_to_task(instance)
-    print(f"Created: {created}\nSlug: {instance.slug}")
     if created:
         create_logactivity_entity(user_email=user, action=action, model=model, to_related=to_related)
 

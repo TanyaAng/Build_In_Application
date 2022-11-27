@@ -80,7 +80,7 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 #         context['user_full_name'] = get_user_full_name(self.request)
 #         return context
 
-
+# TODO CLASS BASED VIEW do not show the current project in form
 @login_required
 def project_delete(request, build_slug):
     project = get_project_by_slug(build_slug)
@@ -99,6 +99,19 @@ def project_delete(request, build_slug):
     return render(request, 'projects/project-delete.html', context)
 
 
+# TODO project_contacts view
 @login_required
 def project_contacts(request, build_slug):
     return render(request, 'projects/project-contacts.html')
+
+
+class ProjectContactView(views.DetailView):
+    model = BuildInProject
+    template_name = 'projects/project-contacts.html'
+    slug_url_kwarg = 'build_slug'
+    context_object_name = 'project'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['participants'] = self.object.participants
+        return context

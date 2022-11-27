@@ -8,7 +8,7 @@
                     <header>
                         <h3>{{ project.project_identifier }}</h3>
                     </header>
-                    <p class="project-status">Status: {{ project.project_phase }}</p>
+                    <p class="project-status">Status: {{ project.get_project_phase_display }}</p>
                     <img src="{{ project.project_img }}" alt="">
                     <div>
                         <a href="{% url 'project details' build_slug=project.slug %}">

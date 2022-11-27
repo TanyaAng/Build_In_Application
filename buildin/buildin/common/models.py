@@ -13,7 +13,7 @@ UserModel = get_user_model()
 class TaskComment(models.Model):
     DESC_MAX_LENGTH = 300
 
-    description = models.CharField(
+    description = models.TextField(
         max_length=DESC_MAX_LENGTH,
     )
 
@@ -42,11 +42,11 @@ class LogActivity(models.Model):
     )
 
     model = models.CharField(
-        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, ProjectTask.TASK_ID_MAX_LENGTH)
+        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, (ProjectTask.TASK_ID_MAX_LENGTH+ProjectTask.TASK_NAME_MAX_LENGTH))
     )
 
     to_related = models.CharField(
-        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, ProjectTask.TASK_ID_MAX_LENGTH)
+        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, (ProjectTask.TASK_ID_MAX_LENGTH+ProjectTask.TASK_NAME_MAX_LENGTH))
     )
 
     publication_date_time = models.DateTimeField(

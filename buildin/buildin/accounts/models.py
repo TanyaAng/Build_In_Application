@@ -26,7 +26,9 @@ class BuildInUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
 
     is_staff = models.BooleanField(default=False)
+
     objects = BuildInUserManager()
+
     USERNAME_FIELD = 'email'
 
 

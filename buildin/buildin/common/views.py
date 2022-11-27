@@ -1,18 +1,20 @@
+from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views import generic as views
 
 from buildin.common.forms import CreateCommentForm
-
-from buildin.common.models import TaskComment, LogActivity
+from buildin.common.models import LogActivity
+# from buildin.core.models_mixins import SuperuserRequiredMixin
 from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_user_full_name, get_request_user, get_request_user_id
 from buildin.repository.common_repository import get_all_comments_to_task
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, get_all_projects
 from buildin.repository.task_repository import get_task_by_slug
+
 
 
 class HomeView(views.TemplateView):
@@ -54,7 +56,7 @@ class DashboardView(auth_mixins.LoginRequiredMixin, views.ListView):
 
 
 @login_required
-def comment_task(request, task_slug):
+def comment_task_create(request, task_slug):
     task = get_task_by_slug(task_slug)
     comments = get_all_comments_to_task(task)
     user_full_name = get_user_full_name(request)
@@ -77,6 +79,8 @@ def comment_task(request, task_slug):
     return render(request, 'tasks/task-comments.html', context)
 
 
+# TODO comment_task_edit and comment_task_delete_view
+
 class LogActivityView(auth_mixins.LoginRequiredMixin, views.ListView):
     model = LogActivity
     template_name = 'common/log-activity.html'
@@ -84,5 +88,5 @@ class LogActivityView(auth_mixins.LoginRequiredMixin, views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['user_full_name']=get_user_full_name(self.request)
+        context['user_full_name'] = get_user_full_name(self.request)
         return context

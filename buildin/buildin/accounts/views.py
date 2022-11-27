@@ -1,7 +1,8 @@
+from django.views import generic as views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
+
 from django.http import Http404
-from django.views import generic as views
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -9,7 +10,6 @@ from django.shortcuts import redirect
 from buildin.accounts.models import Profile
 from buildin.repository.account_repository import get_user_full_name, get_user_by_profile, get_request_user
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
-
 from buildin.repository.task_repository import get_user_tasks
 
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm

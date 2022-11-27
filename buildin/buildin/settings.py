@@ -119,7 +119,7 @@ STATIC_URL = '/static/'
 # for DEBUG True
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
 
-STATIC_ROOT = '/tmp/buildin/staticfiles'
+STATIC_ROOT = '/staticfiles/'
 
 # for DEBUG False
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
