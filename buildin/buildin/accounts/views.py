@@ -5,7 +5,7 @@ from django.contrib.auth import mixins as auth_mixins
 from django.http import Http404
 from django.contrib.auth import login
 from django.urls import reverse_lazy
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 
 from buildin.accounts.models import Profile
 from buildin.core.app_groups import set_user_to_regular_user_group
