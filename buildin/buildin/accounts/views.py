@@ -54,13 +54,6 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     template_name = 'accounts/profile-details.html'
     context_object_name = 'profile'
 
-    def get(self, request, *args, **kwargs):
-        try:
-            self.get_object()
-            return super().get(request, *args, **kwargs)
-        except Http404:
-            return redirect('profile create')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -75,10 +68,14 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        object = self.get_object()
-        if not self.request.user.pk == object.user_id:
-            return redirect('profile details', pk=self.request.user.pk)
-        return super().dispatch(request, *args, **kwargs)
+        try:
+            object = self.get_object()
+            if not self.request.user.pk == object.user_id:
+                return redirect('profile details', pk=self.request.user.pk)
+            return super().dispatch(request, *args, **kwargs)
+
+        except Http404:
+            return redirect('profile create')
 
 
 class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
