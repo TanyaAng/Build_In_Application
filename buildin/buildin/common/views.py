@@ -92,8 +92,9 @@ def comment_task_create(request, task_slug):
 class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.ListView):
     model = LogActivity
     template_name = 'common/log-activity.html'
-    context_object_name = 'comments'
+    # context_object_name = 'comments'
     permission_required = 'common.view_logactivity'
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

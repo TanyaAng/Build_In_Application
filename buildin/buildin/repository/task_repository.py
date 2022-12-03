@@ -15,3 +15,11 @@ def get_all_tasks_by_project(project):
 def get_user_tasks(user):
     user_tasks = ProjectTask.objects.filter(Q(designer__exact=user) | Q(checked_by__exact=user))
     return user_tasks
+
+
+def get_user_tasks_to_design(user):
+    return ProjectTask.objects.filter(Q(designer__exact=user), Q(is_approved=False))
+
+
+def get_user_tasks_to_check(user):
+    return ProjectTask.objects.filter(Q(checked_by__exact=user), Q(is_issued=False))

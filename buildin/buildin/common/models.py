@@ -56,3 +56,6 @@ class LogActivity(models.Model):
 
     def __str__(self):
         return f"{self.publication_date_time}: {self.user} {self.action} {self.model} to {self.to_related}"
+
+    class Meta:
+        ordering = ['-publication_date_time']

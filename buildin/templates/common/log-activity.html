@@ -1,17 +1,65 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block base_content %}
+    <div class="log-ctr">
     <section class="article-section">
-        {% if comments %}
-            <ul>
-            {% for comment in comments %}
-                <li>{{ comment }}</li>
-            {% endfor %}
-            </ul>
+        {% if page_obj %}
+            <h2 class="log-ctr-header">
+            <i class="fa-sharp fa-solid fa-chart-line"></i>
+            Log Activity
+        </h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Model</th>
+                    <th>To</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in page_obj %}
+                    <tr>
+                        <td>
+                            {{ obj.publication_date_time }}
+                        </td>
+                        <td>
+                            {{ obj.user }}
+                        </td>
+                        <td>
+                            {{ obj.action }}
+                        </td>
+                        <td>{{ obj.model }}</td>
+                        <td>{{ obj.to_related }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+            </div>
+
         {% else %}
             <div>
-                <h3>No added comments yet!</h3>
+                <h3>No activity to show!</h3>
             </div>
         {% endif %}
+
     </section>
+    </div>
 {% endblock %}

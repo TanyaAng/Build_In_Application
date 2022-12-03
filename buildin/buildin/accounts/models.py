@@ -12,11 +12,11 @@ from buildin.core.models_mixins import ChoiceEnumMixin
 
 
 class ParticipantRole(ChoiceEnumMixin, Enum):
-    CONTRACTOR = 'Contractor'
-    DESIGNER = 'Designer'
-    BUILDER = 'Builder'
-    SUPERVISOR = 'Supervisor'
-
+    INTERN = 'Intern design engineer'
+    JN_ENG = 'Junior design engineer'
+    MID_ENG = 'Mid design engineer'
+    SN_ENG = 'Senior design engineer'
+    LEAD = 'Team Lead'
 
 class BuildInUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     email = models.EmailField(

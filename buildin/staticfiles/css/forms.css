@@ -7,7 +7,7 @@ form.login-register-form {
     line-height: 2;
 }
 
-form.crud-form {
+form.crud-form, form.comment-form {
     font-weight: bold;
     font-size: 18px;
     display: grid;
@@ -15,11 +15,24 @@ form.crud-form {
     line-height: 2;
 }
 
-.form.crud-form .phone-field-ext{
+form.comment-form {
+    padding: unset;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+form.comment-form textarea {
+    height: 80px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 15px;
+}
+
+.form.crud-form .phone-field-ext {
     display: none;
 }
 
-.form.crud-form #id_phone_number_1{
+.form.crud-form #id_phone_number_1 {
     display: none;
 }
 

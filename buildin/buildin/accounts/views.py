@@ -9,9 +9,10 @@ from django.shortcuts import redirect
 
 from buildin.accounts.models import Profile
 from buildin.core.app_groups import set_user_to_regular_user_group
+from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks
 from buildin.repository.account_repository import get_user_by_profile, get_request_user
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
-from buildin.repository.task_repository import get_user_tasks
+from buildin.repository.task_repository import get_user_tasks, get_user_tasks_to_design, get_user_tasks_to_check
 
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 from buildin.service.account_service import get_user_full_name
@@ -61,11 +62,15 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         user = get_user_by_profile(self.object)
         user_full_name = get_user_full_name(self.request)
         user_projects = get_user_projects_where_user_is_participant_or_owner(user)
-        user_tasks = get_user_tasks(user)
+        tasks_to_design = get_user_tasks_to_design(user)
+        tasks_to_check = get_user_tasks_to_check(user)
+        total_time_of_tasks_to_design = calculate_total_time_of_tasks(tasks_to_design)
 
         context['user_full_name'] = user_full_name
         context['user_projects'] = user_projects
-        context['user_tasks'] = user_tasks
+        context['user_designer_tasks'] = tasks_to_design
+        context['user_checker_tasks'] = tasks_to_check
+        context['total_time_of_tasks_to_design']=total_time_of_tasks_to_design
         return context
 
     def dispatch(self, request, *args, **kwargs):

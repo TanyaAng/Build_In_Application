@@ -1,0 +1,20 @@
+.fa-helmet-safety {
+    color: var(--clr-orange-primary);
+    padding-right: 10px;
+}
+
+.fa-circle-exclamation {
+    color: var(--clr-orange-primary);
+    padding-right: 5px;
+}
+
+.fa-user {
+    color: var(--clr-orange-primary);
+    font-size: 24px;
+    padding-right: 5px;
+}
+
+.fa-share{
+    font-size: 16px;
+    color: var(--clr-darkgrey);
+}

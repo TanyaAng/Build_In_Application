@@ -15,7 +15,7 @@ h1.main-logo {
     border-radius: 10px;
     border: 1px solid var(--clr-logo-white);
     color: var(--clr-logo-white);
-    
+
 }
 
 h1.main-logo:nth-child(2) {
@@ -30,4 +30,8 @@ h2 {
     font-weight: 900;
     color: var(--clr-green-secondary);
     text-transform: capitalize;
+}
+
+.log-ctr-header {
+    color: var(--clr-darkgrey);
 }

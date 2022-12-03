@@ -5,18 +5,37 @@ body {
     /* background-image: linear-gradient(to right bottom , rgba(94,104,106, 1) 20% ,rgba(229,240,242, 1) 40%,rgba(229,240,242, 1) 100%); */
 }
 
-main{
+main {
     margin-top: 80px;
     margin-bottom: 60px;
-    
+    height: calc(100vh - 80px - 60px);
 }
 
-.main-ctr{
+.main-ctr {
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
+}
+
+.comment-ctr {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: left;
+    align-items: center;
+    padding-left: 40px;
+}
+
+
+.log-ctr {
+    padding: 15px 40px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    /*align-items: center;*/
 }
 
 .child {
@@ -40,14 +59,14 @@ main{
 }
 
 
-section.article-section{
+section.article-section {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-article{
+article {
     margin: 30px 30px;
     overflow: hidden;
     border: 3px solid var(--clr-darkgrey);
@@ -78,8 +97,8 @@ article img {
 article header {
     background-color: var(--clr-orange-secondary);
     color: var(--clr-darkgrey);
-    padding:10px 20px;
-    text-align: center;   
+    padding: 10px 20px;
+    text-align: center;
 }
 
 p.details-arc-header {
@@ -91,7 +110,7 @@ p.details-arc-header {
     text-align: left;
     text-transform: uppercase;
     text-decoration: underline;
-    
+
     line-height: 1.5;
 }
 
@@ -103,9 +122,9 @@ p.details-arc-params {
     font-weight: 600;
 
     text-align: left;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 div.details-arc-params ul {
@@ -116,7 +135,7 @@ div.details-arc-params ul {
 
     align-items: left;
     text-align: left;
-    
+
     text-decoration: none;
 }
 
@@ -126,7 +145,7 @@ p.deadline-info {
 
     font-weight: bold;
     text-align: left;
-    
+
 }
 
 p.project-status {
@@ -135,7 +154,7 @@ p.project-status {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    text-transform: uppercase; 
+    text-transform: uppercase;
 }
 
 div.project-params a {
@@ -152,7 +171,7 @@ div.project-params a:hover {
     font-weight: 500;
 }
 
- #frontpage-img {
+#frontpage-img {
     width: 100%;
     height: 100%;
 }
@@ -161,21 +180,6 @@ hr {
     size: 3px;
 }
 
-.fa-helmet-safety {
-    color: var(--clr-orange-primary);
-    padding-right: 10px;
-}
-
-.fa-circle-exclamation {
-    color: var(--clr-orange-primary);
-    padding-right: 5px;
-}
-
-.fa-user{
-    color:var(--clr-orange-primary);
-    font-size: 24px;
-    padding-right: 5px;
-}
 
 #page-not-found {
     font-size: 50px;

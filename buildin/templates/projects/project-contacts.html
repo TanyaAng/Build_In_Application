@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load phone_filter %}
 {% block base_content %}
     <div class="main-ctr">
         <section class="child-project-info">
@@ -15,8 +16,6 @@
                 <p class="details-arc-header">Contractor name:</p>
                 <p class="details-arc-params">{{ project.client_name }}</p>
 
-                <p class="details-arc-header">Project participants: </p>
-                <p class="details-arc-params">{{ participants }}</p>
                 <hr>
 
                 <div class="button-project-ctr">
@@ -30,6 +29,7 @@
 
         <section class="child-table">
             {% if participants %}
+                <h2>Project Participants</h2>
                 <table>
                     <thead>
                     <tr>
@@ -42,7 +42,7 @@
                     </thead>
                     <tbody>
 
-                    {% for participant in project_participants %}
+                    {% for participant in participants %}
                         <tr>
                             {% if participant.profile and participant.profile.full_name %}
                                 <td>{{ participant.profile.full_name }}</td>
@@ -52,13 +52,13 @@
 
                             <td>{{ participant.email }}</td>
                             {% if participant.profile and participant.profile.phone_number %}
-                                <td>{{ participant.profile.phone_number }}</td>
+                                <td>{{ participant.profile.phone_number|phone_separator }}</td>
                             {% else %}
                                 <td>No added phone number</td>
                             {% endif %}
 
                             {% if participant.profile and participant.profile.participant_role %}
-                                <td>{{ participant.profile.participant_role }}</td>
+                                <td>{{ participant.profile.get_participant_role_display }}</td>
                             {% else %}
                                 <td>No added role</td>
                             {% endif %}

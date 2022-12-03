@@ -10,18 +10,26 @@
                     </header>
                     <p class="project-status">Status: {{ project.get_project_phase_display }}</p>
                     <img src="{{ project.project_img }}" alt="">
-                    <div>
-                        <a href="{% url 'project details' build_slug=project.slug %}">
-                            <button class="details">Details</button>
-                        </a>
-                        {% if request.user == project.owner or request.user.is_superuser %}
-                            <a href="{% url 'project edit' build_slug=project.slug %}">
-                                <button class="edit">Edit</button>
-                            </a>
-                            <a href="{% url 'project delete'  build_slug=project.slug %}">
-                                <button class="delete">Delete</button>
-                            </a>
-                        {% endif %}
+                    <div class="button-project-ctr">
+                        <ul>
+                            <li>
+                                <a href="{% url 'project details' build_slug=project.slug %}">
+                                    <button class="details">Details</button>
+                                </a>
+                            </li>
+                            {% if request.user == project.owner or request.user.is_superuser %}
+                                <li>
+                                    <a href="{% url 'project edit' build_slug=project.slug %}">
+                                        <button class="edit">Edit</button>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'project delete'  build_slug=project.slug %}">
+                                        <button class="delete">Delete</button>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </article>
             {% endfor %}

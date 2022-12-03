@@ -35,23 +35,35 @@
                 <hr>
 
                 <div class="button-project-ctr">
-                    <a href="{% url 'task create' build_slug=project.slug %}">
-                        <button class="edit">Add Task</button>
-                    </a>
-                    {% if request.user == project.owner or request.user.is_superuser %}
-                        <a href="{% url 'project edit' build_slug=project.slug %}">
-                            <button class="edit">Edit</button>
-                        </a>
-                        <a href="{% url 'project delete' build_slug=project.slug %}">
-                            <button class="delete">Delete</button>
-                        </a>
-                    {% endif %}
+                    <ul>
+                        <li>
+                            <a href="{% url 'task create' build_slug=project.slug %}">
+                                <button class="edit">Add Task</button>
+                            </a>
+                        </li>
+                        {% if request.user == project.owner or request.user.is_superuser %}
+                            <li>
+                                <a href="{% url 'project edit' build_slug=project.slug %}">
+                                    <button class="edit">Edit</button>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'project delete' build_slug=project.slug %}">
+                                    <button class="delete">Delete</button>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
 
             </article>
         </section>
 
         <section class="child-table">
+            <h2>
+                <i class="fa-solid fa-rectangle-list"></i>
+                Project Tasks
+            </h2>
             {% if tasks %}
                 <table>
                     <thead>
@@ -65,7 +77,8 @@
                         <th>Approved</th>
                         <th>Issued</th>
                         <th>Comment</th>
-                        <th>Edit/Delete</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
 
                         {#                    <th>Edit</th>#}
                         {#                    <th>Delete</th>#}
@@ -92,16 +105,17 @@
                             </span>
                             </td>
                             <td>
-                            <span>
+
                                 <a href="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-solid fa-pen"></i>
                                 </a>
-                            </span>
-                                <span>
+
+                            </td>
+                            <td>
                                 <a href="{% url 'task delete' build_slug=project.slug task_slug=task.slug %}">
                                     <i class="fa-sharp fa-solid fa-trash"></i>
                                 </a>
-                            </span>
+
                             </td>
 
                         </tr>

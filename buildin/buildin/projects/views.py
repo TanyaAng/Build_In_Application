@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from buildin.core.helpers.tasks_helper import calculate_total_time_of_project, calculate_days_to_deadline
+from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks, calculate_days_to_deadline
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 from buildin.projects.models import BuildInProject
 
@@ -23,16 +23,16 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         context = super().get_context_data(**kwargs)
 
         user_full_name = get_user_full_name(self.request)
-        project_participants = get_project_participants(self.object)
-        participants = [p.email for p in project_participants]
+        # project_participants = get_project_participants(self.object)
+        # participants = [p.email for p in project_participants]
         tasks = get_all_tasks_by_project(self.object)
-        total_time_of_project = calculate_total_time_of_project(tasks)
+        total_time_of_project = calculate_total_time_of_tasks(tasks)
         days_to_deadline = calculate_days_to_deadline(self.object.deadline_date)
 
         context['tasks'] = tasks
         context['total_time_of_project'] = total_time_of_project
         context['user_full_name'] = user_full_name
-        context['participants'] = ', '.join(participants)
+        # context['participants'] = ', '.join(participants)
         context['days_to_deadline'] = days_to_deadline
         return context
 
@@ -127,12 +127,14 @@ class ProjectContactView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        project_participants = get_project_participants(self.object)
+        participants = get_project_participants(self.object)
 
-        if project_participants:
-            participants = [p.email for p in project_participants]
-            context['participants'] = ', '.join(participants)
-            context['project_participants'] = project_participants
+        if participants:
+            # participants = [p.email for p in project_participants]
+            # context['participants'] = ', '.join(participants)
+            context['participants'] = participants
+            context['user_full_name'] = get_user_full_name(self.request)
+
         return context
 
     def dispatch(self, request, *args, **kwargs):

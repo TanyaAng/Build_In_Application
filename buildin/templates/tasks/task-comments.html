@@ -1,26 +1,32 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <div class="main-ctr">
-        <section class="child-crud">
-        <h1><i class="fa-solid fa-helmet-safety"></i>{{ task.project.project_identifier }}</h1>
-        <h3>{{ task.task_name }}</h3>
-
-            <div class="comments">
-            {% for comment in comments %}
-                <p>{{ comment.user }}</p>
-                <p>{{ comment.publication_date_time }}</p>
-                <p>{{ comment.description }}</p>
-            {% endfor %}
-        </div>
-            <form action="{% url 'comment section' task_slug=task.slug %}" method="POST" class="crud-form">
+    <div class="comment-ctr">
+        <section class="child-project-info">
+            <header class="comment-task-header">
+                <h1><i class="fa-solid fa-helmet-safety"></i>{{ task.project.project_identifier }}</h1>
+                <h3>{{ task.task_name }}</h3>
+            </header>
+            <form class="comment-form" action="{% url 'comment section' task_slug=task.slug %}" method="POST">
                 {{ form }}
                 {% csrf_token %}
-                <div class="button-crud-ctr">
-                    <button class="edit">POST</button>
+                <div class="button-share-ctr">
+                    <button class="share">Comment</button>
                 </div>
             </form>
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-heading">
+                        <p class="comment-author">{{ comment.user.profile.full_name }}</p>
+                        <p class="comment-date">{{ comment.publication_date_time }}</p>
+                    </div>
+                    <div class="comment-info">
+                        <p>{{ comment.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </section>
 
         {% include 'base/logo-section.html' %}
+
     </div>
 {% endblock %}

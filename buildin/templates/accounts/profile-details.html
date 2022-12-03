@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load phone_filter %}
 {% block base_content %}
     <div class="main-ctr">
     <section class="child-project-info">
@@ -14,12 +15,12 @@
 
             {% if profile.participant_role %}
                 <p class="details-arc-header">Participant Role:</p>
-                <p class="details-arc-params">{{ profile.participant_role }}</p>
+                <p class="details-arc-params">{{ profile.get_participant_role_display }}</p>
             {% endif %}
 
             {% if profile.phone_number %}
                 <p class="details-arc-header">Phone number:</p>
-                <p class="details-arc-params">{{ profile.phone_number }}</p>
+                <p class="details-arc-params">{{ profile.phone_number|phone_separator }}</p>
             {% endif %}
 
             <p class="details-arc-header">projects participation:</p>
@@ -32,6 +33,9 @@
                     {% endfor %}
                 </ul>
             </div>
+            <p class="details-arc-header">Total time of tasks to design:</p>
+            <p class="details-arc-params">{{ total_time_of_tasks_to_design }} hours</p>
+
             <hr>
             <div class="button-project-ctr">
                 <a href="{% url 'profile edit' pk=profile.user_id %}">
@@ -43,7 +47,11 @@
     </section>
 
     <section class="child-table">
-        {% if user_tasks %}
+        <h2>
+            <i class="fa-solid fa-compass-drafting"></i>
+            Tasks to design
+        </h2>
+        {% if user_designer_tasks %}
             <table>
                 <thead>
                 <tr>
@@ -55,7 +63,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for task in user_tasks %}
+                {% for task in user_designer_tasks %}
                     <tr>
                         <td>
                             <a href="{% url 'project details' build_slug=task.project.slug %}">{{ task.project }}</a>
@@ -65,8 +73,45 @@
                         </td>
                         <td>
                             <a href="{% url 'comment section' task_slug=task.slug %}">{{ task.task_name }}</a>
-                            </td>
+                        </td>
                         <td>{{ task.time_estimation }}</td>
+                        <td>{{ task.project.deadline_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h3>No added tasks yet!</h3>
+        {% endif %}
+
+        <h2>
+            <i class="fa-solid fa-check-to-slot"></i>
+            Tasks to check
+        </h2>
+        {% if user_checker_tasks %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Project No</th>
+                    <th>Task No</th>
+                    <th>Task Name</th>
+                    <th>Ready for Markups</th>
+                    <th>Deadline</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in user_checker_tasks %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'project details' build_slug=task.project.slug %}">{{ task.project }}</a>
+                        </td>
+                        <td>
+                            {{ task.task_id }}
+                        </td>
+                        <td>
+                            <a href="{% url 'comment section' task_slug=task.slug %}">{{ task.task_name }}</a>
+                        </td>
+                        <td>{{ task.is_ready_for_markups }}</td>
                         <td>{{ task.project.deadline_date }}</td>
                     </tr>
                 {% endfor %}
