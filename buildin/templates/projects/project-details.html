@@ -6,32 +6,32 @@
                 <header>
                     <h3>{{ project.project_identifier }}</h3>
                 </header>
-                    <p class="details-arc-header">Project name:</p>
-                    <p class="details-arc-params">{{ project.project_name }}</p>
+                <p class="details-arc-header">Project name:</p>
+                <p class="details-arc-params">{{ project.project_name }}</p>
 
-                    <p class="details-arc-header">Project Phase:</p>
-                    <p class="details-arc-params">{{ project.get_project_phase_display }}</p>
+                <p class="details-arc-header">Project Phase:</p>
+                <p class="details-arc-params">{{ project.get_project_phase_display }}</p>
 
-                    <p class="details-arc-header">Contractor name:</p>
-                    <p class="details-arc-params">{{ project.client_name }}</p>
+                <p class="details-arc-header">Contractor name:</p>
+                <p class="details-arc-params">{{ project.client_name }}</p>
 
-                    <p class="details-arc-header">Project participants: </p>
-                    <p class="details-arc-params">{{ participants }}</p>
-                    <p class="details-arc-params"><a href="{% url 'project contacts' build_slug=project.slug %}"><i
-                            class="fa-solid fa-address-book"></i>Contact List</a></p>
+                <p class="details-arc-header">Project participants: </p>
+                <p class="details-arc-params">{{ participants }}</p>
+                <p class="details-arc-params"><a href="{% url 'project contacts' build_slug=project.slug %}"><i
+                        class="fa-solid fa-address-book"></i>Contact List</a></p>
 
-                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
-                    <p class="deadline-info">{{ project.deadline_date }}</p>
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
+                <p class="deadline-info">{{ project.deadline_date }}</p>
 
-                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Time to
-                        deadline:
-                    </p>
-                    <p class="deadline-info">h</p>
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Days to
+                    deadline:
+                </p>
+                <p class="deadline-info">{{ days_to_deadline }} </p>
 
-                    <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
-                        left
-                        tasks:</p>
-                    <p class="deadline-info">{{ total_time_of_project }} h</p>
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
+                    left
+                    tasks:</p>
+                <p class="deadline-info">{{ total_time_of_project }} h</p>
                 <hr>
 
                 <div class="button-project-ctr">
@@ -90,7 +90,7 @@
                                     <i class="fa-solid fa-comment-dots"></i>
                                 </a>
                             </span>
-                        </td>
+                            </td>
                             <td>
                             <span>
                                 <a href="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}">

@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
 
@@ -9,11 +10,12 @@ from buildin.common.forms import CreateCommentForm
 from buildin.common.models import LogActivity
 from buildin.projects.models import BuildInProject
 
-from buildin.repository.account_repository import get_user_full_name, get_request_user, get_request_user_id
+from buildin.repository.account_repository import get_request_user, get_request_user_id
 from buildin.repository.common_repository import get_all_comments_to_task
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
     get_all_projects, get_project_related_to_task, get_project_participants
 from buildin.repository.task_repository import get_task_by_slug
+from buildin.service.account_service import handle_user_permissions_to_object, get_user_full_name
 
 
 class HomeView(views.TemplateView):
@@ -39,11 +41,12 @@ class DashboardView(auth_mixins.LoginRequiredMixin, views.ListView):
         context = super().get_context_data(**kwargs)
         user_full_name = get_user_full_name(self.request)
         user_id = get_request_user_id(self.request)
-        if not self.request.user.is_superuser:
+        if self.request.user.is_superuser:
+            projects = get_all_projects()
+
+        else:
             self.object_list = get_user_projects_where_user_is_participant_or_owner(user_id)
             projects = self.object_list
-        else:
-            projects = get_all_projects()
         context['user_full_name'] = user_full_name
         context['projects'] = projects
         return context
@@ -62,8 +65,8 @@ def comment_task_create(request, task_slug):
 
     project = get_project_related_to_task(task)
     participants = get_project_participants(project)
-    if not request.user == project.owner and request.user not in participants:
-        return render(request, '403.html')
+
+    handle_user_permissions_to_object(request=request, object=project, participants=participants)
 
     if request.method == 'GET':
         form = CreateCommentForm()
@@ -98,4 +101,4 @@ class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequ
         return context
 
     def handle_no_permission(self):
-        return render(self.request, '403.html')
+        raise PermissionDenied

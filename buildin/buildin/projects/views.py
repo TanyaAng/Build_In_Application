@@ -4,12 +4,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from buildin.core.helpers.tasks_helper import calculate_total_time_of_project
+from buildin.core.helpers.tasks_helper import calculate_total_time_of_project, calculate_days_to_deadline
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 from buildin.projects.models import BuildInProject
-from buildin.repository.account_repository import get_user_full_name
+
 from buildin.repository.project_repository import get_project_by_slug, get_project_participants
 from buildin.repository.task_repository import get_all_tasks_by_project
+from buildin.service.account_service import handle_user_permissions_to_object, get_user_full_name
 
 
 class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
@@ -26,18 +27,19 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         participants = [p.email for p in project_participants]
         tasks = get_all_tasks_by_project(self.object)
         total_time_of_project = calculate_total_time_of_project(tasks)
+        days_to_deadline = calculate_days_to_deadline(self.object.deadline_date)
 
         context['tasks'] = tasks
         context['total_time_of_project'] = total_time_of_project
         context['user_full_name'] = user_full_name
         context['participants'] = ', '.join(participants)
+        context['days_to_deadline'] = days_to_deadline
         return context
 
     def dispatch(self, request, *args, **kwargs):
         object = self.get_object()
         participants = get_project_participants(object)
-        if not self.request.user == object.owner and self.request.user not in participants:
-            return render(self.request, '403.html')
+        handle_user_permissions_to_object(request=self.request, object=object, participants=participants)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -74,8 +76,7 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     def dispatch(self, request, *args, **kwargs):
         object = self.get_object()
         participants = get_project_participants(object)
-        if not self.request.user == object.owner and self.request.user not in participants:
-            return render(self.request, '403.html')
+        handle_user_permissions_to_object(request=self.request, object=object, participants=participants)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -99,11 +100,9 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
 @login_required
 def project_delete(request, build_slug):
-
     project = get_project_by_slug(build_slug)
     participants = get_project_participants(project)
-    if not request.user == project.owner and request.user not in participants:
-        return render(request, '403.html')
+    handle_user_permissions_to_object(request=request, object=project, participants=participants)
 
     if request.method == 'GET':
         form = DeleteProjectForm(instance=project)
@@ -128,5 +127,16 @@ class ProjectContactView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['participants'] = self.object.participants
+        project_participants = get_project_participants(self.object)
+
+        if project_participants:
+            participants = [p.email for p in project_participants]
+            context['participants'] = ', '.join(participants)
+            context['project_participants'] = project_participants
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        object = self.get_object()
+        participants = get_project_participants(object)
+        handle_user_permissions_to_object(request=self.request, object=object, participants=participants)
+        return super().dispatch(request, *args, **kwargs)

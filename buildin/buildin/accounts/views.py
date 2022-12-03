@@ -9,11 +9,12 @@ from django.shortcuts import redirect
 
 from buildin.accounts.models import Profile
 from buildin.core.app_groups import set_user_to_regular_user_group
-from buildin.repository.account_repository import get_user_full_name, get_user_by_profile, get_request_user
+from buildin.repository.account_repository import get_user_by_profile, get_request_user
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
 from buildin.repository.task_repository import get_user_tasks
 
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
+from buildin.service.account_service import get_user_full_name
 
 UserModel = auth_views.get_user_model()
 
@@ -41,7 +42,7 @@ class UserRegisterView(views.CreateView):
     def form_valid(self, *args, **kwargs):
         result = super().form_valid(*args, **kwargs)
 
-        # custom logic - login automatically after registration
+        # login automatically after registration
         user = self.object
         set_user_to_regular_user_group(user)
         request = self.request
@@ -64,7 +65,7 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
         context['user_full_name'] = user_full_name
         context['user_projects'] = user_projects
-        context['user_task'] = user_tasks
+        context['user_tasks'] = user_tasks
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -90,6 +91,12 @@ class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
         form.instance.user = get_request_user(self.request)
         form.save()
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_full_name = get_user_full_name(self.request)
+        context['user_full_name'] = user_full_name
+        return context
 
 
 class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
