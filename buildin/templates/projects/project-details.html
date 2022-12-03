@@ -79,9 +79,6 @@
                         <th>Comment</th>
                         <th>Edit</th>
                         <th>Delete</th>
-
-                        {#                    <th>Edit</th>#}
-                        {#                    <th>Delete</th>#}
                     </tr>
                     </thead>
                     <tbody>
@@ -98,22 +95,19 @@
                             <td>{{ task.is_approved }}</td>
                             <td>{{ task.is_issued }}</td>
                             <td>
-                            <span>
                                 <a href="{% url 'comment section' task_slug=task.slug %}">
-                                    <i class="fa-solid fa-comment-dots"></i>
+                                    <i class="fa-solid fa-comment-dots fa-comment"></i>
                                 </a>
-                            </span>
+
                             </td>
                             <td>
-
                                 <a href="{% url 'task edit' build_slug=project.slug task_slug=task.slug %}">
-                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-solid fa-pen fa-edit"></i>
                                 </a>
-
                             </td>
                             <td>
                                 <a href="{% url 'task delete' build_slug=project.slug task_slug=task.slug %}">
-                                    <i class="fa-sharp fa-solid fa-trash"></i>
+                                    <i class="fa-sharp fa-solid fa-trash fa-delete"></i>
                                 </a>
 
                             </td>

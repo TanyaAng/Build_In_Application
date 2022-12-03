@@ -130,8 +130,6 @@ class ProjectContactView(auth_mixins.LoginRequiredMixin, views.DetailView):
         participants = get_project_participants(self.object)
 
         if participants:
-            # participants = [p.email for p in project_participants]
-            # context['participants'] = ', '.join(participants)
             context['participants'] = participants
             context['user_full_name'] = get_user_full_name(self.request)
 

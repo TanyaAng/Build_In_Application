@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
-from buildin.common.forms import CreateCommentForm
-from buildin.common.models import LogActivity
+from buildin.common.forms import CreateCommentForm, EditCommentForm, DeleteCommentForm
+from buildin.common.models import LogActivity, TaskComment
 from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_request_user, get_request_user_id
@@ -84,15 +84,30 @@ def comment_task_create(request, task_slug):
         'comments': comments,
         'user_full_name': user_full_name,
     }
-    return render(request, 'tasks/task-comments.html', context)
+    return render(request, 'common/task-comments.html', context)
 
 
 # TODO comment_task_edit and comment_task_delete_view
 
+class CommentEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+    model = TaskComment
+    form_class = EditCommentForm
+    slug_url_kwarg = 'task_slug'
+    template_name = 'common/comment-edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('comment section', kwargs={'task_slug': self.object.to_task.slug})
+
+
+def comment_delete_view(request, task_slug, pk):
+    comment = TaskComment.objects.filter(pk=pk).get()
+    comment.delete()
+    return redirect('comment section', task_slug=task_slug)
+
+
 class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.ListView):
     model = LogActivity
     template_name = 'common/log-activity.html'
-    # context_object_name = 'comments'
     permission_required = 'common.view_logactivity'
     paginate_by = 20
 

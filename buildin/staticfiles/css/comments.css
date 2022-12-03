@@ -2,7 +2,6 @@
     background-color: var(--clr-bg-white);
     border-radius: 10px;
     margin-bottom: 10px;
-    /*width: 50%;*/
 }
 
 .comment-task-header {
@@ -15,7 +14,6 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    /*min-height: 30px;*/
     font-size: 14px;
     padding: 10px;
     background-color: var(--clr-green-light);
@@ -36,7 +34,24 @@
 
 .comment-info {
     padding: 15px 0px 15px 10px;
-    /*height: auto;*/
     overflow: auto;
 }
 
+.comment-actions ul {
+    display: flex;
+    justify-content: right;
+    padding-right: 15px;
+}
+
+ul.comment-btn li {
+    display: inline-block;
+    padding-left: 15px;
+}
+
+ul.comment-btn li a i {
+    color: var(--clr-lightgrey);
+}
+
+.comment-btn a i:hover {
+    color: var(--clr-orange-primary);
+}

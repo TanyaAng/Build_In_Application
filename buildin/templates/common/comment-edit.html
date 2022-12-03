@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block base_content %}
+    <div class="comment-ctr">
+        <section class="child-project-info">
+            <form action="{% url 'comment edit' task_slug=object.to_task.slug pk=object.id %}" method="post"
+                  class="comment-form">
+                <h1><i class="fa-solid fa-helmet-safety"></i> EDIT COMMENT</h1>
+                {{ form }}
+                {% csrf_token %}
+                <div class="button-share-ctr">
+                    <button class="share">Submit</button>
+                </div>
+            </form>
+        </section>
+
+        {% include 'base/logo-section.html' %}
+    </div>
+{% endblock %}

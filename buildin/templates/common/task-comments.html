@@ -21,6 +21,22 @@
                     </div>
                     <div class="comment-info">
                         <p>{{ comment.description }}</p>
+                        {% if request.user == comment.user %}
+                            <div class="comment-actions">
+                                <ul role="list" class="comment-btn">
+                                    <li>
+                                        <a href="{% url 'comment edit' task_slug=comment.to_task.slug pk=comment.id %}">
+                                            <i class="fa-solid fa-pen fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'comment delete' task_slug=comment.to_task.slug pk=comment.id %}">
+                                            <i class="fa-sharp fa-solid fa-trash fa-delete"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

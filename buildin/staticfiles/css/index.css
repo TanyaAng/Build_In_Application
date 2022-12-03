@@ -8,7 +8,6 @@ body {
 main {
     margin-top: 80px;
     margin-bottom: 60px;
-    height: calc(100vh - 80px - 60px);
 }
 
 .main-ctr {
@@ -139,6 +138,15 @@ div.details-arc-params ul {
     text-decoration: none;
 }
 
+.details-arc-params a {
+    text-decoration: none;
+    color: var(--clr-black-primary);
+}
+
+.details-arc-params a:hover {
+    color: var(--clr-orange-secondary);
+}
+
 p.deadline-info {
     padding: 3px 15px;
     margin: 3px;
@@ -181,9 +189,24 @@ hr {
 }
 
 
-#page-not-found {
+#error-message {
     font-size: 50px;
     font-weight: bold;
     text-align: center;
     color: var(--clr-darkgrey);
 }
+
+#error-message-secondary {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--clr-darkgrey);
+}
+
+#error-message-expln {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--clr-black-primary);
+}
+
