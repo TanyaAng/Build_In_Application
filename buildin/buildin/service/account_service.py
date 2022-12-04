@@ -13,10 +13,31 @@ def get_user_full_name(request):
         return request.user
 
 
-def handle_user_permissions_to_object(request, object, participants):
+def handle_user_permissions_to_access_project(request, object, participants):
     if request.user.is_superuser:
         return True
     if request.user == object.owner or request.user in participants:
+        return True
+    else:
+        raise PermissionDenied
+
+
+def handle_user_CRUD_permissions_to_project(request, object):
+    if request.user.is_superuser or request.user == object.owner:
+        return True
+    else:
+        raise PermissionDenied
+
+
+def handle_user_CRUD_permissions_to_edit_comment(request, comment):
+    if request.user.is_superuser or request.user == comment.user:
+        return True
+    else:
+        raise PermissionDenied
+
+
+def handle_user_CRUD_permissions_to_delete_comment(request, comment):
+    if request.user.is_superuser or request.user == comment.user:
         return True
     else:
         raise PermissionDenied

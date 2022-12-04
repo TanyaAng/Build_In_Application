@@ -11,11 +11,13 @@ from buildin.common.models import LogActivity, TaskComment
 from buildin.projects.models import BuildInProject
 
 from buildin.repository.account_repository import get_request_user, get_request_user_id
-from buildin.repository.common_repository import get_all_comments_to_task
+from buildin.repository.common_repository import get_all_comments_to_task, get_task_of_current_comment
 from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
     get_all_projects, get_project_related_to_task, get_project_participants
 from buildin.repository.task_repository import get_task_by_slug
-from buildin.service.account_service import handle_user_permissions_to_object, get_user_full_name
+from buildin.service.account_service import handle_user_permissions_to_access_project, get_user_full_name, \
+    handle_user_CRUD_permissions_to_edit_comment, \
+    handle_user_CRUD_permissions_to_delete_comment
 
 
 class HomeView(views.TemplateView):
@@ -66,7 +68,7 @@ def comment_task_create(request, task_slug):
     project = get_project_related_to_task(task)
     participants = get_project_participants(project)
 
-    handle_user_permissions_to_object(request=request, object=project, participants=participants)
+    handle_user_permissions_to_access_project(request=request, object=project, participants=participants)
 
     if request.method == 'GET':
         form = CreateCommentForm()
@@ -87,8 +89,6 @@ def comment_task_create(request, task_slug):
     return render(request, 'common/task-comments.html', context)
 
 
-# TODO comment_task_edit and comment_task_delete_view
-
 class CommentEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = TaskComment
     form_class = EditCommentForm
@@ -98,11 +98,47 @@ class CommentEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     def get_success_url(self):
         return reverse_lazy('comment section', kwargs={'task_slug': self.object.to_task.slug})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment = self.object
+        task = get_task_of_current_comment(comment)
+        project = get_project_related_to_task(task)
+        user_full_name = get_user_full_name(self.request)
+        context['task'] = task
+        context['project'] = project
+        context['user_full_name'] = user_full_name
+        return context
 
-def comment_delete_view(request, task_slug, pk):
-    comment = TaskComment.objects.filter(pk=pk).get()
-    comment.delete()
-    return redirect('comment section', task_slug=task_slug)
+    def dispatch(self, request, *args, **kwargs):
+        comment = self.get_object()
+        handle_user_CRUD_permissions_to_edit_comment(self.request, comment)
+        return super().dispatch(request, *args, **kwargs)
+
+
+class CommentDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
+    model = TaskComment
+    form_class = DeleteCommentForm
+    slug_url_kwarg = 'task_slug'
+    template_name = 'common/comment-delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('comment section', kwargs={'task_slug': self.object.to_task.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment = self.object
+        task = get_task_of_current_comment(comment)
+        project = get_project_related_to_task(task)
+        user_full_name = get_user_full_name(self.request)
+        context['task'] = task
+        context['project'] = project
+        context['user_full_name'] = user_full_name
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        comment = self.get_object()
+        handle_user_CRUD_permissions_to_delete_comment(self.request, comment)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequiredMixin, views.ListView):
@@ -118,3 +154,5 @@ class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequ
 
     def handle_no_permission(self):
         raise PermissionDenied
+
+

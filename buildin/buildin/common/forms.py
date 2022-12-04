@@ -20,11 +20,19 @@ class EditCommentForm(forms.ModelForm):
         model = TaskComment
         fields = ('description',)
         labels = {
-            'description': 'Comment:',
+            'description': 'Edit comment:',
         }
 
 
 class DeleteCommentForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.__hidden_fields()
+    #
+    # def __hidden_fields(self):
+    #     for _, field in self.fields.items():
+    #         field.widget = forms.HiddenInput()
+
     class Meta:
         model = TaskComment
         fields = ()

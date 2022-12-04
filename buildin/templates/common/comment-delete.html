@@ -6,13 +6,14 @@
                 <h1><i class="fa-solid fa-helmet-safety"></i>{{ project.project_identifier }}</h1>
                 <h3>{{ task.task_name }}</h3>
             </header>
-            <form action="{% url 'comment edit' task_slug=task.slug pk=object.id %}" method="post"
+            <form action="{% url 'comment delete' task_slug=task.slug pk=object.id %}" method="post"
                   class="comment-form">
 {#                <h4><i class="fa-solid fa-helmet-safety"></i> EDIT COMMENT</h4>#}
                 {{ form }}
                 {% csrf_token %}
+                <p>Are you sure you want to delete comment?</p>
                 <div class="button-share-ctr">
-                    <button class="share">Submit</button>
+                    <button class="share">Delete</button>
                 </div>
             </form>
         </section>
