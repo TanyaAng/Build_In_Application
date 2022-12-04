@@ -64,7 +64,9 @@
                 <i class="fa-solid fa-rectangle-list"></i>
                 Project Tasks
             </h2>
-            {% if tasks %}
+            {% if  not tasks %}
+                <h1>No Tasks Yet!</h1>
+            {% else %}
                 <table>
                     <thead>
                     <tr>
@@ -116,8 +118,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            {% else %}
-                <h1>No Tasks Yet!</h1>
+
             {% endif %}
         </section>
     </div>

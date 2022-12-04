@@ -3,9 +3,10 @@ from django.dispatch import receiver
 
 from buildin.core.helpers.crud_mapper import get_crud_mapper
 from buildin.core.helpers.signals_helper import get_request_in_signal, get_signals_models_related
-from buildin.repository.account_repository import get_request_user
-from buildin.repository.logactivity_repository import create_logactivity_entity
-from buildin.repository.project_repository import get_project_related_to_task
+from buildin.core.repository.account_repository import get_request_user
+from buildin.core.repository.logactivity_repository import create_logactivity_entity
+
+from buildin.core.repository.project_repository import get_project_related_to_task
 from buildin.tasks.models import ProjectTask
 
 CRUD_MAPPER = get_crud_mapper()

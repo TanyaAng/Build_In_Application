@@ -16,6 +16,10 @@ def get_project_participants(project):
     return project.participants.all()
 
 
+def get_project_owner(project):
+    return project.owner
+
+
 def get_user_projects_where_user_is_participant_or_owner(user_id):
     user_projects = BuildInProject.objects.filter(
         Q(participants__exact=user_id) |

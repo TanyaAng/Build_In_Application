@@ -2,7 +2,12 @@
 {% load static %}
 {% block base_content %}
     <section class="article-section">
-        {% if projects %}
+        {% if not projects %}
+            <div>
+                <h1>Hello, {{ user_full_name }}! </h1>
+                <h3>You are not a participant to any project yet!</h3>
+            </div>
+        {% else %}
             {% for project in projects %}
                 <article class="dashboard-artc">
                     <header>
@@ -17,7 +22,9 @@
                                     <button class="details">Details</button>
                                 </a>
                             </li>
+
                             {% if request.user == project.owner or request.user.is_superuser %}
+
                                 <li>
                                     <a href="{% url 'project edit' build_slug=project.slug %}">
                                         <button class="edit">Edit</button>
@@ -33,11 +40,6 @@
                     </div>
                 </article>
             {% endfor %}
-        {% else %}
-            <div>
-                <h1>Hello, {{ user_full_name }}! </h1>
-                <h3>You are not a participant to any project yet!</h3>
-            </div>
         {% endif %}
     </section>
 {% endblock %}

@@ -5,10 +5,10 @@ def calculate_days_to_deadline(deadline_date):
     if deadline_date:
         time_delta = deadline_date - datetime.now().date()
         if time_delta.days < 0:
-            return "THE PROJECT MUST BE FINISHED YET"
+            return "The project must be finished yet!"
         return f'{time_delta.days} days'
     else:
-        return "NO DEADLINE SET TO THE PROJECT!"
+        return "No deadline set to the project!"
 
 
 def calculate_total_time_of_tasks(tasks):

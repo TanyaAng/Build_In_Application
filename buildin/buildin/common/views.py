@@ -8,16 +8,17 @@ from django.urls import reverse_lazy
 
 from buildin.common.forms import CreateCommentForm, EditCommentForm, DeleteCommentForm
 from buildin.common.models import LogActivity, TaskComment
+from buildin.core.repository.account_repository import get_request_user_id, get_request_user
+from buildin.core.repository.common_repository import get_all_comments_to_task, get_task_of_current_comment
+from buildin.core.repository.task_repository import get_task_by_slug
+from buildin.core.service.account_service import get_user_full_name
+from buildin.core.service.comment_service import handle_user_perm_to_update_comment, \
+    handle_user_perm_to_delete_comment
+from buildin.core.service.project_service import handle_user_perm_to_get_project
 from buildin.projects.models import BuildInProject
 
-from buildin.repository.account_repository import get_request_user, get_request_user_id
-from buildin.repository.common_repository import get_all_comments_to_task, get_task_of_current_comment
-from buildin.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
-    get_all_projects, get_project_related_to_task, get_project_participants
-from buildin.repository.task_repository import get_task_by_slug
-from buildin.service.account_service import handle_user_permissions_to_access_project, get_user_full_name, \
-    handle_user_CRUD_permissions_to_edit_comment, \
-    handle_user_CRUD_permissions_to_delete_comment
+from buildin.core.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
+    get_all_projects, get_project_related_to_task
 
 
 class HomeView(views.TemplateView):
@@ -66,9 +67,7 @@ def comment_task_create(request, task_slug):
     user_full_name = get_user_full_name(request)
 
     project = get_project_related_to_task(task)
-    participants = get_project_participants(project)
-
-    handle_user_permissions_to_access_project(request=request, object=project, participants=participants)
+    handle_user_perm_to_get_project(request=request, project=project)
 
     if request.method == 'GET':
         form = CreateCommentForm()
@@ -111,7 +110,7 @@ class CommentEditView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         comment = self.get_object()
-        handle_user_CRUD_permissions_to_edit_comment(self.request, comment)
+        handle_user_perm_to_update_comment(self.request, comment)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -126,6 +125,7 @@ class CommentDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         comment = self.object
         task = get_task_of_current_comment(comment)
         project = get_project_related_to_task(task)
@@ -137,7 +137,7 @@ class CommentDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         comment = self.get_object()
-        handle_user_CRUD_permissions_to_delete_comment(self.request, comment)
+        handle_user_perm_to_delete_comment(self.request, comment)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -154,5 +154,3 @@ class LogActivityView(auth_mixins.LoginRequiredMixin, auth_mixins.PermissionRequ
 
     def handle_no_permission(self):
         raise PermissionDenied
-
-

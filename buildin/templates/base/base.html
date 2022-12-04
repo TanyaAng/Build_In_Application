@@ -27,10 +27,7 @@
              <li>
                 <a href="{% url 'log activity' %}">Log Activity</a>
             </li>
-
-        {% endif %}
     </ul>
-    {% if request.user.is_authenticated %}
         <ul class="username-ctr">
             <li class="username-item">
                 <a href="{% url 'profile details' pk=request.user.id %}">
@@ -53,8 +50,7 @@
 
 <footer>
     <ul>
-        <li>&copy; Copyright 2022 TA</li>
-
+        <li>&copy; Copyright 2022 Tanya Angelova</li>
     </ul>
 </footer>
 </body>

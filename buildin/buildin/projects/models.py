@@ -5,7 +5,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from buildin.accounts.models import BuildInUser
-from buildin.core.models_mixins import ChoiceEnumMixin
+from buildin.core.mixins.choice_mixins import ChoiceEnumMixin
 
 UserModel = get_user_model()
 

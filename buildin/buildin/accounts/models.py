@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from phone_field import PhoneField
 
-from buildin.core.models_mixins import ChoiceEnumMixin
+from buildin.core.mixins.choice_mixins import ChoiceEnumMixin
 
 
 class ParticipantRole(ChoiceEnumMixin, Enum):
