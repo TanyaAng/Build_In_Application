@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks, calculate_days_to_deadline
-from buildin.core.repository.task_repository import get_all_tasks_by_project
+from buildin.core.repository.task_repository import get_all_tasks_by_project, check_if_task_is_approved
 from buildin.core.service.account_service import get_user_full_name
 from buildin.core.service.project_service import handle_user_perm_to_get_project, \
     handle_user_perm_to_update_project, handle_user_perm_to_delete_project
@@ -44,10 +44,13 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         user_full_name = get_user_full_name(self.request)
         tasks = get_all_tasks_by_project(self.object)
         total_time_of_project = calculate_total_time_of_tasks(tasks)
+        left_tasks=[task for task in tasks if not check_if_task_is_approved(task)]
+        total_time_of_left_tasks = calculate_total_time_of_tasks(left_tasks)
         days_to_deadline = calculate_days_to_deadline(self.object.deadline_date)
 
         context['tasks'] = tasks
         context['total_time_of_project'] = total_time_of_project
+        context['total_time_of_left_tasks'] = total_time_of_left_tasks
         context['user_full_name'] = user_full_name
         context['days_to_deadline'] = days_to_deadline
         return context

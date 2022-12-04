@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.core.exceptions import ObjectDoesNotExist
 
+from buildin.accounts.models import Profile
 from buildin.core.repository.account_repository import get_profile_of_current_user, get_request_user_id, \
     get_user_id_by_profile, get_request_user
 
@@ -26,3 +27,9 @@ def if_request_user_is_owner_of_profile(request, profile):
 
 def login_after_registration(request, user):
     login(request, user)
+
+
+def check_if_user_has_profile(user):
+    if Profile.objects.filter(user_id=user.pk):
+        return True
+    return False

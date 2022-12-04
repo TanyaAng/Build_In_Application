@@ -23,15 +23,18 @@
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Deadline:</p>
                 <p class="deadline-info">{{ project.deadline_date }}</p>
 
-                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Days to
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Working days to
                     deadline:
                 </p>
                 <p class="deadline-info">{{ days_to_deadline }} </p>
 
                 <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
-                    left
-                    tasks:</p>
+                    all project tasks:</p>
                 <p class="deadline-info">{{ total_time_of_project }} h</p>
+
+                <p class="details-arc-header"><i class="fa-sharp fa-solid fa-circle-exclamation"></i>Estimation of
+                    left tasks:</p>
+                <p class="deadline-info">{{ total_time_of_left_tasks }} h</p>
                 <hr>
 
                 <div class="button-project-ctr">

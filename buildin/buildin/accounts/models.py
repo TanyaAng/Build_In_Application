@@ -18,6 +18,7 @@ class ParticipantRole(ChoiceEnumMixin, Enum):
     SN_ENG = 'Senior design engineer'
     LEAD = 'Team Lead'
 
+
 class BuildInUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     email = models.EmailField(
         unique=True,
@@ -68,3 +69,6 @@ class Profile(models.Model):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.first_name or self.last_name
+
+    def __str__(self):
+        return self.full_name

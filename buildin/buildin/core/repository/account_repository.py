@@ -1,4 +1,4 @@
-from buildin.accounts.models import Profile
+from buildin.accounts.models import Profile, BuildInUser
 
 
 def get_request_user(request):
@@ -23,6 +23,24 @@ def get_profile_by_pk(pk):
     return profile.get()
 
 
+def get_profile_full_name(profile):
+    return profile.full_name
+
+
 def get_profile_of_current_user(request):
     profile = Profile.objects.get(user_id=request.user.id)
     return profile
+
+
+def get_profile_of_user(user):
+    profile = Profile.objects.get(user_id=user.pk)
+    return profile
+
+
+def get_users_by_profiles(profiles):
+    users = BuildInUser.objects.filter(pk__in=profiles)
+    return users
+
+def get_profiles_of_participants(participants):
+    profiles=Profile.objects.filter(user__in=participants)
+    return profiles

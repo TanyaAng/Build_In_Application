@@ -1,5 +1,7 @@
 from django import forms
 
+from buildin.core.repository.account_repository import get_users_by_profiles, get_profiles_of_participants
+
 from buildin.projects.models import BuildInProject
 
 
@@ -24,9 +26,22 @@ class CreateProjectForm(forms.ModelForm):
         }
 
 
-
-
 class EditProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__get_participants_profile()
+
+    def __get_participants_profile(self):
+        participants = self.fields.get('participants').queryset
+        self.fields['participants'].queryset = get_profiles_of_participants(participants)
+
+    def clean_participants(self):
+        participants_profile = self.cleaned_data['participants']
+        users = get_users_by_profiles(participants_profile)
+        self.fields['participants'].queryset = users
+        self.cleaned_data['participants'] = users
+        return self.cleaned_data['participants']
+
     class Meta:
         model = BuildInProject
         exclude = ('date_added', 'owner',)

@@ -24,22 +24,22 @@
             <li>
                 <a href="{% url 'profile details' pk=request.user.id %}">Profile</a>
             </li>
-             <li>
+            <li>
                 <a href="{% url 'log activity' %}">Log Activity</a>
             </li>
-    </ul>
-        <ul class="username-ctr">
-            <li class="username-item">
-                <a href="{% url 'profile details' pk=request.user.id %}">
-                    <i class="fa-solid fa-user"></i>
-                    <span class="username"> {{ user_full_name }}</span>
-                </a>
-            </li>
-            <li class="logout-item">
-                <a href="{% url 'logout' %}">Logout</a>
-            </li>
-        </ul>
-    {% endif %}
+            </ul>
+            <ul class="username-ctr">
+                <li class="username-item">
+                    <a href="{% url 'profile details' pk=request.user.id %}">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="username"> {{ user_full_name }}</span>
+                    </a>
+                </li>
+                <li class="logout-item">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        {% endif %}
 </nav>
 
 <main>
@@ -50,7 +50,10 @@
 
 <footer>
     <ul>
-        <li>&copy; Copyright 2022 Tanya Angelova</li>
+        <li>&copy; Copyright 2022</li>
+        <li class="contacts">
+            <a href="https://github.com/TanyaAng/"><i class="fa-brands fa-github"></i> Author GitHub</a>
+        </li>
     </ul>
 </footer>
 </body>

@@ -16,7 +16,11 @@
             {% for comment in comments %}
                 <div class="comment">
                     <div class="comment-heading">
-                        <p class="comment-author">{{ comment.user.profile.full_name }}</p>
+                        {% if comment.user.profile %}
+                            <p class="comment-author">{{ comment.user.profile.full_name }}</p>
+                        {% else %}
+                            <p class="comment-author">{{ comment.user }}</p>
+                        {% endif %}
                         <p class="comment-date">{{ comment.publication_date_time }}</p>
                     </div>
                     <div class="comment-info">
@@ -31,7 +35,7 @@
                                             </a>
                                         </li>
                                     {% endif %}
-                                    {% if request.user.is_superuser %}
+                                    {% if request.user.is_superuser or request.user == comment.user %}
                                         <li>
                                             <a href="{% url 'comment delete' task_slug=comment.to_task.slug pk=comment.id %}">
                                                 <i class="fa-sharp fa-solid fa-trash fa-delete"></i>
