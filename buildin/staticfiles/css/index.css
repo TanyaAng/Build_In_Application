@@ -6,8 +6,8 @@ body {
 }
 
 main {
-    margin-top: 80px;
-    margin-bottom: 60px;
+    margin-top: 50px;
+    margin-bottom: 110px;
 }
 
 .main-ctr {
@@ -18,13 +18,13 @@ main {
     align-items: center;
 }
 
-.comment-ctr {
+.secondary-ctr {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: left;
     align-items: center;
-    padding-left: 40px;
+    padding-left: 80px;
 }
 
 
@@ -34,7 +34,6 @@ main {
     flex-direction: row;
     width: 100%;
     justify-content: center;
-    /*align-items: center;*/
 }
 
 .child {
@@ -59,10 +58,14 @@ main {
 
 
 section.article-section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    margin: 0 50px 110px 50px;
+}
+
+section.log-section{
+    width: 80%;
 }
 
 article {
@@ -76,12 +79,14 @@ article {
 
 
 article.dashboard-artc {
-    width: 30%;
-    height: 500px;
+    margin: unset;
+    height: 30rem;
 
 }
 
 article.details-arc {
+    margin-top: 0px;
+    margin-left: 0px;
     line-height: 1.2;
     width: 500px;
     height: 100%;
@@ -158,8 +163,8 @@ p.deadline-info {
 
 p.project-status {
     padding: 5px 15px;
-
-    font-size: 18px;
+    color: var(--clr-darkgrey);
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;

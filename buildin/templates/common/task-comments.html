@@ -1,15 +1,15 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <div class="comment-ctr">
+    <div class="secondary-ctr">
         <section class="child-project-info">
-            <header class="comment-task-header">
+            <header class="secondary-ctr-header">
                 <h1><i class="fa-solid fa-helmet-safety"></i>{{ task.project.project_identifier }}</h1>
                 <h3>{{ task.task_name }}</h3>
             </header>
             <form class="comment-form" action="{% url 'comment section' task_slug=task.slug %}" method="POST">
                 {{ form }}
                 {% csrf_token %}
-                <div class="button-share-ctr">
+                <div class="button-center-ctr">
                     <button class="share">Submit</button>
                 </div>
             </form>

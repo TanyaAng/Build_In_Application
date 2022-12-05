@@ -1,8 +1,8 @@
 {% extends 'base/base.html' %}
 {% block base_content %}
-    <div class="comment-ctr">
+    <div class="secondary-ctr">
         <section class="child-project-info">
-            <header class="comment-task-header">
+            <header class="secondary-ctr-header">
                 <h1><i class="fa-solid fa-helmet-safety"></i>{{ project.project_identifier }}</h1>
                 <h3>{{ task.task_name }}</h3>
             </header>
@@ -11,9 +11,9 @@
 {#                <h4><i class="fa-solid fa-helmet-safety"></i> EDIT COMMENT</h4>#}
                 {{ form }}
                 {% csrf_token %}
-                <p>Are you sure you want to delete comment?</p>
-                <div class="button-share-ctr">
-                    <button class="share">Delete</button>
+                <p class="delete-question">Are you sure you want to delete the comment?</p>
+                <div class="button-center-ctr">
+                    <button class="delete">Delete</button>
                 </div>
             </form>
         </section>
