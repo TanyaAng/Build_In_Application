@@ -28,12 +28,6 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
 
 
 class CreateProfileForm(forms.ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.__hidden_phone_input()
-    #
-    # def __hidden_phone_input(self):
-    #     self.fields['phone_number_1'].widget = forms.HiddenInput()
 
     class Meta:
         model = Profile
@@ -41,10 +35,7 @@ class CreateProfileForm(forms.ModelForm):
         widgets = {
             'phone_number_1': forms.CharField(widget=forms.HiddenInput(), required=False)
         }
-        # fields = ('first_name', 'last_name', 'phone_number', 'participant_role')
-        # widgets={
-        #     'phone_number': Phone
-        # }
+
 
 
 class EditProfileForm(forms.ModelForm):
@@ -59,9 +50,7 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ('user',)
-        # widgets = {
-        #     self.__hidden_phone_input: forms.CharField(widget=forms.HiddenInput(), required=False)
-        # }
+
 
 # class DeleteProfileForm(forms.ModelForm):
 #     def __init__(self, *args, **kwargs):

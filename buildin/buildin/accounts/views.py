@@ -3,7 +3,6 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
 
 from django.http import Http404
-from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
