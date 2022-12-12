@@ -1,11 +1,11 @@
 from tests.utils.base_test_class import BaseTestCase
 
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import post_save
 from factory.django import mute_signals
 
 from django.urls import reverse
 
-from buildin.tasks.models import ProjectTask
+
 
 
 class TaskDeleteViewTests(BaseTestCase):
@@ -17,7 +17,7 @@ class TaskDeleteViewTests(BaseTestCase):
         self.task = self.create_and_save_task_of_project(self.project)
 
     @mute_signals(post_save)
-    def test_delete_task__when_user_try_to_access_projecttask_where_not_participant__expect_to_be_forbidden(self):
+    def test_delete_task__when_user_try_to_access_task_where_not_participant__expect_to_be_forbidden(self):
         another_user_credentials = {
             'email': 'another_user@it.com',
             'password': '12345'
@@ -30,15 +30,3 @@ class TaskDeleteViewTests(BaseTestCase):
             reverse('task delete', kwargs={'build_slug': another_project.slug, 'task_slug': another_task.slug}))
         self.assertEqual(403, response.status_code)
 
-    # @mute_signals(post_save,pre_delete)
-    # def test_delete_task__when_user_to_access_task_where_is_participant_or_owner__expect_delete_task(self):
-    #     task_content = {}
-    #     for key, value in self.task.__dict__.items():
-    #         if value:
-    #             task_content[key] = value
-    #     print(task_content)
-    #
-    #     response = self.client.post(
-    #         reverse('task delete', kwargs={'build_slug': self.project.slug, 'task_slug': self.task.slug}))
-    #     tasks = ProjectTask.objects.all()
-    #     self.assertEqual([], list(tasks))

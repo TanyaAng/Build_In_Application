@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.urls import reverse
 
 from buildin.projects.models import BuildInProject
-from buildin.tasks.models import ProjectTask
+
 
 
 class ProfileDetailViewTests(BaseTestCase):

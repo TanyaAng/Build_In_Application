@@ -1,4 +1,4 @@
-
+from buildin.projects.models import BuildInProject
 from tests.utils.base_test_class import BaseTestCase
 from django.urls import reverse
 
@@ -23,25 +23,3 @@ class ProjectEditViewTests(BaseTestCase):
 
         response = self.client.get(reverse('project edit', kwargs={'build_slug': another_project.slug}))
         self.assertEqual(403, response.status_code)
-
-    # def test_edit_project__when_user_access_own_project_or_participant__expect_to_update_data(self):
-    #     update_project_name = 'Residential Building'
-    #     update_project_client = 'Stroi LTD'
-    #     update_project_deadline = '2023-08-10'
-    #     update_project_info = {
-    #         'project_identifier': self.project.project_identifier,
-    #         'project_name': update_project_name,
-    #         'project_phase': self.project.project_phase,
-    #         'client_name': update_project_client,
-    #         'deadline_date': update_project_deadline,
-    #         'owner': self.user,
-    #         'participants': self.user,
-    #     }
-    #
-    #     response = self.client.post(reverse('project edit', kwargs={'build_slug': self.project.slug}),
-    #                                 data=update_project_info)
-    #     project = BuildInProject.objects.filter(project_name=update_project_info['project_name']).get()
-    #     self.assertEqual(self.project.pk, project.pk)
-    #     self.assertEqual(update_project_name, project.project_name)
-    #     self.assertEqual(update_project_client, project.client_name)
-    #     self.assertEqual(update_project_deadline, str(project.deadline_date))
