@@ -32,6 +32,9 @@ class BuildInUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    class Meta:
+        verbose_name='user'
+
 
 class Profile(models.Model):
     FIRST_NAME_MAX_LENGTH = 35
@@ -50,7 +53,6 @@ class Profile(models.Model):
         null=True,
         blank=True,
         E164_only=False,
-        # unique=True,
     )
 
     participant_role = models.CharField(

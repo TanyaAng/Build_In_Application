@@ -79,3 +79,4 @@ class BuildInProject(models.Model):
 
     class Meta:
         ordering = ('project_identifier',)
+        verbose_name='project'

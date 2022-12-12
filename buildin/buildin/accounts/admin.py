@@ -9,14 +9,22 @@ UserModel = get_user_model()
 class BuildInUserAdmin(UserAdmin):
     list_display = ('email', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'groups')
-    ordering = ('email',)
+    ordering = ('email','is_staff')
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Permissions', {
+        ('User Credentials',
+         {'fields': ('email', 'password')}
+         ),
+        ('Permissions',
+         {
             'fields': ('is_staff', 'is_superuser', 'groups', 'user_permissions'),
-        }),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        }
+         ),
+        ('Date joined and last login date',
+         {'fields': ('last_login', 'date_joined')}
+         ),
     )
+
+    # Refers to creation form in django admin
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -24,4 +32,5 @@ class BuildInUserAdmin(UserAdmin):
         }),
     )
     readonly_fields = ('date_joined',)
+
 
