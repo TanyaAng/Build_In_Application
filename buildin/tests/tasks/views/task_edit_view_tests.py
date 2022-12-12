@@ -1,91 +1,46 @@
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.db.models.signals import post_save
-from django.urls import reverse
+from tests.utils.base_test_class import BaseTestCase
 
+from django.db.models.signals import post_save
 from factory.django import mute_signals
 
-from buildin.accounts.models import ParticipantRole, Profile
-from buildin.projects.models import ProjectPhases, BuildInProject
+from django.urls import reverse
+
 from buildin.tasks.models import ProjectTask
 
-UserModel = get_user_model()
 
-
-class TaskCreateViewTests(TestCase):
+class TaskCreateViewTests(BaseTestCase):
     @mute_signals(post_save)
     def setUp(self) -> None:
-        credentials = {
-            'email': 'user@it.com',
-            'password': '12345'
-        }
-        profile_info = {
-            'first_name': 'Marina',
-            'last_name': 'Petrova',
-            'participant_role': ParticipantRole.choices()[3][0]
-        }
+        self.user, self.profile = self.create_login_and_make_profile_of_user()
 
-        self.user = UserModel.objects.create_user(**credentials)
-        self.client.login(**credentials)
-        self.profile = Profile.objects.create(**profile_info, user=self.user)
+        self.project = self.create_and_save_project_of_user(self.user)
 
-        project_info = {
-            'project_identifier': 'BG100',
-            'project_name': 'Apartament Hotel',
-            'project_phase': ProjectPhases.choices()[2][0],
-            'client_name': 'Arch Studio Sofia',
-            'deadline_date': '2023-05-06',
-            'owner': self.user
-        }
-
-        self.project = BuildInProject(**project_info)
-        self.project.full_clean()
-        self.project.save()
-
-        task_info = {
-            'task_id': 'FP101',
-            'task_name': 'Formwork plan at level +3.00',
-            'project': self.project,
-        }
-        self.task = ProjectTask(**task_info)
-        self.task.full_clean()
-        self.task.save()
+        self.task = self.create_and_save_task_of_project(self.project)
 
     @mute_signals(post_save)
     def test_edit_task__when_user_try_to_access_projecttask_where_not_participant__expect_to_be_forbidden(self):
-        second_user_credentials = {
+        another_user_credentials = {
             'email': 'second_user@it.com',
             'password': '12345'
         }
-        second_user = UserModel.objects.create_user(**second_user_credentials)
-        second_project = BuildInProject(project_identifier='BG200', project_name='Residential Building',
-                                        owner=second_user)
-        second_project.full_clean()
-        second_project.save()
-        second_task_info = {
-            'task_id': 'FP200',
-            'task_name': 'Plan at level +6.00',
-            'project': second_project
-        }
-        second_task = ProjectTask(**second_task_info)
-        second_task.full_clean()
-        second_task.save()
+        another_user = self.create_user_by_credentials(**another_user_credentials)
+        another_project = self.create_and_save_project_of_user(another_user)
+        another_task = self.create_and_save_task_of_project(another_project)
 
-        response = self.client.post(
-            reverse('task edit', kwargs={'build_slug': second_project.slug, 'task_slug': second_task.slug}),
-            data=second_task_info)
+        response = self.client.get(
+            reverse('task edit', kwargs={'build_slug': another_project.slug, 'task_slug': another_task.slug}))
         self.assertEqual(403, response.status_code)
 
     def test_edit_task__when_user_access_task__expect_to_update_data(self):
+        update_task_name = 'Plan at level +6.00'
         update_task_info = {
-            'task_id': 'FP200',
-            'task_name': 'Plan at level +6.00',
+            'task_id': self.task.task_id,
+            'task_name': update_task_name,
         }
         response = self.client.post(
             reverse('task edit', kwargs={'build_slug': self.project.slug, 'task_slug': self.task.slug}),
             data=update_task_info)
-        task=ProjectTask.objects.filter(**update_task_info).get()
-        self.assertEqual(self.task.pk, task.pk)
-        self.assertEqual('FP200', task.task_id)
-        self.assertEqual('Plan at level +6.00', task.task_name)
+        task = ProjectTask.objects.filter(**update_task_info).get()
 
+        self.assertEqual(self.task.pk, task.pk)
+        self.assertEqual(update_task_name, task.task_name)
