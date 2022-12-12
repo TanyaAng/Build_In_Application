@@ -72,34 +72,37 @@ of features.
 LIVE LINK: https://buildin.tk
 
 1. Home View - public access
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\home_page.PNG)
+![home_page](https://user-images.githubusercontent.com/18015470/207098928-704a5cb1-eeb6-408c-8815-a89e6737994f.PNG)
 
 2. Dashboard - when user is logged in
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\dashboard.PNG)
+![dashboard](https://user-images.githubusercontent.com/18015470/207099019-827a878a-4853-4ff4-9cb2-5830b7cfe585.PNG)
+
 
 3. Add New Project
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\add_project.PNG)
+![add_project](https://user-images.githubusercontent.com/18015470/207099046-58403283-c371-4f03-8143-ba969c081455.PNG)
+
 
 4. Edit Project
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\edit-project.PNG)
+![edit-project](https://user-images.githubusercontent.com/18015470/207099072-c485c9b4-758b-4f57-96fd-3f8d299f6a6b.PNG)
 
 5. Delete Project
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\delete-project.PNG)
+![delete-project](https://user-images.githubusercontent.com/18015470/207099091-7fdfcb92-265d-4f4d-b386-c3677e816f7e.PNG)
 
 6. Project Details:
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\project_details.PNG)
+![project_details](https://user-images.githubusercontent.com/18015470/207099131-af7e4309-800a-4340-8ba8-c96fd05f5c83.PNG)
 
 7. Project Contacts:
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\project-contacts.PNG)
+![project-contacts](https://user-images.githubusercontent.com/18015470/207099156-336ff02f-4dcc-4885-a379-38db70d65ce6.PNG)
 
 8. Task Comment section:
-   ![](D:\SOFTUNI\BUILDIN_imgs_github\comment-section.PNG)
+![comment-section](https://user-images.githubusercontent.com/18015470/207099186-a3147f78-9281-4461-aa90-14e51bdaf8ca.PNG)
 
 9. Profile Details: 
-![](D:\SOFTUNI\BUILDIN_imgs_github\profile_details.PNG)
+![profile_details](https://user-images.githubusercontent.com/18015470/207099218-df55faad-bb88-47dc-8b98-a9a0fc6012eb.PNG)
 
 10. Log Activity:
-![](D:\SOFTUNI\BUILDIN_imgs_github\log-activity.PNG)
+![log-activity](https://user-images.githubusercontent.com/18015470/207099251-7998f79a-cb4e-4a82-8e27-16855746b7b7.PNG)
+
 
     
 <p align="right"><a href="#top">back to top</a></p>
