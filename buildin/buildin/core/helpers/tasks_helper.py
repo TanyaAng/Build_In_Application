@@ -18,6 +18,5 @@ def calculate_days_to_deadline(deadline_date):
 def calculate_total_time_of_tasks(tasks):
     total_time = 0
     if tasks:
-        total_time = sum([get_task_time_estimation(task) for task in tasks])
+        total_time = sum([get_task_time_estimation(task) for task in tasks if task.time_estimation])
     return total_time
-

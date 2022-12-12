@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from buildin.core.global_error_handlers.error_handlers import custom_handler403, custom_handler404, custom_handler500
+
+from buildin.common.views import custom_handler403, custom_handler404, custom_handler500
 
 urlpatterns = (
     path('admin/', admin.site.urls),

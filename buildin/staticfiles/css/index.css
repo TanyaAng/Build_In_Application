@@ -16,6 +16,7 @@ main {
     width: 100%;
     justify-content: center;
     align-items: center;
+
 }
 
 .secondary-ctr {
@@ -64,7 +65,7 @@ section.article-section {
     margin: 0 50px 110px 50px;
 }
 
-section.log-section{
+section.log-section {
     width: 80%;
 }
 
@@ -214,4 +215,27 @@ hr {
     text-align: center;
     color: var(--clr-black-primary);
 }
+
+.errorlist {
+    color: var(--clr-red-dark);
+    font-size: 14px;
+    font-style: italic;
+}
+
+
+.helptext {
+    /*display: none;*/
+    color: var(--clr-darkgrey);
+    font-size: 14px;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
 

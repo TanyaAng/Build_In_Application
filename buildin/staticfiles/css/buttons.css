@@ -48,6 +48,20 @@ button.submit {
     margin: 0px 30px;
 }
 
+button.login-small,
+button.register-small,
+button.submit-small {
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    margin: 0px 30px;
+}
+
 button.details,
 button.edit,
 button.delete-project {
@@ -92,12 +106,14 @@ button.delete-project {
 }
 
 button.login,
+button.login-small,
 button.details {
     background-color: var(--clr-green-light);
     border: none;
 }
 
 button.login:hover,
+button.login-small:hover,
 button.details:hover {
     background-color: var(--clr-green-primary);
     border: none;
@@ -105,7 +121,9 @@ button.details:hover {
 }
 
 button.register,
+button.register-small,
 button.submit,
+button.submit-small,
 button.edit,
 button.edit-task {
     background-color: var(--clr-orange-secondary);
@@ -113,7 +131,9 @@ button.edit-task {
 }
 
 button.register:hover,
+button.register-small:hover,
 button.submit:hover,
+button.submit-small:hover,
 button.edit:hover,
 button.edit-task:hover,
 button.share:hover{

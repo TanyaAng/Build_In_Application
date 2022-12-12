@@ -1,10 +1,14 @@
 form.login-register-form {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
     padding: 0px 50px;
     line-height: 2;
+}
+
+form.login-register-form br {
+    display: none;
 }
 
 form.crud-form, form.comment-form {
@@ -45,13 +49,19 @@ select {
     padding-left: 10px;
 }
 
+form input, select {
+    color: var(--clr-darkgrey);
+    font-size: 16px;
+}
+
+form.login-register-form input,
+select,
 form.crud-form input, select {
     width: 50%;
     height: 35px;
     border-radius: 10px;
     border: none;
     padding-left: 15px;
-
 }
 
 form h1 {
@@ -75,3 +85,14 @@ p.delete-question {
     margin-top: 30px;
 }
 
+
+#id_participants label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 16px;
+}
+
+#id_participants input {
+    width: 1.5rem;
+}
