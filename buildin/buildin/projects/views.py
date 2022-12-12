@@ -80,24 +80,6 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-# TODO CLASS BASED VIEW do not show the current project in form
-
-# class ProjectDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
-#     model = BuildInProject
-#     form_class = DeleteProjectForm
-#
-#     slug_url_kwarg = 'build_slug'
-#     context_object_name = 'project'
-#
-#     template_name = 'projects/project-delete.html'
-#     success_url = reverse_lazy('dashboard')
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['user_full_name'] = get_user_full_name(self.request)
-#         return context
-
-
 @login_required
 def project_delete(request, build_slug):
     project = get_project_by_slug(build_slug)

@@ -1,11 +1,10 @@
+from buildin.projects.models import BuildInProject
 from tests.utils.base_test_class import BaseTestCase
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from factory.django import mute_signals
 
-
 from django.urls import reverse
-
 
 
 class ProjectDeleteViewTests(BaseTestCase):
@@ -15,7 +14,8 @@ class ProjectDeleteViewTests(BaseTestCase):
         self.project = self.create_and_save_project_of_user(self.user)
 
     @mute_signals(post_save)
-    def test_delete_project__when_user_try_to_access_project_where_not_owner_or_participant__expect_to_be_forbidden(self):
+    def test_delete_project__when_user_try_to_access_project_where_not_owner_or_participant__expect_to_be_forbidden(
+            self):
         another_user_credentials = {
             'email': 'another_user@it.com',
             'password': '12345'
@@ -26,3 +26,16 @@ class ProjectDeleteViewTests(BaseTestCase):
         response = self.client.get(reverse('project delete', kwargs={'build_slug': another_project.slug}))
         self.assertEqual(403, response.status_code)
 
+    @mute_signals(post_save, pre_delete)
+    def test_delete_project__when_user_try_to_access_project_where_is_owner_or_participant__expect_delete_project(
+            self):
+        project_content = {}
+
+        for key, value in self.project.__dict__.items():
+            if value:
+                project_content[key] = value
+
+        response = self.client.post(reverse('project delete', kwargs={'build_slug': self.project.slug}),
+                                    data=project_content)
+        project = BuildInProject.objects.all()
+        self.assertEqual([], list(project))

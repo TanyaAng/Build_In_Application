@@ -1,9 +1,14 @@
-from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
 from buildin.accounts.models import ParticipantRole, Profile
+from buildin.common.models import TaskComment
+from buildin.core.app_groups.app_groups import set_user_to_admin_group
 from buildin.projects.models import BuildInProject, ProjectPhases
 from buildin.tasks.models import ProjectTask
+
+from django.contrib.auth.models import Group, Permission
 
 UserModel = get_user_model()
 
@@ -31,6 +36,15 @@ class BaseTestCase(TestCase):
             'password': self.password_credentials
         }
         user = UserModel.objects.create_user(**credentials)
+        self.client.login(**credentials)
+        return user
+
+    def create_and_login_superuser(self):
+        credentials = {
+            'email': self.email_credentials,
+            'password': self.password_credentials
+        }
+        user = UserModel.objects.create_superuser(**credentials)
         self.client.login(**credentials)
         return user
 
@@ -91,7 +105,7 @@ class BaseTestCase(TestCase):
         return tasks
 
     def create_and_save_project_of_user(self, user):
-        project_info = {
+        project_content = {
             'project_identifier': self.project_identifier,
             'project_name': self.project_name,
             'project_phase': self.project_phase,
@@ -100,19 +114,30 @@ class BaseTestCase(TestCase):
             'owner': user,
         }
 
-        project = BuildInProject(**project_info)
+        project = BuildInProject(**project_content)
         project.full_clean()
         project.save()
 
         return project
 
     def create_and_save_task_of_project(self, project):
-        task_info = {
+        task_content = {
             'task_id': self.task_id,
             'task_name': self.task_name,
             'project': project,
         }
-        task = ProjectTask(**task_info)
+        task = ProjectTask(**task_content)
         task.full_clean()
         task.save()
         return task
+
+    def create_user_comment_to_task(self, task, user):
+        comment_content = {
+            'description': 'Add more details to the sections',
+            'to_task': task,
+            'user': user
+        }
+
+        TaskComment.objects.create(**comment_content)
+        comment = TaskComment.objects.all().first()
+        return comment
