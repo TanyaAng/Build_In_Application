@@ -19,7 +19,7 @@ class ProjectCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
     model = BuildInProject
     form_class = CreateProjectForm
     template_name = 'projects/project-create.html'
-    success_url = reverse_lazy('home page')
+    success_url = reverse_lazy('dashboard')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,12 +67,15 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     slug_url_kwarg = 'build_slug'
     context_object_name = 'project'
     template_name = 'projects/project-edit.html'
-    success_url = reverse_lazy('dashboard')
+
+    def get_success_url(self):
+        return reverse_lazy('project details', kwargs={'build_slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_full_name'] = get_user_full_name(self.request)
         return context
+
 
     def dispatch(self, request, *args, **kwargs):
         project = self.get_object()
