@@ -13,9 +13,9 @@ class ProfileDetailViewTests(BaseTestCase):
     def setUp(self) -> None:
         self.user, self.profile = self.create_login_and_make_profile_of_user()
 
-    def test_profile_details_view__when_user_try_to_access_another_user_profile__expect_to_redirect(self):
+    def test_profile_details_view__when_user_try_to_access_another_user_profile_or_invalid_pk__expect_to_raise_not_found(self):
         response = self.client.get(reverse('profile details', kwargs={'pk': self.user.pk + 1}))
-        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_NOT_FOUND)
 
     def test_profile_details_view__when_user_try_to_access_profile_page__expect_correct(self):
         response = self.client.get(reverse('profile details', kwargs={'pk': self.user.pk}))
