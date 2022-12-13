@@ -10,7 +10,8 @@ from buildin.accounts.models import Profile
 from buildin.core.app_groups.app_groups import set_user_to_regular_user_group
 
 from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks
-from buildin.core.repository.account_repository import get_user_id_by_profile, get_request_user
+from buildin.core.repository.account_repository import get_user_id_by_profile, get_request_user, \
+    get_profile_of_current_user
 
 from buildin.core.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
 
@@ -95,14 +96,12 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        try:
-            profile = self.get_object()
-            if not if_request_user_is_owner_of_profile(self.request, profile):
-                return redirect('profile details', pk=request.user.pk)
-            return super().dispatch(request, *args, **kwargs)
-
-        except Http404:
+        profile_of_logged_user = get_profile_of_current_user(self.request)
+        if not profile_of_logged_user:
             return redirect('profile create')
+        if profile_of_logged_user != self.get_object():
+            raise Http404
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
