@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from buildin.core.repository.project_repository import get_project_by_slug
 from buildin.core.repository.task_repository import get_task_by_slug
-from buildin.core.service.account_service import get_user_full_name
+from buildin.core.service.account_service import get_request_user_full_name
 from buildin.core.service.project_service import handle_user_perm_to_get_project
 
 from buildin.tasks.forms import CreateTaskForm, EditTaskForm, DeleteTaskForm
@@ -25,7 +25,7 @@ def task_create(request, build_slug):
     context = {
         'form': form,
         'project': project,
-        'user_full_name': get_user_full_name(request),
+        'user_full_name': get_request_user_full_name(request),
     }
     return render(request, 'tasks/task-create.html', context)
 
@@ -46,7 +46,7 @@ def task_edit(request, build_slug, task_slug):
         'form': form,
         'project': project,
         'task': task,
-        'user_full_name': get_user_full_name(request),
+        'user_full_name': get_request_user_full_name(request),
     }
     return render(request, 'tasks/task-edit.html', context)
 
@@ -67,6 +67,6 @@ def task_delete(request, build_slug, task_slug):
         'form': form,
         'project': project,
         'task': task,
-        'user_full_name': get_user_full_name(request),
+        'user_full_name': get_request_user_full_name(request),
     }
     return render(request, 'tasks/task-delete.html', context)

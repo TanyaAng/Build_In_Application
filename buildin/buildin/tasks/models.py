@@ -72,3 +72,6 @@ class ProjectTask(models.Model):
 
     def __str__(self):
         return f"{self.task_id} - {self.task_name}"
+
+    class Meta:
+        ordering = ('task_id',)

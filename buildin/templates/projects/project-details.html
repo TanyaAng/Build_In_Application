@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load full_name_filter %}
 {% block base_content %}
     <div class="main-ctr">
         <section class="child-project-info">
@@ -94,9 +95,9 @@
                                 {{ task.task_name }}
                             </td>
                             <td>{{ task.time_estimation }} hours</td>
-                            <td>{{ task.designer }}</td>
+                            <td>{{ task.designer| user_full_name_filter }}</td>
                             <td>{{ task.is_ready_for_markups }}</td>
-                            <td>{{ task.checked_by }}</td>
+                            <td>{{ task.checked_by|user_full_name_filter }}</td>
                             <td>{{ task.is_approved }}</td>
                             <td>{{ task.is_issued }}</td>
                             <td>

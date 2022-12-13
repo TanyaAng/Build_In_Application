@@ -6,7 +6,7 @@ from django.views import generic as views
 
 from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks, calculate_days_to_deadline
 from buildin.core.repository.task_repository import get_all_tasks_by_project, check_if_task_is_approved
-from buildin.core.service.account_service import get_user_full_name
+from buildin.core.service.account_service import get_request_user_full_name
 from buildin.core.service.project_service import handle_user_perm_to_get_project, \
     handle_user_perm_to_update_project, handle_user_perm_to_delete_project
 from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
@@ -23,7 +23,7 @@ class ProjectCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_full_name'] = get_user_full_name(self.request)
+        context['user_full_name'] = get_request_user_full_name(self.request)
         return context
 
     def form_valid(self, form):
@@ -41,7 +41,7 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        user_full_name = get_user_full_name(self.request)
+        user_full_name = get_request_user_full_name(self.request)
         tasks = get_all_tasks_by_project(self.object)
         total_time_of_project = calculate_total_time_of_tasks(tasks)
         left_tasks=[task for task in tasks if not check_if_task_is_approved(task)]
@@ -73,7 +73,7 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_full_name'] = get_user_full_name(self.request)
+        context['user_full_name'] = get_request_user_full_name(self.request)
         return context
 
 
@@ -95,7 +95,7 @@ def project_delete(request, build_slug):
         if form.is_valid():
             form.save()
             return redirect('home page')
-    user_full_name = get_user_full_name(request)
+    user_full_name = get_request_user_full_name(request)
     context = {
         'form': form,
         'project': project,
@@ -116,7 +116,7 @@ class ProjectContactView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
         if participants:
             context['participants'] = participants
-            context['user_full_name'] = get_user_full_name(self.request)
+            context['user_full_name'] = get_request_user_full_name(self.request)
         return context
 
     def dispatch(self, request, *args, **kwargs):

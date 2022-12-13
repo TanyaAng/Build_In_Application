@@ -16,7 +16,7 @@ from buildin.core.repository.project_repository import get_user_projects_where_u
 
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 from buildin.core.repository.task_repository import get_user_tasks_to_design, get_user_tasks_to_check
-from buildin.core.service.account_service import get_user_full_name, if_request_user_is_owner_of_profile, \
+from buildin.core.service.account_service import get_request_user_full_name, if_request_user_is_owner_of_profile, \
     login_after_registration
 
 UserModel = auth_views.get_user_model()
@@ -67,7 +67,7 @@ class ProfileCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_full_name = get_user_full_name(self.request)
+        user_full_name = get_request_user_full_name(self.request)
         context['user_full_name'] = user_full_name
         return context
 
@@ -81,7 +81,7 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         context = super().get_context_data(**kwargs)
 
         user = get_user_id_by_profile(self.object)
-        user_full_name = get_user_full_name(self.request)
+        user_full_name = get_request_user_full_name(self.request)
         user_projects = get_user_projects_where_user_is_participant_or_owner(user)
         tasks_to_design = get_user_tasks_to_design(user)
         tasks_to_check = get_user_tasks_to_check(user)

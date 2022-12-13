@@ -3,10 +3,10 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from buildin.accounts.models import Profile
 from buildin.core.repository.account_repository import get_profile_of_current_user, get_request_user_id, \
-    get_user_id_by_profile, get_request_user
+    get_user_id_by_profile, get_request_user, get_profile_of_user
 
 
-def get_user_full_name(request):
+def get_request_user_full_name(request):
     try:
         profile = get_profile_of_current_user(request)
         if profile:
@@ -15,6 +15,16 @@ def get_user_full_name(request):
     except ObjectDoesNotExist:
         username = get_request_user(request)
         return username
+
+
+def get_user_full_name_by_user(user):
+    try:
+        profile = get_profile_of_user(user)
+        if profile:
+            full_name = profile.full_name
+            return full_name
+    except ObjectDoesNotExist:
+        return user
 
 
 def if_request_user_is_owner_of_profile(request, profile):
