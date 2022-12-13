@@ -65,6 +65,9 @@ of features.
    ```sh
    pip install -r requirements.txt
    ```
+3. Make two groups in django admin:
+ - Regular user
+ - Admin
 
 <p align="right"><a href="#top">back to top</a></p>
 
