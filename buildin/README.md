@@ -67,7 +67,10 @@ of features.
    ```
 3. Make two groups in django admin:
  - Regular user
+ ![regular-user](https://user-images.githubusercontent.com/18015470/207396225-4657f245-0556-48d2-a9bb-d11b2e359785.PNG)
+ 
  - Admin
+![admin-user](https://user-images.githubusercontent.com/18015470/207396233-3eced4dc-27c3-495d-962a-a8bd47db1bbb.PNG)
 
 <p align="right"><a href="#top">back to top</a></p>
 
