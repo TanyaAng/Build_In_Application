@@ -18,7 +18,7 @@ from buildin.core.repository.project_repository import get_user_projects_where_u
 from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 from buildin.core.repository.task_repository import get_user_tasks_to_design, get_user_tasks_to_check
 from buildin.core.service.account_service import get_request_user_full_name, if_request_user_is_owner_of_profile, \
-    login_after_registration
+    login_after_registration, check_if_user_has_profile
 
 UserModel = auth_views.get_user_model()
 
@@ -96,10 +96,12 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        profile_of_logged_user = get_profile_of_current_user(self.request)
-        if not profile_of_logged_user:
+        has_profile = check_if_user_has_profile(self.request.user)
+        if not has_profile:
             return redirect('profile create')
-        if profile_of_logged_user != self.get_object():
+
+        profile=self.get_object()
+        if not if_request_user_is_owner_of_profile(self.request, profile):
             raise Http404
         return super().dispatch(request, *args, **kwargs)
 
