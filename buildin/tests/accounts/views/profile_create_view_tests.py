@@ -3,7 +3,6 @@ from django.urls import reverse
 from buildin.accounts.models import Profile, ParticipantRole
 
 
-
 class ProfileCreateViewTests(BaseTestCase):
     def setUp(self) -> None:
         self.user = self.create_and_login_user()
@@ -17,6 +16,7 @@ class ProfileCreateViewTests(BaseTestCase):
         }
         response = self.client.post(reverse('profile create'), data=profile_info)
         profile = Profile.objects.filter(**profile_info).get()
+
         self.assertIsNotNone(profile)
-        self.assertEqual(302, response.status_code)
-        self.assertEqual(self.user.pk, profile.pk)
+        self.assertEqual(profile.pk, self.user.pk)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

@@ -8,8 +8,10 @@ from factory.django import mute_signals
 class DashboardViewTest(BaseTestCase):
     def test_dashboard_view__when_no_authenticated_user__expect_redirect_to_login(self):
         response = self.client.get(reverse('dashboard'))
-        self.assertEqual(302, response.status_code)
+
+
         self.assertRedirects(response, '/accounts/login/')
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)
 
     @mute_signals(post_save)
     def test_dashboard_view__when_is_authenticated_user__expect_to_render_own_dashboard(self):
@@ -24,6 +26,7 @@ class DashboardViewTest(BaseTestCase):
         another_user = self.create_user_by_credentials(**another_user_credentials)
         project_2 = self.create_and_save_project_of_user(another_user)
 
-
         response = self.client.get(reverse('dashboard'))
-        self.assertEqual([project_1], list(response.context['projects']))
+
+        self.assertEqual(list(response.context['projects']), [project_1])
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)

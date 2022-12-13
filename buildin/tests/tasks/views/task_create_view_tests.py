@@ -23,5 +23,5 @@ class TaskCreateViewTests(BaseTestCase):
         response = self.client.post(reverse('task create', kwargs={'build_slug': self.project.slug}), data=task)
         task = ProjectTask.objects.filter(**task).get()
         self.assertIsNotNone(task)
-        self.assertEqual(self.project, task.project)
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(task.project, self.project)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

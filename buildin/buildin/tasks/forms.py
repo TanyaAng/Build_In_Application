@@ -31,11 +31,6 @@ class EditTaskForm(forms.ModelForm):
     class Meta:
         model = ProjectTask
         exclude = ('project',)
-        # widgets = {
-        #     'is_ready_for_markups': forms.CheckboxInput(),
-        #     'is_approved': forms.CheckboxInput(),
-        #     'is_issued': forms.CheckboxInput(),
-        # }
 
 
 class DeleteTaskForm(forms.ModelForm):

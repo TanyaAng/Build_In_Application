@@ -22,8 +22,10 @@ class ProjectDetailViewTests(BaseTestCase):
         another_project = self.create_and_save_project_of_user(another_user)
 
         response = self.client.get(reverse('project details', kwargs={'build_slug': another_project.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     def test_project_details_page__expect_to_have_correct_project_data(self):
         response = self.client.get(reverse('project details', kwargs={'build_slug': self.project.slug}))
+
         self.assertEqual(response.context['project'], self.project)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)

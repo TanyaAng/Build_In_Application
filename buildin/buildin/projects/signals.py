@@ -22,8 +22,7 @@ def project_created(instance, created, **kwargs):
     to_related = MODELS_RELATED['APP']
     if created:
         create_logactivity_entity(user_email=user, action=action_create, model=model, to_related=to_related)
-    # else:
-    #     create_logactivity_entity(user_email=user, action=action_update, model=model, to_related=to_related)
+
 
 
 @receiver(signals.pre_delete, sender=BuildInProject)

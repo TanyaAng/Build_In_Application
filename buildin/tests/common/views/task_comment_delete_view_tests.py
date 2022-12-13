@@ -27,7 +27,7 @@ class TaskCommentDeleteViewTests(BaseTestCase):
 
         response = self.client.get(
             reverse('comment delete', kwargs={'task_slug': another_task.slug, 'pk': another_comment.pk}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     @mute_signals(post_save, pre_delete)
     def test_task_comment_delete_view__when_user_is_owner_of_comment__expect_to_delete_comment(self):
@@ -42,5 +42,5 @@ class TaskCommentDeleteViewTests(BaseTestCase):
         )
 
         comment = TaskComment.objects.all()
-
-        self.assertEqual([], list(comment))
+        self.assertEqual(list(comment), [])
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

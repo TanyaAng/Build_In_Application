@@ -27,7 +27,7 @@ class TaskCommentEditViewTests(BaseTestCase):
 
         response = self.client.get(
             reverse('comment edit', kwargs={'task_slug': another_task.slug, 'pk': another_comment.pk}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     @mute_signals(post_save)
     def test_task_comment_edit_view__when_user_is_owner_of_comment__expect_to_update_comment(self):
@@ -50,3 +50,4 @@ class TaskCommentEditViewTests(BaseTestCase):
 
         self.assertEqual(comment.pk, update_comment.pk)
         self.assertEqual(update_description, update_comment.description)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

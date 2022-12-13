@@ -14,6 +14,11 @@ UserModel = get_user_model()
 
 
 class BaseTestCase(TestCase):
+    HTTP_STATUS_CODE_OK = 200
+    HTTP_STATUS_CODE_CREATED = 201
+    HTTP_STATUS_CODE_FOUND = 302
+    HTTP_STATUS_CODE_FORBIDDEN = 403
+
     email_credentials = 'user@it.com'
     password_credentials = '12345'
 

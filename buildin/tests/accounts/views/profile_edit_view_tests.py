@@ -25,11 +25,11 @@ class ProfileEditViewTests(BaseTestCase):
         another_profile = self.create_profile_by_user_and_info(another_user, **another_user_profile)
 
         response = self.client.get(reverse('profile edit', kwargs={'pk': another_user.pk}))
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)
 
     def test_profile_edit__when_user_try_to_access_own_profile__expect_to_be_successful(self):
         response = self.client.get(reverse('profile edit', kwargs={'pk': self.user.pk}))
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)
 
     def test_profile_edit__when_some_data_has_changed__expect_to_update_data(self):
         update_last_name = 'Petrova - Marinova'
@@ -42,8 +42,7 @@ class ProfileEditViewTests(BaseTestCase):
         response = self.client.post(reverse('profile edit', kwargs={'pk': self.user.pk}), data=update_profile_info)
         profile = Profile.objects.filter(**update_profile_info).get()
 
-        self.assertEqual(self.profile.pk, profile.pk)
-        self.assertEqual(update_last_name, profile.last_name)
-        self.assertEqual(update_participant_role, profile.participant_role)
-
-        self.assertEqual(302, response.status_code)
+        self.assertEqual(profile.pk, self.profile.pk,)
+        self.assertEqual(profile.last_name ,update_last_name)
+        self.assertEqual(profile.participant_role, update_participant_role)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

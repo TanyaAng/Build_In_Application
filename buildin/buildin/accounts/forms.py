@@ -28,14 +28,12 @@ class UserRegistrationForm(auth_forms.UserCreationForm):
 
 
 class CreateProfileForm(forms.ModelForm):
-
     class Meta:
         model = Profile
         exclude = ('user',)
         widgets = {
             'phone_number_1': forms.CharField(widget=forms.HiddenInput(), required=False)
         }
-
 
 
 class EditProfileForm(forms.ModelForm):
@@ -46,26 +44,6 @@ class EditProfileForm(forms.ModelForm):
     def __hidden_phone_input(self):
         self.fields['phone_number'].fields[1].widget.attrs.update({'class': 'id_phone_number_100'})
 
-
     class Meta:
         model = Profile
         exclude = ('user',)
-
-
-# class DeleteProfileForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.__readonly_fields()
-#
-#     def __readonly_fields(self):
-#         for _, field in self.fields.items():
-#             field.widgets.attrs['readonly'] = 'readonly'
-#
-#     def save(self, commit=True):
-#         if commit:
-#             self.instance.delete()
-#         return self.instance
-#
-#     class Meta:
-#         model = Profile
-#         exclude = ('user',)

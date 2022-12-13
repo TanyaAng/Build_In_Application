@@ -22,4 +22,4 @@ class ProjectEditViewTests(BaseTestCase):
         another_project = self.create_and_save_project_of_user(another_user)
 
         response = self.client.get(reverse('project edit', kwargs={'build_slug': another_project.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)

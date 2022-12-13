@@ -29,7 +29,7 @@ class TaskCreateViewTests(BaseTestCase):
 
         response = self.client.get(
             reverse('task edit', kwargs={'build_slug': another_project.slug, 'task_slug': another_task.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     def test_edit_task__when_user_access_task__expect_to_update_data(self):
         update_task_name = 'Plan at level +6.00'
@@ -42,5 +42,6 @@ class TaskCreateViewTests(BaseTestCase):
             data=update_task_info)
         task = ProjectTask.objects.filter(**update_task_info).get()
 
-        self.assertEqual(self.task.pk, task.pk)
-        self.assertEqual(update_task_name, task.task_name)
+        self.assertEqual(task.pk, self.task.pk)
+        self.assertEqual(task.task_name, update_task_name)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

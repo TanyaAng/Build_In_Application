@@ -15,11 +15,11 @@ class ProfileDetailViewTests(BaseTestCase):
 
     def test_profile_details_view__when_user_try_to_access_another_user_profile__expect_to_redirect(self):
         response = self.client.get(reverse('profile details', kwargs={'pk': self.user.pk + 1}))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)
 
     def test_profile_details_view__when_user_try_to_access_profile_page__expect_correct(self):
         response = self.client.get(reverse('profile details', kwargs={'pk': self.user.pk}))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)
 
     @mute_signals(post_save)
     def test_profile_details_view__when_user_access_profile_page__expect_correct_user_data(self):
@@ -34,3 +34,4 @@ class ProfileDetailViewTests(BaseTestCase):
         self.assertEqual(list(response.context['user_projects']), projects)
         self.assertEqual(list(response.context['user_designer_tasks']), tasks)
         self.assertEqual(response.context['total_time_of_tasks_to_design'], total_time_estimation)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)

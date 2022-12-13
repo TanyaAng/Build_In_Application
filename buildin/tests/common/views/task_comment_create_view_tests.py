@@ -24,7 +24,7 @@ class TaskCommentCreateViewTests(BaseTestCase):
         another_task = self.create_and_save_task_of_project(another_project)
 
         response = self.client.get(reverse('comment section', kwargs={'task_slug': another_task.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     @mute_signals(post_save)
     def test_task_comment_view__when_user_has_perm_to_the_project__expect_to_render_all_comments_to_the_task(self):
@@ -34,9 +34,9 @@ class TaskCommentCreateViewTests(BaseTestCase):
         comment_1 = self.create_user_comment_to_task(task, user)
 
         response = self.client.get(reverse('comment section', kwargs={'task_slug': task.slug}))
-        self.assertEqual(200, response.status_code)
-        print(response.context['comments'])
-        self.assertEqual([comment_1], list(response.context['comments']))
+
+        self.assertEqual(list(response.context['comments']), [comment_1])
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_OK)
 
     @mute_signals(post_save)
     def test_task_comment_view__when_user_has_perm_to_the_project__expect_to_post_comment(self):
@@ -52,5 +52,7 @@ class TaskCommentCreateViewTests(BaseTestCase):
 
         response = self.client.post(reverse('comment section', kwargs={'task_slug': task.slug}), data=comment_content)
         comment = TaskComment.objects.all().first()
+
         self.assertRedirects(response, f'/comment/{task.slug}/')
         self.assertIsNotNone(comment)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)

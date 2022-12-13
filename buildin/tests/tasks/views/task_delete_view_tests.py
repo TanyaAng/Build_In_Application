@@ -28,5 +28,5 @@ class TaskDeleteViewTests(BaseTestCase):
 
         response = self.client.get(
             reverse('task delete', kwargs={'build_slug': another_project.slug, 'task_slug': another_task.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 

@@ -24,7 +24,7 @@ class ProjectDeleteViewTests(BaseTestCase):
         another_project = self.create_and_save_project_of_user(another_user)
 
         response = self.client.get(reverse('project delete', kwargs={'build_slug': another_project.slug}))
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FORBIDDEN)
 
     @mute_signals(post_save, pre_delete)
     def test_delete_project__when_user_try_to_access_project_where_is_owner_or_participant__expect_delete_project(
@@ -38,4 +38,6 @@ class ProjectDeleteViewTests(BaseTestCase):
         response = self.client.post(reverse('project delete', kwargs={'build_slug': self.project.slug}),
                                     data=project_content)
         project = BuildInProject.objects.all()
-        self.assertEqual([], list(project))
+
+        self.assertEqual(list(project), [])
+        self.assertEqual(response.status_code, self.HTTP_STATUS_CODE_FOUND)
