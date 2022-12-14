@@ -1,9 +1,10 @@
+from buildin.accounts.models import BuildInUser
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from buildin.accounts.models import BuildInUser
 from buildin.core.helpers.crud_mapper import get_crud_mapper
 from buildin.core.helpers.signals_helper import get_signals_models_related
+
 from buildin.projects.models import BuildInProject
 from buildin.tasks.models import ProjectTask
 
@@ -42,11 +43,13 @@ class LogActivity(models.Model):
     )
 
     model = models.CharField(
-        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, (ProjectTask.TASK_ID_MAX_LENGTH+ProjectTask.TASK_NAME_MAX_LENGTH))
+        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH,
+                       (ProjectTask.TASK_ID_MAX_LENGTH + ProjectTask.TASK_NAME_MAX_LENGTH))
     )
 
     to_related = models.CharField(
-        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH, (ProjectTask.TASK_ID_MAX_LENGTH+ProjectTask.TASK_NAME_MAX_LENGTH))
+        max_length=max(BuildInProject.PROJECT_ID_MAX_LENGTH,
+                       (ProjectTask.TASK_ID_MAX_LENGTH + ProjectTask.TASK_NAME_MAX_LENGTH))
     )
 
     publication_date_time = models.DateTimeField(

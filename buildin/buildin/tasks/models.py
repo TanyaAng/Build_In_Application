@@ -1,6 +1,7 @@
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.template.defaultfilters import slugify
+
+from django.core.validators import MinValueValidator
 
 from buildin.accounts.models import BuildInUser
 from buildin.projects.models import BuildInProject

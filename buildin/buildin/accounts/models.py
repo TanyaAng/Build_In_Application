@@ -1,14 +1,13 @@
-from enum import Enum
-
-from buildin.accounts.managers import BuildInUserManager
-
-from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.models import User
+from django.db import models
+
+from buildin.accounts.managers import BuildInUserManager
 
 from phone_field import PhoneField
 
 from buildin.core.mixins.choice_mixins import ChoiceEnumMixin
+from enum import Enum
 
 
 class ParticipantRole(ChoiceEnumMixin, Enum):
@@ -33,7 +32,7 @@ class BuildInUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        verbose_name='user'
+        verbose_name = 'user'
 
 
 class Profile(models.Model):

@@ -6,22 +6,19 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
-from buildin.accounts.models import Profile
 from buildin.core.app_groups.app_groups import set_user_to_regular_user_group
-
 from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks
-from buildin.core.repository.account_repository import get_user_id_by_profile, get_request_user, \
-    get_profile_of_current_user
 
 from buildin.core.repository.project_repository import get_user_projects_where_user_is_participant_or_owner
-
-from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
+from buildin.core.repository.account_repository import get_user_id_by_profile, get_request_user
 from buildin.core.repository.task_repository import get_user_tasks_to_design, get_user_tasks_to_check
-from buildin.core.service.account_service import get_request_user_full_name, if_request_user_is_owner_of_profile, \
+from buildin.core.service.account_service import get_request_user_full_name, check_if_request_user_is_owner_of_profile, \
     login_after_registration, check_if_user_has_profile
 
-UserModel = auth_views.get_user_model()
+from buildin.accounts.models import Profile
+from buildin.accounts.forms import UserRegistrationForm, EditProfileForm, CreateProfileForm
 
+UserModel = auth_views.get_user_model()
 
 class UserLoginView(auth_views.LoginView):
     template_name = 'accounts/login.html'
@@ -99,9 +96,8 @@ class ProfileDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         has_profile = check_if_user_has_profile(self.request.user)
         if not has_profile:
             return redirect('profile create')
-
-        profile=self.get_object()
-        if not if_request_user_is_owner_of_profile(self.request, profile):
+        profile = self.get_object()
+        if not check_if_request_user_is_owner_of_profile(self.request, profile):
             raise Http404
         return super().dispatch(request, *args, **kwargs)
 
@@ -122,6 +118,6 @@ class ProfileUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         profile = self.get_object()
-        if not if_request_user_is_owner_of_profile(self.request, profile):
+        if not check_if_request_user_is_owner_of_profile(self.request, profile):
             return redirect('profile details', pk=request.user.pk)
         return super().dispatch(request, *args, **kwargs)

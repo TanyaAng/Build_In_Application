@@ -1,18 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import mixins as auth_mixins
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views import generic as views
 
-from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks, calculate_days_to_deadline
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+
+from buildin.core.repository.project_repository import get_project_by_slug, get_project_participants
 from buildin.core.repository.task_repository import get_all_tasks_by_project, check_if_task_is_approved
+
 from buildin.core.service.account_service import get_request_user_full_name
 from buildin.core.service.project_service import handle_user_perm_to_get_project, \
     handle_user_perm_to_update_project, handle_user_perm_to_delete_project
-from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
-from buildin.projects.models import BuildInProject
+from buildin.core.helpers.tasks_helper import calculate_total_time_of_tasks, calculate_days_to_deadline
 
-from buildin.core.repository.project_repository import get_project_by_slug, get_project_participants
+from buildin.projects.models import BuildInProject
+from buildin.projects.forms import CreateProjectForm, EditProjectForm, DeleteProjectForm
 
 
 class ProjectCreateView(auth_mixins.LoginRequiredMixin, views.CreateView):
@@ -44,7 +46,7 @@ class ProjectDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
         user_full_name = get_request_user_full_name(self.request)
         tasks = get_all_tasks_by_project(self.object)
         total_time_of_project = calculate_total_time_of_tasks(tasks)
-        left_tasks=[task for task in tasks if not check_if_task_is_approved(task)]
+        left_tasks = [task for task in tasks if not check_if_task_is_approved(task)]
         total_time_of_left_tasks = calculate_total_time_of_tasks(left_tasks)
         days_to_deadline = calculate_days_to_deadline(self.object.deadline_date)
 
@@ -75,7 +77,6 @@ class ProjectUpdateView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         context['user_full_name'] = get_request_user_full_name(self.request)
         return context
-
 
     def dispatch(self, request, *args, **kwargs):
         project = self.get_object()

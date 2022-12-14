@@ -1,23 +1,112 @@
 @media only screen and (max-width: 1536px) {
-
-    .main-ctr {
-        flex-direction: column;
-        align-items: unset;
-        margin-left: 80px;
-    }
-
     form h1 {
         width: 80%
     }
 
     form.login-register-form input,
     select,
-    form.crud-form input, select {
+    form.crud-form input,
+    select {
         width: 80%;
+    }
+
+    nav {
+        z-index: 100;
     }
 }
 
 @media only screen and (max-width: 1400px) {
+
+    .main-ctr {
+        flex-direction: column;
+        align-items: unset;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .child-project-info {
+        width: 100%;
+        height: 100%;
+    }
+
+    article.details-arc {
+        width: 80%;
+        margin-left: 50px;
+
+    }
+
+    .child-table {
+        width: 80%;
+        margin-left: 50px;
+    }
+
+    .child-table table th.hidden, td.hidden {
+        display: none;
+    }
+
+    .logo-ctr {
+        display: none;
+    }
+
+    #frontpage-img {
+        display: none;
+    }
+
+    #frontpage-logo,
+    #frontpage-sublogo
+    {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1.main-logo{
+        font-size: 60px;
+        background-color: unset;
+        border: unset;
+        color: var(--clr-darkgrey);
+    }
+    h1.main-logo:nth-child(2){
+        display: none;
+    }
+
+    #frontpage-sublogo h2{
+        font-size: 14px;
+    }
+
+    .child-crud {
+        margin: 0 auto;
+    }
+
+    form.login-register-form,
+    form.crud-form,
+    form.comment-form {
+        margin: 0 auto;
+        padding: 0px;
+    }
+
+    form h1, h3 {
+        width: 100%
+    }
+
+    .crud-form .project-name {
+        width: 100%;
+    }
+
+    form.login-register-form input,
+    select,
+    form.crud-form input,
+    select,
+    form.comment-form input,
+    select {
+        width: 100%;
+    }
+
+    .button-crud-ctr {
+        margin: 20px auto;
+    }
+
     article.dashboard-artc {
         height: 35rem;
     }
@@ -27,34 +116,273 @@
         height: 50%;
     }
 
-    .button-project-ctr ul {
-        display: flex;
-        flex-direction: column;
-        margin: unset;
-        padding: unset;
 
+    section.article-section {
+        grid-template-columns: repeat(2, 1fr);
     }
+
+
 }
 
 @media only screen and (max-width: 1024px) {
-    .child {
-        display: none;
-    }
-
     .logo-ctr {
         display: none;
     }
+
 }
 
-@media only screen and (max-width: 900px) {
-    nav li {
-        display: unset;
-        list-style-type: none;
+@media only screen and (max-width: 930px) {
+
+
+
+    section.child {
+        margin: 0 auto;
     }
 
-    .username-ctr li{
+    .button-frontpage-ctr {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    button.login,
+    button.register {
+        font-size: 18px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        padding: unset;
+    }
+
+    nav li {
+        font-size: 16px;
+    }
+
+    nav .username-item,
+    nav .username-item i {
+        margin-right: 10px;
+        font-size: 14px;
+    }
+
+
+    nav .logout-item {
+        font-size: 12px;
+        padding-right: 20px;
+        align-items: flex-end;
+    }
+
+    .username-ctr li {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+    }
+
+
+    form.login-register-form h1,
+    form.crud-form h1,
+    form.comment-form h1 {
+        font-size: 18px;
+    }
+
+
+    form.login-register-form label,
+    form.crud-form label,
+    form.comment-form label {
+        font-size: 14px;
+    }
+
+    form.login-register-form input,
+    select,
+    form.crud-form input,
+    select,
+    form.comment-form input,
+    select {
+        font-size: 14px;
+        height: 30px;
+    }
+
+    form.login-register-form button,
+    form.crud-form button,
+    form.comment-form button {
+        font-size: 14px;
+    }
+
+
+    article img {
+        display: none;
+    }
+
+    article.dashboard-artc {
+        height: 10rem;
+    }
+
+    section.article-section {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+
+    section.article-section h3 {
+        font-size: 16px;
+    }
+
+    section.article-section p {
+        font-size: 12px;
+    }
+
+    section.article-section button {
+        font-size: 14px;
+
+    }
+
+}
+
+
+@media only screen and (max-width: 680px) {
+
+    button.login,
+    button.register {
+        font-size: 16px;
+        border-radius: 20px;
+    }
+
+    nav {
+
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+
+    nav li {
+        font-size: 12px;
+    }
+
+    nav .logout-item {
+        font-size: 12px;
+        padding-right: 20px;
+        align-items: flex-end;
+    }
+
+    footer li {
+        font-size: 10px;
+        bottom: 0px;
+    }
+
+}
+
+@media only screen and (max-width: 580px) {
+
+    .details-arc h3,
+    table h1, h2 {
+        font-size: 16px;
+    }
+
+    p.details-arc-header {
+        font-size: 14px;
+    }
+
+    p.details-arc-params,
+    p.deadline-info {
+        font-size: 12px;
+    }
+
+    .details-arc button {
+        font-size: 12px;
+
+    }
+
+    th, td {
+        font-size: 14px;
+    }
+
+    article.details-arc {
+
+        margin-left: 30px;
+
+    }
+
+    .child-table {
+
+        margin-left: 30px;
+
+
+    }
+
+
+    nav ul.username-ctr {
+        justify-items: right;
+    }
+
+    section.article-section h3 {
+        font-size: 12px;
+    }
+
+    section.article-section p {
+        font-size: 12px;
+    }
+
+    section.article-section button {
+        font-size: 12px;
+    }
+
+    article.dashboard-artc button.edit,
+    article.dashboard-artc button.delete {
+        display: none;
+    }
+
+
+    section.article-section h3 {
+        font-size: 14px;
+    }
+
+    section.article-section p {
+        font-size: 10px;
+    }
+
+    section.article-section button {
+        font-size: 12px;
+    }
+
+    section.log-section {
+        overflow: auto;
+    }
+
+}
+
+@media only screen and (max-width: 400px) {
+
+    button.login,
+    button.register {
+        font-size: 14px;
+        border-radius: 25px;
+    }
+
+    form.login-register-form h1,
+    form.crud-form h1,
+    form.comment-form h1 {
+        font-size: 16px;
+    }
+
+
+    form.login-register-form label,
+    form.crud-form label,
+    form.comment-form label {
+        font-size: 12px;
+    }
+
+    form.login-register-form input,
+    select,
+    form.crud-form input,
+    select,
+    form.comment-form input,
+    select {
+        font-size: 12px;
+        height: 25px;
+    }
+
+    form.login-register-form button,
+    form.crud-form button,
+    form.comment-form button {
+        font-size: 12px;
     }
 }

@@ -76,12 +76,12 @@
                     <tr>
                         <th>Drawing No</th>
                         <th>Task Name</th>
-                        <th>Time Estimation</th>
-                        <th>Designer</th>
-                        <th>Ready for Markups</th>
-                        <th>Checked by</th>
-                        <th>Approved</th>
-                        <th>Issued</th>
+                        <th class="hidden">Time Estimation</th>
+                        <th class="hidden">Designer</th>
+                        <th class="hidden">Ready for Markups</th>
+                        <th class="hidden">Checked by</th>
+                        <th class="hidden">Approved</th>
+                        <th class="hidden">Issued</th>
                         <th>Comment</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -94,12 +94,12 @@
                             <td>
                                 {{ task.task_name }}
                             </td>
-                            <td>{{ task.time_estimation }} hours</td>
-                            <td>{{ task.designer| user_full_name_filter }}</td>
-                            <td>{{ task.is_ready_for_markups }}</td>
-                            <td>{{ task.checked_by|user_full_name_filter }}</td>
-                            <td>{{ task.is_approved }}</td>
-                            <td>{{ task.is_issued }}</td>
+                            <td class="hidden">{{ task.time_estimation }} hours</td>
+                            <td class="hidden">{{ task.designer| user_full_name_filter }}</td>
+                            <td class="hidden">{{ task.is_ready_for_markups }}</td>
+                            <td class="hidden">{{ task.checked_by|user_full_name_filter }}</td>
+                            <td class="hidden">{{ task.is_approved }}</td>
+                            <td class="hidden">{{ task.is_issued }}</td>
                             <td>
                                 <a href="{% url 'comment section' task_slug=task.slug %}">
                                     <i class="fa-solid fa-comment-dots fa-comment"></i>

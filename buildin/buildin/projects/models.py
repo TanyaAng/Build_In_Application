@@ -1,11 +1,11 @@
-from enum import Enum
-
-from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 
-from buildin.accounts.models import BuildInUser
 from buildin.core.mixins.choice_mixins import ChoiceEnumMixin
+from enum import Enum
+
+from buildin.accounts.models import BuildInUser
 
 UserModel = get_user_model()
 
@@ -79,4 +79,4 @@ class BuildInProject(models.Model):
 
     class Meta:
         ordering = ('project_identifier',)
-        verbose_name='project'
+        verbose_name = 'project'

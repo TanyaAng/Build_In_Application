@@ -1,24 +1,25 @@
-from django.core.exceptions import PermissionDenied
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.core.exceptions import PermissionDenied
 
-from buildin.common.forms import CreateCommentForm, EditCommentForm, DeleteCommentForm
-from buildin.common.models import LogActivity, TaskComment
 from buildin.core.repository.account_repository import get_request_user_id, get_request_user
 from buildin.core.repository.common_repository import get_all_comments_to_task, get_task_of_current_comment
 from buildin.core.repository.task_repository import get_task_by_slug
+from buildin.core.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
+    get_all_projects, get_project_related_to_task
+
 from buildin.core.service.account_service import get_request_user_full_name
 from buildin.core.service.comment_service import handle_user_perm_to_update_comment, \
     handle_user_perm_to_delete_comment
 from buildin.core.service.project_service import handle_user_perm_to_get_project
-from buildin.projects.models import BuildInProject
 
-from buildin.core.repository.project_repository import get_user_projects_where_user_is_participant_or_owner, \
-    get_all_projects, get_project_related_to_task
+from buildin.common.models import LogActivity, TaskComment
+from buildin.projects.models import BuildInProject
+from buildin.common.forms import CreateCommentForm, EditCommentForm, DeleteCommentForm
 
 
 class HomeView(views.TemplateView):

@@ -10,7 +10,8 @@ main {
     margin-bottom: 110px;
 }
 
-.main-ctr {
+.main-ctr,
+.detail-ctr {
     display: flex;
     flex-direction: row;
     width: 100%;
