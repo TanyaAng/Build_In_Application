@@ -2,7 +2,6 @@ body {
     position: relative;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-image: linear-gradient(to right, rgba(94, 104, 106, 1) 10%, rgba(229, 240, 242, 1) 40% 80%, rgba(229, 240, 242, 1));
-    /* background-image: linear-gradient(to right bottom , rgba(94,104,106, 1) 20% ,rgba(229,240,242, 1) 40%,rgba(229,240,242, 1) 100%); */
 }
 
 main {
@@ -120,7 +119,8 @@ p.details-arc-header {
     line-height: 1.5;
 }
 
-p.details-arc-params {
+p.details-arc-params,
+p.deadline-info{
     padding: 3px 15px;
     margin: 3px;
 
@@ -128,7 +128,6 @@ p.details-arc-params {
     font-weight: 600;
 
     text-align: left;
-    /*text-transform: capitalize;*/
 
     line-height: 1.5;
 }
@@ -225,7 +224,6 @@ hr {
 
 
 .helptext {
-    /*display: none;*/
     color: var(--clr-darkgrey);
     font-size: 14px;
     font-style: italic;

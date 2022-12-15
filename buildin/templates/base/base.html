@@ -1,4 +1,5 @@
 {% load static %}
+{% load user_perm_to_logactivity %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +25,11 @@
             <li>
                 <a href="{% url 'profile details' pk=request.user.id %}">Profile</a>
             </li>
-            <li>
-                <a href="{% url 'log activity' %}">Log Activity</a>
-            </li>
+            {% if request.user|has_perm_to_view_logactivity %}
+                <li>
+                    <a href="{% url 'log activity' %}">Log Activity</a>
+                </li>
+            {% endif %}
             </ul>
             <ul class="username-ctr">
                 <li class="username-item">
