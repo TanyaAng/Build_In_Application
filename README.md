@@ -75,7 +75,6 @@ of features.
 <p align="right"><a href="#top">back to top</a></p>
 
 ### Usage
-LIVE LINK: https://buildin.tk
 
 1. Home View - public access
 ![home_page](https://user-images.githubusercontent.com/18015470/207098928-704a5cb1-eeb6-408c-8815-a89e6737994f.PNG)

@@ -62,3 +62,4 @@ class LogActivity(models.Model):
 
     class Meta:
         ordering = ['-publication_date_time']
+
